@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bmw4ko5mnnqhd"
+path="res://.godot/imported/ship-ocean-liner.obj-ad4ec59b9e2f80a0e6673a9de9644e1b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ship-ocean-liner.obj-ad4ec59b9e2f80a0e6673a9de9644e1b.mesh"]
+
+source_file="res://assets/Watercraft Pack/Models/OBJ format/ship-ocean-liner.obj"
+dest_files=["res://.godot/imported/ship-ocean-liner.obj-ad4ec59b9e2f80a0e6673a9de9644e1b.mesh", "res://.godot/imported/ship-ocean-liner.obj-ad4ec59b9e2f80a0e6673a9de9644e1b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

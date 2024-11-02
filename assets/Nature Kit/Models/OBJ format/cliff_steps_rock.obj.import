@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://u1pb2aajyk2j"
+path="res://.godot/imported/cliff_steps_rock.obj-0757f5d3eff9018167acb2baa01a272d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cliff_steps_rock.obj-0757f5d3eff9018167acb2baa01a272d.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/cliff_steps_rock.obj"
+dest_files=["res://.godot/imported/cliff_steps_rock.obj-0757f5d3eff9018167acb2baa01a272d.mesh", "res://.godot/imported/cliff_steps_rock.obj-0757f5d3eff9018167acb2baa01a272d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

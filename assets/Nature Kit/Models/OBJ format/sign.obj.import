@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cclvmg2m4x8nn"
+path="res://.godot/imported/sign.obj-c19d04af502dc0913d98d9a6d174fd05.mesh"
+
+[deps]
+
+files=["res://.godot/imported/sign.obj-c19d04af502dc0913d98d9a6d174fd05.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/sign.obj"
+dest_files=["res://.godot/imported/sign.obj-c19d04af502dc0913d98d9a6d174fd05.mesh", "res://.godot/imported/sign.obj-c19d04af502dc0913d98d9a6d174fd05.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

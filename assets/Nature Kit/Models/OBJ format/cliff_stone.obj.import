@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d2hnl60etun2u"
+path="res://.godot/imported/cliff_stone.obj-881bf1af22af9e2a4f6492c58f26c262.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cliff_stone.obj-881bf1af22af9e2a4f6492c58f26c262.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/cliff_stone.obj"
+dest_files=["res://.godot/imported/cliff_stone.obj-881bf1af22af9e2a4f6492c58f26c262.mesh", "res://.godot/imported/cliff_stone.obj-881bf1af22af9e2a4f6492c58f26c262.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cqyr777f2x2rp"
+path="res://.godot/imported/tree_cone_fall.obj-b04587e59b91c36adf1e6225f55d50d5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tree_cone_fall.obj-b04587e59b91c36adf1e6225f55d50d5.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/tree_cone_fall.obj"
+dest_files=["res://.godot/imported/tree_cone_fall.obj-b04587e59b91c36adf1e6225f55d50d5.mesh", "res://.godot/imported/tree_cone_fall.obj-b04587e59b91c36adf1e6225f55d50d5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

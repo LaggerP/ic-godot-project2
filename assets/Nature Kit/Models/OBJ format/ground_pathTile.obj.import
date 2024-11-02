@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://8r4ky5nx04g7"
+path="res://.godot/imported/ground_pathTile.obj-a6e3b69e546d52aa528cef97551c184e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ground_pathTile.obj-a6e3b69e546d52aa528cef97551c184e.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/ground_pathTile.obj"
+dest_files=["res://.godot/imported/ground_pathTile.obj-a6e3b69e546d52aa528cef97551c184e.mesh", "res://.godot/imported/ground_pathTile.obj-a6e3b69e546d52aa528cef97551c184e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

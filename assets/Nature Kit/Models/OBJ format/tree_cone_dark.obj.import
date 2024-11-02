@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ckcq0d4b7k7ax"
+path="res://.godot/imported/tree_cone_dark.obj-2f9d2adfff95b334e46e1c57aedad3da.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tree_cone_dark.obj-2f9d2adfff95b334e46e1c57aedad3da.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/tree_cone_dark.obj"
+dest_files=["res://.godot/imported/tree_cone_dark.obj-2f9d2adfff95b334e46e1c57aedad3da.mesh", "res://.godot/imported/tree_cone_dark.obj-2f9d2adfff95b334e46e1c57aedad3da.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

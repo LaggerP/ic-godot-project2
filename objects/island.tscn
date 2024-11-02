@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtgb1i8n3tviy"]
+
+[ext_resource type="PackedScene" uid="uid://dg8yeca7j4n5l" path="res://assets/Nature Kit/Models/FBX format/cliff_block_rock.fbx" id="1_lvifu"]
+
+[sub_resource type="GDScript" id="GDScript_at22x"]
+script/source = "extends RigidBody3D
+
+@export var float_force := 1.0
+@export var water_drag := 0.05
+@export var water_angular_drag := 0.05
+
+@onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+@onready var water = get_node('/root/Main/Water')
+var submerged := false
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	submerged = false
+
+	var depth = water.get_height(global_position)
+	if depth > 0:
+		submerged = true
+	pass
+
+
+
+func _integrate_forces(state: PhysicsDirectBodyState3D):
+	linear_velocity = Vector3.ZERO
+	if submerged:
+		state.linear_velocity *=  1 - water_drag
+		state.angular_velocity *= 1 - water_angular_drag 
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_amfnh"]
+size = Vector3(30.2014, 1, 30.7166)
+
+[node name="Island" type="RigidBody3D"]
+mass = 0.1
+gravity_scale = 8.0
+freeze = true
+script = SubResource("GDScript_at22x")
+float_force = 1.4
+
+[node name="cliff_block_rock" parent="." instance=ExtResource("1_lvifu")]
+transform = Transform3D(30, 0, 0, 0, 6, 0, 0, 0, 30, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_amfnh")

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b3jp4vnxncbaf"
+path="res://.godot/imported/boat-house-d.obj-8ac2e4d7d379006cf311f83ed5d6c732.mesh"
+
+[deps]
+
+files=["res://.godot/imported/boat-house-d.obj-8ac2e4d7d379006cf311f83ed5d6c732.mesh"]
+
+source_file="res://assets/Watercraft Pack/Models/OBJ format/boat-house-d.obj"
+dest_files=["res://.godot/imported/boat-house-d.obj-8ac2e4d7d379006cf311f83ed5d6c732.mesh", "res://.godot/imported/boat-house-d.obj-8ac2e4d7d379006cf311f83ed5d6c732.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

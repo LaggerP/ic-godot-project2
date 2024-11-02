@@ -1,0 +1,163 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsa4mxdiai4cn"]
+
+[ext_resource type="PackedScene" uid="uid://cp1xujy5wquu3" path="res://assets/Watercraft Pack/Models/FBX format/ship-ocean-liner-small.fbx" id="1_rhv0e"]
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="2_alb10"]
+
+[sub_resource type="GDScript" id="GDScript_wu0ga"]
+script/source = "extends RigidBody3D
+
+@export var float_force := 1.0
+@export var water_drag := 0.05
+@export var water_angular_drag := 0.05
+
+@onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+@onready var water = get_node('/root/Main/Water')
+
+@onready var probes = $ProbeContainer.get_children()
+
+var submerged := false
+
+# Velocidad de movimiento
+@export var move_speed: float = 5.0
+# Velocidad de rotación de la cámara
+@export var rotation_speed: float = .2
+
+
+func _physics_process(delta):
+	submerged = false
+	for p in probes:
+		var depth = water.get_height(p.global_position) - p.global_position.y 
+		if depth > 0:
+			submerged = true
+			apply_force(Vector3.UP * float_force * gravity * depth, p.global_position - global_position)
+	
+	# Manejar el movimiento usando las teclas de flecha
+	var direction: Vector3 = Vector3.ZERO
+
+	if Input.is_action_pressed(\"ui_up\"):
+		direction += transform.basis.z  # Ir hacia adelante
+	if Input.is_action_pressed(\"ui_down\"):
+		direction += -transform.basis.z  # Ir hacia atrás
+	if Input.is_action_pressed(\"ui_left\"): 
+		#direction += transform.basis.x  # Ir a la izquierda
+		rotation_degrees.y += rotation_speed  # Rotar hacia la derecha
+	if Input.is_action_pressed(\"ui_right\"):
+		#direction += -transform.basis.x  # Ir a la derecha
+		rotation_degrees.y -= rotation_speed  # Rotar hacia la izquierda
+		
+   # Normalizar y aplicar la velocidad
+	direction = direction.normalized() * move_speed
+	# Mantener la velocidad vertical para que la gravedad funcione
+	direction.y = linear_velocity.y
+	# Establecer la velocidad lineal del RigidBody
+	linear_velocity = direction
+
+func _integrate_forces(state: PhysicsDirectBodyState3D):
+	if submerged:
+		state.linear_velocity *=  1 - water_drag
+		state.angular_velocity *= 1 - water_angular_drag 
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]
+size = Vector3(4.63831, 1, 16.0391)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rka2g"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+flatness = 0.25
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8i887"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_alb10")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_c07kh"]
+material = SubResource("StandardMaterial3D_8i887")
+
+[node name="Ship" type="RigidBody3D"]
+script = SubResource("GDScript_wu0ga")
+float_force = 0.1
+move_speed = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0382095, 1.1176, -0.666299)
+shape = SubResource("BoxShape3D_lc0gq")
+
+[node name="ProbeContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.9, 0)
+
+[node name="Probe" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0, 4.671)
+
+[node name="Probe2" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="Probe12" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 2.15735)
+
+[node name="Probe3" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.577)
+
+[node name="Probe11" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -3.11737)
+
+[node name="Probe4" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.27828)
+
+[node name="Probe5" type="Marker3D" parent="ProbeContainer"]
+
+[node name="Probe6" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.54414)
+
+[node name="Probe7" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
+
+[node name="Probe13" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 2.39717)
+
+[node name="Probe8" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="Probe9" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.544, 0, -2.87149)
+
+[node name="Probe10" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.544, 0, -5.546)
+
+[node name="ship-ocean-liner-small" parent="." instance=ExtResource("1_rhv0e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.36686)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.21741, -2.507)
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_rka2g")
+draw_pass_1 = SubResource("QuadMesh_c07kh")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.45302, 0.667117)
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_rka2g")
+draw_pass_1 = SubResource("QuadMesh_c07kh")
+
+[editable path="ship-ocean-liner-small"]

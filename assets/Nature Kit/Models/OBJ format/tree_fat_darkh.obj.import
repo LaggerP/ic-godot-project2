@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b6axxu5rtnak0"
+path="res://.godot/imported/tree_fat_darkh.obj-899cf99ded9d3d4cb71fcadc053632df.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tree_fat_darkh.obj-899cf99ded9d3d4cb71fcadc053632df.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/tree_fat_darkh.obj"
+dest_files=["res://.godot/imported/tree_fat_darkh.obj-899cf99ded9d3d4cb71fcadc053632df.mesh", "res://.godot/imported/tree_fat_darkh.obj-899cf99ded9d3d4cb71fcadc053632df.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

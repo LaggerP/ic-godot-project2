@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bswvmwl01hp4t"
+path="res://.godot/imported/flower_yellowA.obj-ac96e203598ed652a6d7b949c050c63d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/flower_yellowA.obj-ac96e203598ed652a6d7b949c050c63d.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/flower_yellowA.obj"
+dest_files=["res://.godot/imported/flower_yellowA.obj-ac96e203598ed652a6d7b949c050c63d.mesh", "res://.godot/imported/flower_yellowA.obj-ac96e203598ed652a6d7b949c050c63d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

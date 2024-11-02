@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://brb365po0b31l"
+path="res://.godot/imported/stump_squareDetailed.obj-bdfa5db9c452f8b09871d1bc8488c9a9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stump_squareDetailed.obj-bdfa5db9c452f8b09871d1bc8488c9a9.mesh"]
+
+source_file="res://assets/Nature Kit/Models/OBJ format/stump_squareDetailed.obj"
+dest_files=["res://.godot/imported/stump_squareDetailed.obj-bdfa5db9c452f8b09871d1bc8488c9a9.mesh", "res://.godot/imported/stump_squareDetailed.obj-bdfa5db9c452f8b09871d1bc8488c9a9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
