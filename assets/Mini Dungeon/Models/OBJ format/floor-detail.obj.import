@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://l1fijnakao6i"
+path="res://.godot/imported/floor-detail.obj-874ba02acc063740d82fa2d3112193ed.mesh"
+
+[deps]
+
+files=["res://.godot/imported/floor-detail.obj-874ba02acc063740d82fa2d3112193ed.mesh"]
+
+source_file="res://assets/Mini Dungeon/Models/OBJ format/floor-detail.obj"
+dest_files=["res://.godot/imported/floor-detail.obj-874ba02acc063740d82fa2d3112193ed.mesh", "res://.godot/imported/floor-detail.obj-874ba02acc063740d82fa2d3112193ed.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

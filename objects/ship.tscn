@@ -97,45 +97,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0382095, 1.1176, -0.666299
 shape = SubResource("BoxShape3D_lc0gq")
 
 [node name="ProbeContainer" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305694, 0)
 
 [node name="Probe" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0, 4.671)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 
 [node name="Probe2" type="Marker3D" parent="ProbeContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
 
-[node name="Probe12" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 2.15735)
-
 [node name="Probe3" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.577)
-
-[node name="Probe11" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -3.11737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5)
 
 [node name="Probe4" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.27828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
 [node name="Probe5" type="Marker3D" parent="ProbeContainer"]
 
 [node name="Probe6" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.54414)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
 [node name="Probe7" type="Marker3D" parent="ProbeContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
-
-[node name="Probe13" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 2.39717)
 
 [node name="Probe8" type="Marker3D" parent="ProbeContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
 
 [node name="Probe9" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.544, 0, -2.87149)
-
-[node name="Probe10" type="Marker3D" parent="ProbeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.544, 0, -5.546)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
 
 [node name="ship-ocean-liner-small" parent="." instance=ExtResource("1_rhv0e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.36686)

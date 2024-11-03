@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c6xfulc5876hb"
+path="res://.godot/imported/stones.obj-7a32d3df9ef3515eb8c2ab847a7b932b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stones.obj-7a32d3df9ef3515eb8c2ab847a7b932b.mesh"]
+
+source_file="res://assets/Mini Dungeon/Models/OBJ format/stones.obj"
+dest_files=["res://.godot/imported/stones.obj-7a32d3df9ef3515eb8c2ab847a7b932b.mesh", "res://.godot/imported/stones.obj-7a32d3df9ef3515eb8c2ab847a7b932b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

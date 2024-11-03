@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Water.gd" id="3_t5r3v"]
 [ext_resource type="Script" path="res://Cube.gd" id="3_wnrpb"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://objects/ship.tscn" id="5_mbdmj"]
-[ext_resource type="PackedScene" uid="uid://bcon4d11x5oo2" path="res://assets/Nature Kit/Models/FBX format/path_stone.fbx" id="6_dwqbd"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://objects/drop1.tscn" id="6_16j2k"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -17,7 +17,7 @@ sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
 background_mode = 2
 sky = SubResource("Sky_wc0b5")
 tonemap_mode = 2
-tonemap_exposure = 0.3
+tonemap_exposure = 0.5
 glow_enabled = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hy6fq"]
@@ -102,7 +102,8 @@ mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
 [node name="Cube" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.761663, 0, -0.647974, 0, 1, 0, 0.647974, 0, -0.761663, 0, 3.13922, 134.112)
+transform = Transform3D(-1.52333, 0, -1.29595, 0, 2, 0, 1.29595, 0, -1.52333, 0, 16.93, 211.444)
+disable_mode = 1
 mass = 3.065
 script = ExtResource("3_wnrpb")
 water_angular_drag = 0.1
@@ -145,11 +146,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
 
 [node name="Ship" parent="." instance=ExtResource("5_mbdmj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -1.393, 52.868)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -0.725719, 52.868)
 move_speed = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="Ship"]
 transform = Transform3D(-0.99863, -0.00818716, 0.0516917, 0, 0.987688, 0.156434, -0.052336, 0.15622, -0.986335, 0.287, 14.166, -19.941)
 
-[node name="path_stone" parent="." instance=ExtResource("6_dwqbd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5163, 27.3353, 27.842)
+[node name="Forniture" parent="." instance=ExtResource("6_16j2k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.16801, 102)
