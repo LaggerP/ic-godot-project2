@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmaoi0ovevhlu"]
+
+[ext_resource type="PackedScene" uid="uid://crnup1se7hgb1" path="res://objects/Ocean.tscn" id="1_0dl1g"]
+[ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://objects/ship.tscn" id="2_1ow0t"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Ocean" parent="." instance=ExtResource("1_0dl1g")]
+
+[node name="Ship" parent="." instance=ExtResource("2_1ow0t")]
