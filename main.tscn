@@ -10,26 +10,26 @@
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
 
-[sub_resource type="Sky" id="Sky_wc0b5"]
+[sub_resource type="Sky" id="Sky_hfb2r"]
 sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
 
 [sub_resource type="Environment" id="Environment_w5hlc"]
 background_mode = 2
-sky = SubResource("Sky_wc0b5")
+sky = SubResource("Sky_hfb2r")
 tonemap_mode = 2
 tonemap_exposure = 0.5
 glow_enabled = true
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hy6fq"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6ktcq"]
 fractal_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_brvoh"]
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_hy6fq")
+noise = SubResource("FastNoiseLite_6ktcq")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hs2gb"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dq5fb"]
 noise_type = 3
 fractal_type = 2
 
@@ -37,9 +37,9 @@ fractal_type = 2
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_hs2gb")
+noise = SubResource("FastNoiseLite_dq5fb")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jbi1g"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jbvdi"]
 noise_type = 3
 frequency = 0.001
 fractal_type = 2
@@ -47,9 +47,9 @@ fractal_octaves = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7k2l2"]
 seamless = true
-noise = SubResource("FastNoiseLite_jbi1g")
+noise = SubResource("FastNoiseLite_jbvdi")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0n3y0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r3suf"]
 render_priority = 0
 shader = ExtResource("2_twn8n")
 shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
@@ -77,7 +77,7 @@ shader_parameter/wave = SubResource("NoiseTexture2D_7k2l2")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xwda"]
 lightmap_size_hint = Vector2i(2502, 2502)
-material = SubResource("ShaderMaterial_0n3y0")
+material = SubResource("ShaderMaterial_r3suf")
 size = Vector2(1000, 1000)
 subdivide_width = 1
 subdivide_depth = 1

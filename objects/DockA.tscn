@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bi3jvd81k7rs"]
+[gd_scene load_steps=11 format=3 uid="uid://d4a10cbosf76e"]
 
 [ext_resource type="PackedScene" uid="uid://cgdif2kj88jya" path="res://assets/Mini Dungeon/Models/FBX format/banner.fbx" id="1_vkwru"]
 [ext_resource type="PackedScene" uid="uid://c4r3mpdrjbuo2" path="res://assets/Mini Dungeon/Models/FBX format/barrel.fbx" id="2_n6huc"]
