@@ -37,6 +37,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 radius = 0.32869
 
 [node name="VerticalBarrel" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 0
 script = SubResource("GDScript_onm50")
 
 [node name="barrel" parent="." instance=ExtResource("1_qjb3g")]

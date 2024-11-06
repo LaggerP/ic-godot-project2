@@ -1,30 +1,90 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckn6w6wr0wio5"]
+[gd_scene load_steps=10 format=3 uid="uid://ckn6w6wr0wio5"]
 
+[ext_resource type="Script" path="res://objects/drop.gd" id="1_jj2t1"]
 [ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://objects/vertical_barrel.tscn" id="1_xqh14"]
 [ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://objects/horizontal_barrel.tscn" id="2_l5e37"]
 [ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://objects/simple_boat.tscn" id="3_8xc5w"]
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="4_dar3s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dm0pb"]
+size = Vector3(1.82135, 1, 1.71289)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn2ln"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+flatness = 0.25
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cufr"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_dar3s")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_tafee"]
+material = SubResource("StandardMaterial3D_2cufr")
 
 [node name="Drop1" type="Node3D"]
+script = ExtResource("1_jj2t1")
 
-[node name="VerticalBarrel" parent="." instance=ExtResource("1_xqh14")]
+[node name="drops" type="Area3D" parent="."]
+collision_layer = 2
 
-[node name="VerticalBarrel4" parent="." instance=ExtResource("1_xqh14")]
+[node name="VerticalBarrel" parent="drops" instance=ExtResource("1_xqh14")]
+
+[node name="VerticalBarrel4" parent="drops" instance=ExtResource("1_xqh14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.967046, 0.544397, 0)
 
-[node name="HorizontalBarrel" parent="." instance=ExtResource("2_l5e37")]
+[node name="HorizontalBarrel" parent="drops" instance=ExtResource("2_l5e37")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92487, 0.243721, 0)
 
-[node name="VerticalBarrel2" parent="." instance=ExtResource("1_xqh14")]
+[node name="VerticalBarrel2" parent="drops" instance=ExtResource("1_xqh14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.970493)
 
-[node name="HorizontalBarrel2" parent="." instance=ExtResource("2_l5e37")]
+[node name="HorizontalBarrel2" parent="drops" instance=ExtResource("2_l5e37")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92487, 0.243721, 0.970493)
 
-[node name="VerticalBarrel3" parent="." instance=ExtResource("1_xqh14")]
+[node name="VerticalBarrel3" parent="drops" instance=ExtResource("1_xqh14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.635989, 1.48513, -4.85432)
 
-[node name="HorizontalBarrel3" parent="." instance=ExtResource("2_l5e37")]
+[node name="HorizontalBarrel3" parent="drops" instance=ExtResource("2_l5e37")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90231, 0.246003, 0.964505)
 
-[node name="SimpleBoat" parent="." instance=ExtResource("3_8xc5w")]
+[node name="SimpleBoat" parent="drops" instance=ExtResource("3_8xc5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90822, -0.302296, 0)
+
+[node name="DropCollision" type="CollisionShape3D" parent="drops"]
+physics_interpolation_mode = 1
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0224304, 0, 0)
+shape = SubResource("BoxShape3D_dm0pb")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00327998, 3.34435, -0.318454)
+billboard = 1
+text = "DROP"
+font_size = 300
+outline_size = 30
+uppercase = true
+line_spacing = 5.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_dn2ln")
+draw_pass_1 = SubResource("QuadMesh_tafee")
+
+[connection signal="body_entered" from="drops" to="." method="_on_drops_player_entered"]

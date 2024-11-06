@@ -153,4 +153,13 @@ move_speed = 10.0
 transform = Transform3D(-0.99863, -0.00818716, 0.0516917, 0, 0.987688, 0.156434, -0.052336, 0.15622, -0.986335, 0.287, 14.166, -19.941)
 
 [node name="Forniture" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.16801, 102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08599, 102)
+
+[node name="Forniture2" parent="." instance=ExtResource("6_16j2k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8422, 1.08599, 102)
+
+[node name="Forniture3" parent="." instance=ExtResource("6_16j2k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8422, 1.08599, 146.764)
+
+[node name="Forniture4" parent="." instance=ExtResource("6_16j2k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8422, 1.08599, 40.1832)
