@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckn6w6wr0wio5"]
 
-[ext_resource type="Script" path="res://objects/drop.gd" id="1_jj2t1"]
-[ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://objects/vertical_barrel.tscn" id="1_xqh14"]
-[ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://objects/horizontal_barrel.tscn" id="2_l5e37"]
-[ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://objects/simple_boat.tscn" id="3_8xc5w"]
+[ext_resource type="Script" path="res://scenes/objects/drop.gd" id="1_jj2t1"]
+[ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://scenes/objects/furniture/vertical_barrel.tscn" id="1_xqh14"]
+[ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://scenes/objects/furniture/horizontal_barrel.tscn" id="2_l5e37"]
+[ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://scenes/objects/furniture/simple_boat.tscn" id="3_8xc5w"]
 [ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="4_dar3s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dm0pb"]
@@ -21,7 +21,7 @@ gravity = Vector3(0, 0, 0)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cufr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsne7"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
@@ -33,7 +33,7 @@ particles_anim_v_frames = 8
 particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_tafee"]
-material = SubResource("StandardMaterial3D_2cufr")
+material = SubResource("StandardMaterial3D_fsne7")
 
 [node name="Drop1" type="Node3D"]
 script = ExtResource("1_jj2t1")
