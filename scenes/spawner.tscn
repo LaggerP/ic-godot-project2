@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwngn0hyyq0ab"]
+
+[ext_resource type="Script" path="res://spawner.gd" id="1_6pucn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eeor1"]
+size = Vector3(74.5898, 1, 66.0254)
+
+[node name="Spawner" type="Area3D"]
+script = ExtResource("1_6pucn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_eeor1")
