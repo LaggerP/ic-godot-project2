@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=21 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Cube.gd" id="3_wnrpb"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="5_mbdmj"]
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="6_16j2k"]
+[ext_resource type="PackedScene" uid="uid://bwngn0hyyq0ab" path="res://scenes/spawner.tscn" id="6_j53ok"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -153,17 +154,7 @@ move_speed = 10.0
 [node name="Camera3D" type="Camera3D" parent="Ship"]
 transform = Transform3D(-0.99863, -0.00818716, 0.0516917, 0, 0.987688, 0.156434, -0.052336, 0.15622, -0.986335, 0.287, 14.166, -19.941)
 
-[node name="Drop1" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5873, 0, 126.693)
-
-[node name="Drop2" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.7395, 0, 126.693)
-
-[node name="Drop3" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.2658, 0, 126.693)
-
-[node name="Drop4" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5873, 0, 83.5514)
-
-[node name="Drop5" parent="." instance=ExtResource("6_16j2k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4703, 0.370457, 104.098)
+[node name="Spawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_j53ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -0.725719, 52.868)
+drops = Array[PackedScene]([ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k")])
+player = NodePath("../Ship")
