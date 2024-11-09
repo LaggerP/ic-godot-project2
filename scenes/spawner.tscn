@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwngn0hyyq0ab"]
 
-[ext_resource type="Script" path="res://spawner.gd" id="1_6pucn"]
+[ext_resource type="Script" path="res://scenes/spawner.gd" id="1_6pucn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eeor1"]
 size = Vector3(74.5898, 1, 66.0254)

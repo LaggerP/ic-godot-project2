@@ -8,6 +8,7 @@ extends Area3D
 
 # Almacenamos las posiciones que actualmente estan siendo ocupadas por los drops
 var already_positions: Array  = []
+var actual_size: float
 
 func _ready() -> void:
 	for drop in drops:
