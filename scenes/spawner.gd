@@ -8,7 +8,6 @@ extends Area3D
 
 # Almacenamos las posiciones que actualmente estan siendo ocupadas por los drops
 var already_positions: Array  = []
-var drop_count: float = 0
 
 func _ready() -> void:
 	add_to_group("spawner_events")
@@ -47,8 +46,6 @@ func spawn_drop(drop) -> void:
 
 func update_drops_size() -> void:
 	already_positions.pop_back()
-	drop_count += 1
 	spawn_drop(drops.pick_random())
-	print(drop_count)
-	if drop_count == GameManager.level_dictionary["1"]:
+	if GameManager.drop_count == GameManager.level_dictionary[GameManager.actual_level]:
 		GameManager.won_level()
