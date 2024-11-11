@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=23 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="5_mbdmj"]
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="6_16j2k"]
 [ext_resource type="PackedScene" uid="uid://bwngn0hyyq0ab" path="res://scenes/spawner.tscn" id="6_j53ok"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="8_4io14"]
+[ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="8_gl3sb"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -158,3 +160,33 @@ transform = Transform3D(-0.99863, -0.00818716, 0.0516917, 0, 0.987688, 0.156434,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -0.725719, 52.868)
 drops = Array[PackedScene]([ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k")])
 player = NodePath("../Ship")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("8_4io14")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -18.0
+offset_right = 22.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="BannerHanging" type="Sprite2D" parent="CanvasLayer/HFlowContainer"]
+position = Vector2(0, 40)
+texture = ExtResource("8_gl3sb")
+
+[node name="score" type="Label" parent="CanvasLayer/HFlowContainer/BannerHanging"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -43.5
+offset_right = -108.0
+offset_bottom = -20.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "ESTO ES UN TEXTO DE PRUEBA"
