@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dl6fgna1x1n02"
+path="res://.godot/imported/bottleLarge.obj-f1d7f87da6a0f4bd9ae67bbc96e0c8e5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bottleLarge.obj-f1d7f87da6a0f4bd9ae67bbc96e0c8e5.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/bottleLarge.obj"
+dest_files=["res://.godot/imported/bottleLarge.obj-f1d7f87da6a0f4bd9ae67bbc96e0c8e5.mesh", "res://.godot/imported/bottleLarge.obj-f1d7f87da6a0f4bd9ae67bbc96e0c8e5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cy8a83akb8qmn"
+path="res://.godot/imported/ship_dark.obj-4574fb9377be5c5077705cfb786189f6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ship_dark.obj-4574fb9377be5c5077705cfb786189f6.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/ship_dark.obj"
+dest_files=["res://.godot/imported/ship_dark.obj-4574fb9377be5c5077705cfb786189f6.mesh", "res://.godot/imported/ship_dark.obj-4574fb9377be5c5077705cfb786189f6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

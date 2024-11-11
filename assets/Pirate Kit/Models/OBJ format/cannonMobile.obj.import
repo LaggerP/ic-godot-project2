@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://tdflm2th75e7"
+path="res://.godot/imported/cannonMobile.obj-20d3915d0891b8c491a8b96d23778ea9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cannonMobile.obj-20d3915d0891b8c491a8b96d23778ea9.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/cannonMobile.obj"
+dest_files=["res://.godot/imported/cannonMobile.obj-20d3915d0891b8c491a8b96d23778ea9.mesh", "res://.godot/imported/cannonMobile.obj-20d3915d0891b8c491a8b96d23778ea9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

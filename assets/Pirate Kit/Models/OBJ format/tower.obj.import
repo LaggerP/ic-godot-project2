@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bq6odjbnwn6t0"
+path="res://.godot/imported/tower.obj-63a703c4153f1c97ff9aa7593c6eb528.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower.obj-63a703c4153f1c97ff9aa7593c6eb528.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/tower.obj"
+dest_files=["res://.godot/imported/tower.obj-63a703c4153f1c97ff9aa7593c6eb528.mesh", "res://.godot/imported/tower.obj-63a703c4153f1c97ff9aa7593c6eb528.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
