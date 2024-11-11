@@ -8,9 +8,10 @@ extends Area3D
 
 # Almacenamos las posiciones que actualmente estan siendo ocupadas por los drops
 var already_positions: Array  = []
-var actual_size: float
+var drop_count: float = 0
 
 func _ready() -> void:
+	add_to_group("spawner_events")
 	for drop in drops:
 		spawn_drop(drop)
 
@@ -19,17 +20,35 @@ func _process(delta: float) -> void:
 
 func spawn_drop(drop) -> void:
 	if drop:
-		var distance = randf_range(min_distance, max_distance)
-		var random_distance = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0)).normalized()
-		#var random_distance = Vector3(randf() - 0.5, 0, randf() - 0.5).normalized()
-		var position =  player.global_transform.origin + (random_distance * distance)
-			
-		for pos in already_positions:
-			if pos.distance_to(position) < min_distance_between_drops:
-				print("Posición ocupada, reintentando...")
-				return spawn_drop(drop)  # Reintentar con una nueva posición
-		
-		var d = drop.instantiate()
-		d.global_position = position
-		add_child(d)
-		already_positions.append(position)
+		var position_is_valid = false
+
+		# Esta forma no me gusta, pero es la mas rápida que encontre para spawnear sin que el motor se congele
+		while not position_is_valid:
+			var distance = randf_range(min_distance, max_distance)
+			var random_distance = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0)).normalized()
+			#var random_distance = Vector3(randf() - 0.5, 0, randf() - 0.5).normalized()
+			var position =  player.global_transform.origin + (random_distance * distance)
+
+			# Verificar si la posición está ocupada
+			position_is_valid = true
+			for pos in already_positions:
+				if pos.distance_to(position) < min_distance_between_drops:
+					position_is_valid = false
+					break
+
+			# Ceder control al motor para evitar congelamiento
+			await get_tree().process_frame
+
+			var d = drop.instantiate()
+			d.global_position = position
+			add_child(d)
+			already_positions.append(position)
+			break
+
+func update_drops_size() -> void:
+	already_positions.pop_back()
+	drop_count += 1
+	spawn_drop(drops.pick_random())
+	print(drop_count)
+	if drop_count == GameManager.level_dictionary["1"]:
+		GameManager.won_level()
