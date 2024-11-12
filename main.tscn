@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=24 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bwngn0hyyq0ab" path="res://scenes/spawner.tscn" id="6_j53ok"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="8_4io14"]
 [ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="8_gl3sb"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="10_0eyin"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -187,3 +188,6 @@ offset_bottom = -20.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "ESTO ES UN TEXTO DE PRUEBA"
+
+[node name="Node3D" parent="." instance=ExtResource("10_0eyin")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1.44728, 1.51375, -223.421)

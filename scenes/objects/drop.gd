@@ -10,9 +10,11 @@ func _on_drops_player_entered(body: Node3D) -> void:
 		$Label3D.text = "OK"
 		GameManager.get_drop(body)
 		$drops/DropCollision.disabled
-		for d in $drops.get_children():
-			if d.is_class("RigidBody3D"):
-				d.queue_free()
+		##for d in $drops.get_children():
+		##	if d.is_class("RigidBody3D"):
+		##		d.queue_free()
+		
+		$AnimationPlayer.play("Sink")
 		await get_tree().create_timer(3).timeout
 		queue_free()
 	pass
