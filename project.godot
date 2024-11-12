@@ -27,7 +27,7 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fabimakesgames.embed_game/plugin.cfg")
+enabled=PackedStringArray()
 
 [file_customization]
 
@@ -79,6 +79,7 @@ camara_left={
 
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Drop"
+3d_physics/layer_3="Obstacle"
 
 [rendering]
 

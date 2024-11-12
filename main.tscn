@@ -189,5 +189,5 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "ESTO ES UN TEXTO DE PRUEBA"
 
-[node name="Node3D" parent="." instance=ExtResource("10_0eyin")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1.44728, 1.51375, -223.421)
+[node name="Dock" parent="." instance=ExtResource("10_0eyin")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)

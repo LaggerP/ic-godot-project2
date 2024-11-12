@@ -68,7 +68,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 size = Vector3(4.63831, 1, 16.0391)
 
 [node name="Ship" type="RigidBody3D" groups=["Player"]]
-collision_mask = 0
+collision_mask = 4
 script = SubResource("GDScript_wu0ga")
 move_speed = 2.0
 float_force = 0.1

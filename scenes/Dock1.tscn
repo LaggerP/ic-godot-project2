@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bapfkg04pl1m6"]
+[gd_scene load_steps=14 format=3 uid="uid://bapfkg04pl1m6"]
 
 [ext_resource type="PackedScene" uid="uid://dewkiwj45lx8v" path="res://assets/kenney_fantasy-town-kit/Models/FBX format/roofHighWindow.fbx" id="1_pseqm"]
 [ext_resource type="PackedScene" uid="uid://ba5kj5jsenysh" path="res://assets/kenney_fantasy-town-kit/Models/FBX format/roofHighCorner.fbx" id="2_hoir6"]
@@ -14,7 +14,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_b4uc1"]
 size = Vector3(7.43801, 1, 6.61572)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ujrwh"]
+size = Vector3(5.83188, 2.58295, 5.10651)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bjj4"]
+size = Vector3(1.62012, 1.94043, 1.63641)
+
+[node name="Dock" type="Node3D"]
 
 [node name="Roof" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.587841, 2.04627, 2.11003)
@@ -209,7 +215,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23805, 0, 6.57388)
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.22297)
+collision_layer = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.473408, 0, -2.80786)
 shape = SubResource("BoxShape3D_b4uc1")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.616074, 0.187897, 3.44687)
+shape = SubResource("BoxShape3D_ujrwh")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.09376)
+collision_layer = 4
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306015, 0.0883789, 1.6803)
+shape = SubResource("BoxShape3D_2bjj4")
