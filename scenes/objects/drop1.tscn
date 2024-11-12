@@ -57,6 +57,7 @@ process_material = SubResource("ParticleProcessMaterial_dn2ln")
 draw_pass_1 = SubResource("QuadMesh_tafee")
 
 [node name="drops" type="Area3D" parent="."]
+collision_layer = 0
 
 [node name="DropCollision" type="CollisionShape3D" parent="drops"]
 physics_interpolation_mode = 1

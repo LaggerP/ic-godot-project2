@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bt7ph6j5voh73"]
 
-[ext_resource type="PackedScene" uid="uid://0j1sl74i2m23" path="res://assets/Watercraft Pack/Models/FBX format/boat-row-small.fbx" id="1_7iqo6"]
+[ext_resource type="PackedScene" uid="uid://bgu7cf3lggikj" path="res://assets/Pirate Kit/Models/FBX format/boat_small.fbx" id="1_tpwob"]
 [ext_resource type="PackedScene" uid="uid://cin5iiatx7cwu" path="res://assets/Mini Dungeon/Models/FBX format/character-human.fbx" id="2_bgege"]
 
 [sub_resource type="GDScript" id="GDScript_onm50"]
@@ -44,7 +44,8 @@ float_force = 1.4
 water_drag = 1.0
 water_angular_drag = 1.0
 
-[node name="boat-row-small" parent="." instance=ExtResource("1_7iqo6")]
+[node name="boat_small" parent="." instance=ExtResource("1_tpwob")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.757995, 0, 19.4993)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450026, -0.007)
