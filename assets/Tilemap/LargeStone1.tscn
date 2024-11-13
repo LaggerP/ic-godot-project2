@@ -2,15 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://du6i51tdbrwu" path="res://assets/Nature Kit/Models/DAE format/stone_tallB.dae" id="1_rnap7"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_5s1px"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1hybf"]
 
 [node name="LargeStone1" type="Node3D"]
 
 [node name="stone_tallB" parent="." instance=ExtResource("1_rnap7")]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.392774, 0)
-shape = SubResource("CylinderShape3D_5s1px")
+shape = SubResource("CylinderShape3D_1hybf")
