@@ -47,5 +47,5 @@ func spawn_drop(drop) -> void:
 func update_drops_size() -> void:
 	already_positions.pop_back()
 	spawn_drop(drops.pick_random())
-	if GameManager.drop_count == GameManager.level_dictionary[str(GameManager.actual_level)]:
+	if GameManager.is_level_finished():
 		GameManager.won_level()

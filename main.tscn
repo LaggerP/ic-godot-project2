@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=23 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -7,11 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="5_mbdmj"]
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="6_16j2k"]
 [ext_resource type="PackedScene" uid="uid://bwngn0hyyq0ab" path="res://scenes/spawner.tscn" id="6_j53ok"]
-[ext_resource type="Script" path="res://scripts/ui.gd" id="8_4io14"]
-[ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="8_gl3sb"]
+[ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="8_4tnus"]
 [ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="10_0eyin"]
-[ext_resource type="Texture2D" uid="uid://cww10hfap6le2" path="res://assets/UI Pack - Adventure/Vector/panel_brown_damaged_dark.svg" id="11_7ill1"]
-[ext_resource type="Texture2D" uid="uid://dj1y02wbykgm1" path="res://assets/UI Pack - Adventure/Vector/banner_classic_curtain.svg" id="12_l8aje"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -161,125 +158,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -0.725719, 52.868)
 drops = Array[PackedScene]([ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k")])
 player = NodePath("../Ship")
 
-[node name="WinUI" type="CanvasLayer" parent="."]
+[node name="ScoreUI" parent="." instance=ExtResource("8_4tnus")]
 unique_name_in_owner = true
-script = ExtResource("8_4io14")
-
-[node name="HFlowContainer" type="HFlowContainer" parent="WinUI"]
-texture_filter = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Control" type="Control" parent="WinUI/HFlowContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="PanelBrownDamagedDark" type="Sprite2D" parent="WinUI/HFlowContainer/Control"]
-texture_filter = 1
-position = Vector2(0, 40)
-scale = Vector2(6, 5)
-texture = ExtResource("11_7ill1")
-
-[node name="BannerHanging" type="Sprite2D" parent="WinUI/HFlowContainer/Control"]
-texture_filter = 1
-position = Vector2(0, -126)
-scale = Vector2(1.78906, 2.4375)
-texture = ExtResource("12_l8aje")
-
-[node name="Label2" type="Label" parent="WinUI/HFlowContainer/Control/BannerHanging"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -248.175
-offset_top = -49.641
-offset_right = -10.1747
-offset_bottom = -21.641
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 15
-text = "Completaste el nivel"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Exit" type="Button" parent="WinUI/HFlowContainer/Control"]
-layout_mode = 0
-offset_left = -101.0
-offset_top = 111.0
-offset_right = -15.0
-offset_bottom = 156.0
-text = "Salir"
-
-[node name="Contine" type="Button" parent="WinUI/HFlowContainer/Control"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 111.0
-offset_right = 95.0
-offset_bottom = 156.0
-text = "Continuar"
-
-[node name="Label" type="Label" parent="WinUI/HFlowContainer/Control"]
-texture_filter = 1
-texture_repeat = 2
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -157.0
-offset_top = -26.0
-offset_right = 154.0
-offset_bottom = 90.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 18
-text = "Felicitaciones, completaste el nivel. Puedes seguir con el siguiente nivel"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="ScoreUI" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-script = ExtResource("8_4io14")
-
-[node name="HFlowContainer" type="HFlowContainer" parent="ScoreUI"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -18.0
-offset_right = 22.0
-offset_bottom = 40.0
-grow_horizontal = 2
-
-[node name="BannerHanging" type="Sprite2D" parent="ScoreUI/HFlowContainer"]
-position = Vector2(0, 40)
-texture = ExtResource("8_gl3sb")
-
-[node name="score" type="Label" parent="ScoreUI/HFlowContainer/BannerHanging"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -148.0
-offset_top = -43.5
-offset_right = -108.0
-offset_bottom = -20.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "ESTO ES UN TEXTO DE PRUEBA"
 
 [node name="Dock" parent="." instance=ExtResource("10_0eyin")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
-
-[connection signal="button_down" from="WinUI/HFlowContainer/Control/Exit" to="WinUI" method="_on_exit_button_down"]
-[connection signal="button_down" from="WinUI/HFlowContainer/Control/Contine" to="WinUI" method="_on_contine_button_down"]

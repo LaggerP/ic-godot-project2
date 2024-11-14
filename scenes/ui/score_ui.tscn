@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6dcy0b3ucbst"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_sue7u"]
+[ext_resource type="Texture2D" uid="uid://cww10hfap6le2" path="res://assets/UI Pack - Adventure/Vector/panel_brown_damaged_dark.svg" id="2_2s3yb"]
+[ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="3_krn6c"]
+
+[sub_resource type="Animation" id="Animation_00o2d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/Control/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-130, -99.5)]
+}
+
+[sub_resource type="Animation" id="Animation_qjks4"]
+resource_name = "win_level"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/Control/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 7.2, 9.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-130, -91), Vector2(-130, 100), Vector2(-130, 100), Vector2(-130, -80)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ax1j"]
+_data = {
+"RESET": SubResource("Animation_00o2d"),
+"win_level": SubResource("Animation_qjks4")
+}
+
+[node name="ScoreUI" type="CanvasLayer"]
+script = ExtResource("1_sue7u")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="BoxContainer" type="VBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Control" type="Control" parent="HFlowContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PanelBrownDamagedDark" type="NinePatchRect" parent="HFlowContainer/BoxContainer/Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -99.5
+offset_right = 130.0
+offset_bottom = -26.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2s3yb")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Label" type="Label" parent="HFlowContainer/BoxContainer/Control/PanelBrownDamagedDark"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+text = "¡Terminaste el nivel!
+Ya podes volver al muelle"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HFlowContainer/BoxContainer"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_2ax1j")
+}
+
+[node name="Control2" type="Control" parent="HFlowContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BannerHanging" type="NinePatchRect" parent="HFlowContainer/BoxContainer/Control2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -3.0
+offset_right = 131.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_krn6c")
+
+[node name="score" type="Label" parent="HFlowContainer/BoxContainer/Control2/BannerHanging"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "ESTO ES UN TEXTO DE PRUEBA"
+horizontal_alignment = 1
+vertical_alignment = 1
