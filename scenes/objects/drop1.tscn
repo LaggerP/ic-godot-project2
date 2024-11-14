@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckn6w6wr0wio5"]
+[gd_scene load_steps=14 format=3 uid="uid://ckn6w6wr0wio5"]
 
 [ext_resource type="Script" path="res://scenes/objects/drop.gd" id="1_jj2t1"]
 [ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://scenes/objects/furniture/vertical_barrel.tscn" id="1_xqh14"]
 [ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://scenes/objects/furniture/horizontal_barrel.tscn" id="2_l5e37"]
 [ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://scenes/objects/furniture/simple_boat.tscn" id="3_8xc5w"]
 [ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="4_dar3s"]
+[ext_resource type="AudioStream" uid="uid://bjqt5n5fub5fm" path="res://assets/Sounds/pickupCoin.wav" id="6_x7qta"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn2ln"]
 emission_shape = 1
@@ -145,6 +146,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_tdi7d"]
 resource_name = "Sink"
@@ -256,6 +269,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -10, 0)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jp71p"]
 _data = {
@@ -320,5 +345,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90822, -0.302296, 0)
 libraries = {
 "": SubResource("AnimationLibrary_jp71p")
 }
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_x7qta")
 
 [connection signal="body_entered" from="drops" to="." method="_on_drops_player_entered"]
