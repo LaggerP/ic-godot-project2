@@ -14,7 +14,7 @@ func _ready() -> void:
 	for drop in drops:
 		spawn_drop(drop)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func spawn_drop(drop) -> void:
@@ -47,5 +47,5 @@ func spawn_drop(drop) -> void:
 func update_drops_size() -> void:
 	already_positions.pop_back()
 	spawn_drop(drops.pick_random())
-	if GameManager.drop_count == GameManager.level_dictionary[GameManager.actual_level]:
+	if GameManager.is_level_finished():
 		GameManager.won_level()
