@@ -7,7 +7,6 @@ func _ready() -> void:
 	$".".hide()
 
 func show_win_level_ui():
-	print("hola")
 	win_text.text = "Terminaste el nivel " + str(GameManager.actual_level-1)
 	$".".show()
 
