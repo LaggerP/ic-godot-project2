@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://gs36is5kgsfu"]
+
+[ext_resource type="PackedScene" uid="uid://dhc4vn8ly76nn" path="res://assets/Nature Kit/Models/DAE format/stone_largeD.dae" id="1_vofnm"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_863sb"]
+
+[node name="LargeStone3" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.392774, 0)
+shape = SubResource("CylinderShape3D_863sb")
+
+[node name="stone_largeD" parent="." instance=ExtResource("1_vofnm")]
