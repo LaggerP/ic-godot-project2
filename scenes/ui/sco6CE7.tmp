@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b6dcy0b3ucbst"]
 
-[ext_resource type="Script" path="res://scenes/ui/score_ui.gd" id="1_84c1y"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_sue7u"]
 [ext_resource type="Texture2D" uid="uid://cww10hfap6le2" path="res://assets/UI Pack - Adventure/Vector/panel_brown_damaged_dark.svg" id="2_2s3yb"]
 [ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="3_krn6c"]
 
@@ -9,7 +9,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/path = NodePath("BoxContainer/Control/PanelBrownDamagedDark:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +25,7 @@ length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/path = NodePath("BoxContainer/Control/PanelBrownDamagedDark:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +42,7 @@ _data = {
 }
 
 [node name="ScoreUI" type="CanvasLayer"]
-script = ExtResource("1_84c1y")
+script = ExtResource("1_sue7u")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 anchors_preset = 15
@@ -57,11 +57,11 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="BoxBrown" type="Control" parent="HFlowContainer/BoxContainer"]
+[node name="Control" type="Control" parent="HFlowContainer/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="PanelBrownDamagedDark" type="NinePatchRect" parent="HFlowContainer/BoxContainer/BoxBrown"]
+[node name="PanelBrownDamagedDark" type="NinePatchRect" parent="HFlowContainer/BoxContainer/Control"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -81,7 +81,7 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="text" type="Label" parent="HFlowContainer/BoxContainer/BoxBrown/PanelBrownDamagedDark"]
+[node name="scoreText" type="Label" parent="HFlowContainer/BoxContainer/Control/PanelBrownDamagedDark"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=25 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -7,7 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="6_16j2k"]
 [ext_resource type="PackedScene" uid="uid://bwngn0hyyq0ab" path="res://scenes/spawner.tscn" id="6_j53ok"]
 [ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="8_4tnus"]
+[ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="8_u2x3v"]
+[ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="9_1rrwv"]
 [ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="10_0eyin"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/loose_level_ui.tscn" id="10_uu7to"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="11_mgbto"]
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="11_qe3v7"]
 
@@ -111,6 +114,14 @@ player = NodePath("../Ship")
 [node name="ScoreUI" parent="." instance=ExtResource("8_4tnus")]
 unique_name_in_owner = true
 
+[node name="WinGameUI" parent="." instance=ExtResource("8_u2x3v")]
+visible = false
+
+[node name="WinLevelUI" parent="." instance=ExtResource("9_1rrwv")]
+visible = false
+
+[node name="LooseLevelUI" parent="." instance=ExtResource("10_uu7to")]
+
 [node name="Dock" parent="." instance=ExtResource("10_0eyin")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
 
@@ -126,4 +137,5 @@ metadata/_editor_floor_ = Vector3(2, 0, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("11_qe3v7")
+volume_db = -15.0
 autoplay = true

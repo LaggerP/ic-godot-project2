@@ -14,7 +14,7 @@ func _ready() -> void:
 	for drop in drops:
 		spawn_drop(drop)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func spawn_drop(drop) -> void:
