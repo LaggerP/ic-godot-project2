@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtlel6n3jiesa"]
+
+[ext_resource type="Shader" path="res://Blur.gdshader" id="1_lbb7o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgx5o"]
+shader = ExtResource("1_lbb7o")
+shader_parameter/blur = 0.9
+shader_parameter/brightness = 0.4
+
+[node name="Blur_Effect" type="ColorRect"]
+material = SubResource("ShaderMaterial_dgx5o")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
