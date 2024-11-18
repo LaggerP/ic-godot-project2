@@ -7,3 +7,7 @@ func _ready() -> void:
 
 func show_win_game_ui():
 	$".".show()
+
+
+func _on_exit_button_down() -> void:
+	get_tree().quit()

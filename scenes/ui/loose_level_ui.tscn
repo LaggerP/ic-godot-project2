@@ -133,4 +133,5 @@ bbcode_enabled = true
 text = "[center][tornado radius=1 freq=10][color=white] [b]¡No pudiste lograrlo![/b] [/color][/tornado][/center]"
 scroll_active = false
 
+[connection signal="button_down" from="HFlowContainer/BoxContainer/Buttons/HBoxContainer/Exit" to="." method="_on_exit_button_down"]
 [connection signal="button_down" from="HFlowContainer/BoxContainer/Buttons/HBoxContainer/Retry" to="." method="_on_retry_button_down"]

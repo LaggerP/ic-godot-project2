@@ -121,3 +121,5 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "[center][tornado radius=1 freq=10][color=white] [b]¡Felicitaciones, ganaste![/b] [/color][/tornado][/center]"
 scroll_active = false
+
+[connection signal="button_down" from="HFlowContainer/BoxContainer/BoxBrown/Exit" to="." method="_on_exit_button_down"]
