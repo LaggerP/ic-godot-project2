@@ -20,8 +20,6 @@ func _ready():
 	wave_speed = material.get_shader_parameter("wave_speed")
 	height_scale = material.get_shader_parameter("height_scale")
 
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	

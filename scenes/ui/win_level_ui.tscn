@@ -133,4 +133,5 @@ bbcode_enabled = true
 text = "[center][tornado radius=1 freq=10][color=white] [b]¡Lograste el objetivo![/b] [/color][/tornado][/center]"
 scroll_active = false
 
+[connection signal="button_down" from="HFlowContainer/BoxContainer/Buttons/HBoxContainer/Exit" to="." method="_on_exit_button_down"]
 [connection signal="button_down" from="HFlowContainer/BoxContainer/Buttons/HBoxContainer/NextLevel" to="." method="_on_next_level_button_down"]
