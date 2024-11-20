@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjxut0itlunga"]
+[gd_scene load_steps=5 format=3 uid="uid://cjxut0itlunga"]
 
 [ext_resource type="Script" path="res://scenes/ui/loose_level_ui.gd" id="1_e1h6t"]
 [ext_resource type="Texture2D" uid="uid://cqilcvoiiyye" path="res://assets/UI Pack - Adventure/PNG/Default/panel_brown_corners_a.png" id="1_oj6q1"]
 [ext_resource type="Texture2D" uid="uid://1lj1frisu6ym" path="res://assets/UI Pack - Adventure/PNG/Default/banner_classic_curtain.png" id="2_5gf0c"]
+[ext_resource type="PackedScene" uid="uid://dwwqc7h5a1yc4" path="res://scenes/ui/blur_effect.tscn" id="4_46axb"]
 
 [node name="LooseLevelUI" type="CanvasLayer"]
 script = ExtResource("1_e1h6t")
+
+[node name="Blur_Effect" parent="." instance=ExtResource("4_46axb")]
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 anchors_preset = 8
