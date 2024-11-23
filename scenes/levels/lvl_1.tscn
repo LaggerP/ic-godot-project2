@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://mxu7nhgnw6bi"]
+
+[ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="3_1o7hk"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="4_vnsrr"]
+[ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="5_fm3de"]
+[ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="6_vtica"]
+[ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="7_ux1gn"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="8_vh8hq"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="9_72eyi"]
+[ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="10_y5btb"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="11_ower7"]
+
+[sub_resource type="GDScript" id="GDScript_de3fh"]
+script/source = "extends Node3D
+
+@onready var drops: Node3D = $drops
+
+# Almacena la posición correspondiente a cada drop
+var drop_positions: Array = []
+
+func _ready():
+	add_to_group(\"level_events\")
+	for child in drops.get_children():
+		#duplicando el nodo evitamos conseguir un freezed object al agarrar el drop
+		drop_positions.append(child.duplicate())
+
+# Este metodo vuelve a respawnear a los drops que fueron agarrados por el barco.
+# Itera sobre los nodos validando por existencia de nombre.
+# No es la implementación mas eficiente porque si el mapa tiene muchos drops el rendimiento se ve afectado.
+func reset_drops():
+	for drop in drop_positions:
+		var drop_found = false
+		for drop_in_scene in drops.get_children():
+			if drop_in_scene.name == drop.name:
+				drop_found = true
+				print(\"El drop \", drop.name, \" ya esta en la escena\")
+		if !drop_found:
+			var new_drop = drop.duplicate()  # Crear una copia del drop
+			new_drop.position = drop.position  # Asignar una posición original
+			drops.add_child(new_drop)  # Añadir el drop respawneado a la escena
+			print(\"Respawneando drop en posición:\", new_drop.position)
+"
+
+[node name="Lvl1" type="Node3D"]
+script = SubResource("GDScript_de3fh")
+
+[node name="Ship" parent="." instance=ExtResource("3_1o7hk")]
+transform = Transform3D(0.5, 0, 0, 0, 0.49997, -0.00548022, 0, 0.00548022, 0.49997, 1.541, 0.0621126, 52.868)
+move_speed = 10.0
+
+[node name="Dock" parent="." instance=ExtResource("4_vnsrr")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
+
+[node name="Logs" parent="." instance=ExtResource("5_fm3de")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 8.21056, 1.20702, 79.9828)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("6_vtica")
+cell_octant_size = 5
+cell_scale = 3.0
+collision_layer = 4
+data = {
+"cells": PackedInt32Array(65535, 65532, 0, 65534, 65532, 0, 65533, 65532, 0, 65532, 65532, 0, 65529, 65533, 0, 65526, 65534, 0, 65523, 0, 0, 65520, 1, 0, 65518, 2, 0, 65516, 4, 0, 65514, 5, 0, 65512, 8, 0, 65510, 10, 0, 65508, 12, 0, 65507, 14, 0, 65506, 16, 0, 65505, 17, 0, 65504, 20, 0, 65504, 22, 0, 65503, 25, 0, 65502, 27, 0, 65502, 30, 0, 65501, 32, 0, 65501, 33, 0, 65500, 35, 0, 65500, 38, 0, 65500, 41, 0, 65499, 44, 0, 65499, 46, 0, 65498, 49, 0, 65498, 52, 0, 65498, 55, 0, 65498, 58, 0, 65498, 61, 0, 65498, 64, 0, 65498, 66, 0, 65498, 69, 0, 65498, 71, 0, 65498, 73, 0, 65498, 75, 0, 65498, 77, 0, 65498, 79, 0, 65499, 81, 0, 65499, 82, 0, 65499, 84, 0, 65499, 85, 0, 65500, 87, 0, 24, 101, 0, 25, 100, 0, 27, 98, 0, 28, 97, 0, 29, 96, 0, 30, 94, 0, 31, 92, 0, 32, 90, 0, 32, 88, 0, 33, 86, 0, 34, 83, 0, 35, 80, 0, 36, 77, 0, 37, 74, 0, 38, 71, 0, 38, 68, 0, 39, 66, 0, 39, 63, 0, 40, 60, 0, 41, 57, 0, 41, 53, 0, 42, 50, 0, 42, 47, 0, 43, 44, 0, 43, 41, 0, 43, 38, 0, 43, 35, 0, 43, 31, 0, 43, 28, 0, 42, 24, 0, 41, 21, 0, 40, 18, 0, 40, 15, 0, 38, 13, 0, 37, 11, 0, 37, 9, 0, 35, 7, 0, 34, 5, 0, 33, 4, 0, 31, 2, 0, 30, 1, 0, 29, 0, 0, 27, 65535, 0, 26, 65534, 0, 25, 65533, 0, 23, 65532, 0, 22, 65532, 0, 21, 65531, 0, 20, 65530, 0, 19, 65530, 0, 17, 65529, 0, 16, 65529, 0, 15, 65528, 0, 14, 65528, 0, 13, 65528, 0, 12, 65528, 0, 11, 65528, 0, 24, 102, 0, 23, 103, 0, 23, 104, 0, 21, 105, 0, 20, 106, 0, 20, 107, 0, 18, 108, 0, 16, 109, 0, 14, 111, 0, 11, 112, 0, 10, 113, 0, 8, 114, 0, 6, 114, 0, 4, 115, 0, 3, 115, 0, 1, 116, 0, 65535, 116, 0, 65534, 116, 0, 65532, 116, 0, 65530, 117, 0, 65528, 117, 0, 65526, 117, 0, 65524, 117, 0, 65523, 117, 0, 65521, 117, 0, 65520, 117, 0, 65519, 117, 0, 65518, 116, 0, 65516, 116, 0, 65515, 116, 0, 65514, 116, 0, 65513, 115, 0, 65512, 115, 0, 65511, 114, 0, 65510, 113, 0, 65509, 112, 0, 65509, 111, 0, 65508, 110, 0, 65508, 109, 0, 65507, 108, 0, 65506, 106, 0, 65505, 104, 0, 65504, 102, 0, 65504, 100, 0, 65503, 98, 0, 65503, 97, 0, 65502, 95, 0, 65502, 94, 0, 65501, 92, 0, 65501, 91, 0, 65500, 90, 0, 65500, 88, 0, 65500, 86, 0, 65500, 85, 0, 65500, 84, 0, 65499, 83, 0)
+}
+metadata/_editor_floor_ = Vector3(2, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_ux1gn")
+volume_db = -15.0
+autoplay = true
+
+[node name="Powerup_velocity" parent="." instance=ExtResource("8_vh8hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9175, 0.938221, 47.0466)
+
+[node name="Powerup_velocity2" parent="." instance=ExtResource("9_72eyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18412, 0.884271, 68.6823)
+
+[node name="Node3D" parent="." instance=ExtResource("10_y5btb")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 15.4943, 0.934854, 78.7123)
+
+[node name="drops" type="Node3D" parent="."]
+
+[node name="Drop1" parent="drops" instance=ExtResource("11_ower7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.6234, 2.89594, 95.8396)
+
+[node name="Drop2" parent="drops" instance=ExtResource("11_ower7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9678, 2.89594, 122.61)
+
+[node name="Drop3" parent="drops" instance=ExtResource("11_ower7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.8411, 2.89594, 103.442)
