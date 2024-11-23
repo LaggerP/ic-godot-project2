@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=28 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/loose_level_ui.tscn" id="10_uu7to"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="11_mgbto"]
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="11_qe3v7"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="14_6kn6j"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="15_65wub"]
+[ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="16_ie3nm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -111,19 +114,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.541, -0.725719, 52.868)
 drops = Array[PackedScene]([ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k"), ExtResource("6_16j2k")])
 player = NodePath("../Ship")
 
-[node name="ScoreUI" parent="." instance=ExtResource("8_4tnus")]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreUI" parent="UI" instance=ExtResource("8_4tnus")]
 unique_name_in_owner = true
 
-[node name="WinGameUI" parent="." instance=ExtResource("8_u2x3v")]
+[node name="WinGameUI" parent="UI" instance=ExtResource("8_u2x3v")]
 visible = false
 
-[node name="WinLevelUI" parent="." instance=ExtResource("9_1rrwv")]
+[node name="WinLevelUI" parent="UI" instance=ExtResource("9_1rrwv")]
 visible = false
 
-[node name="LooseLevelUI" parent="." instance=ExtResource("10_uu7to")]
+[node name="LooseLevelUI" parent="UI" instance=ExtResource("10_uu7to")]
 
 [node name="Dock" parent="." instance=ExtResource("10_0eyin")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
+
+[node name="Logs" parent="." instance=ExtResource("16_ie3nm")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 8.21056, 1.20702, 79.9828)
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("11_mgbto")
@@ -139,3 +151,9 @@ metadata/_editor_floor_ = Vector3(2, 0, 0)
 stream = ExtResource("11_qe3v7")
 volume_db = -15.0
 autoplay = true
+
+[node name="Powerup_velocity" parent="." instance=ExtResource("14_6kn6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3587, 0.938221, 47.0466)
+
+[node name="Powerup_velocity2" parent="." instance=ExtResource("15_65wub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18412, 0.884271, 68.6823)

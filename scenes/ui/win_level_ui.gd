@@ -14,6 +14,7 @@ func show_win_level_ui():
 func _on_next_level_button_down() -> void:
 	get_tree().call_group("ui_events", "reset_score_ui")
 	get_tree().call_group("ui_events", "reset_timer")
+	get_tree().call_group("ship_events", "activate_ship_movement")
 	$".".hide()
 
 
