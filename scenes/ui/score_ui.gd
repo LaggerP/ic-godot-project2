@@ -6,7 +6,7 @@ var seconds: int = 60
 @onready var score_label: Label = $HFlowContainer/BoxContainer/Control2/BannerHanging/score
 @onready var seconds_label: Label = $HFlowContainer/BoxContainer/BoxBrown/ButtonBrown/seconds
 
-@onready var timer: Timer = $Timer
+@onready var game_timer: Timer = $GameTimer
 
 
 func _ready() -> void:
@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	seconds_label.text = "%02d" % second_left_to_loose()
 
 func second_left_to_loose():
-	var time_left = timer.get_time_left()
+	var time_left = game_timer.get_time_left()
 	return int(time_left) % 60
 
 func update_score():
@@ -37,7 +37,19 @@ func _on_timer_timeout() -> void:
 	GameManager.loose_level()
 	
 func reset_timer():
-	timer.start()
+	game_timer.start()
 	
 func stop_timer():
-	timer.stop()
+	game_timer.stop()
+	
+func add_seconds_to_timer(time_seconds: int):
+	if time_seconds <= 0: return
+
+	# Actualizamos el tiempo restante del temporizador
+	var new_time = max(game_timer.get_time_left() + time_seconds, 0)  # Aseguramos que el tiempo no sea negativo
+	game_timer.set_wait_time(new_time)
+
+	# Reiniciamos el temporizador si no está funcionando
+	if !game_timer.is_stopped():
+		game_timer.start()
+	

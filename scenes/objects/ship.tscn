@@ -20,8 +20,13 @@ script/source = "extends RigidBody3D
 @onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
 @onready var water = get_node('/root/Main/Water')
 @onready var probes = $ProbeContainer.get_children()
+@onready var speed_timer: Timer = $SpeedTimer
 
-var submerged := false
+var submerged = false
+var can_move = true
+
+func _ready() -> void:
+	add_to_group(\"ship_events\")
 
 func _physics_process(delta):
 	submerged = false
@@ -31,6 +36,10 @@ func _physics_process(delta):
 			submerged = true
 			apply_force(Vector3.UP * float_force * gravity * depth, p.global_position - global_position)
 	
+	if can_move:
+		movement(delta)
+
+func movement(delta):
 	# Manejar el movimiento usando las teclas de flecha
 	var direction: Vector3 = Vector3.ZERO
 
@@ -54,14 +63,25 @@ func _physics_process(delta):
 		var right_stick_x = Input.get_joy_axis(joystick_index, JOY_AXIS_RIGHT_X)
 		$CamaraPivot.rotate_y(-right_stick_x * camara_sensibility * delta)
 
+
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if submerged:
 		state.linear_velocity *=  1 - water_drag
 		state.angular_velocity *= 1 - water_angular_drag 
 
+func increment_speed():
+	speed_timer.start()
+	move_speed += 10
+
+func _on_speed_timer_timeout() -> void:
+	speed_timer.stop()
+	move_speed -= 10
 	
-		
-		
+func block_ship_movement():
+	can_move = false
+
+func activate_ship_movement():
+	can_move = true
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]
@@ -116,3 +136,8 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 4.83726, 4.64391, 18.34
 
 [node name="Camera3D" type="Camera3D" parent="CamaraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.943223, 0.332161, 0, -0.332161, 0.943223, 0, 15, 18)
+
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_speed_timer_timeout"]

@@ -1,0 +1,149 @@
+[gd_scene load_steps=11 format=3 uid="uid://80tu4g2ktu67"]
+
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="2_4tymb"]
+[ext_resource type="AudioStream" uid="uid://bjqt5n5fub5fm" path="res://assets/Sounds/pickupCoin.wav" id="6_2otnx"]
+
+[sub_resource type="GDScript" id="GDScript_kkdxu"]
+script/source = "extends Area3D
+
+var TYPE = \"velocity\"
+
+func _on_body_entered(body: Node3D) -> void:
+	print_debug(\"agarro el powerup de velocidad\")
+	if body.is_in_group(\"Player\"):
+		$Label3D.text = \"OK\"
+		GameManager.obtain_power_up(TYPE,self)
+		# Deshabilitar la colisión del powerup para que no pueda volver a interactuar
+		$DropCollision.disabled
+		$AnimationPlayer.play(\"Sink\")
+		await get_tree().create_timer(3).timeout
+		queue_free()
+	pass
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dm0pb"]
+size = Vector3(1.82135, 1, 1.71289)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn2ln"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+flatness = 0.25
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+color = Color(0.920091, 0.914921, 7.70092e-07, 1)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsne7"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_4tymb")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_tafee"]
+material = SubResource("StandardMaterial3D_fsne7")
+
+[sub_resource type="Animation" id="Animation_ufir8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tdi7d"]
+resource_name = "Sink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -10, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jp71p"]
+_data = {
+"RESET": SubResource("Animation_ufir8"),
+"Sink": SubResource("Animation_tdi7d")
+}
+
+[node name="Powerup_velocity" type="Area3D"]
+script = SubResource("GDScript_kkdxu")
+
+[node name="DropCollision" type="CollisionShape3D" parent="."]
+physics_interpolation_mode = 1
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0224304, 0, 0)
+shape = SubResource("BoxShape3D_dm0pb")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00327998, 5.23359, -0.318454)
+billboard = 1
+text = "+ Velocidad"
+font_size = 300
+outline_size = 30
+uppercase = true
+line_spacing = 5.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_dn2ln")
+draw_pass_1 = SubResource("QuadMesh_tafee")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jp71p")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_2otnx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

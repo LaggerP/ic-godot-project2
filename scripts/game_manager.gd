@@ -13,6 +13,18 @@ func obtain_drop(drop: Node3D):
 	get_tree().call_group("ui_events", "update_score")
 	get_tree().call_group("spawner_events", "update_drops_size", drop)
 
+func obtain_power_up(type: String, drop: Node3D):
+	if type == "velocity":
+		#aumentamos la velocidad del barco
+		get_tree().call_group("ship_events", "increment_speed")
+		pass
+	if type == "time":
+		#agregamos 5 segundos al timer
+		get_tree().call_group("ui_events", "add_seconds_to_timer", 5)
+		pass
+	
+	pass
+
 func won_level():
 	print_debug("Terminó el nivel, ya puede volver al muelle")
 	timeout = false
@@ -27,20 +39,23 @@ func reset_level():
 	print_debug("Reseteando el timeout y el drop_count")
 	timeout = false
 	drop_count = 0
+	get_tree().call_group("ship_events", "block_ship_movement")
 	get_tree().call_group("ui_events", "show_loose_level_ui")
 
 ## Llamar a este método desde el colission del muelle para cambiar de nivel y spawnear a todos los nuevos drops
 func next_level():
 	if not timeout:
 		timeout = false
-		print("Pasamos del nivel: ", actual_level, " al ", actual_level + 1)
+		print_debug("Pasamos del nivel: ", actual_level, " al ", actual_level + 1)
 		actual_level += 1
 		drop_count = 0
 		if level_dictionary.size() < actual_level: 
+			get_tree().call_group("ship_events", "block_ship_movement")
 			get_tree().call_group("ui_events", "show_win_game_ui")
 			get_tree().call_group("ui_events", "stop_timer")
 			return
 		get_tree().call_group("ui_events", "show_win_level_ui")
+		get_tree().call_group("ship_events", "block_ship_movement")
 		get_tree().call_group("ui_events", "stop_timer")
 		
 	
