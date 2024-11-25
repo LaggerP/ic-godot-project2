@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbns5fd5gojtg"]
+
+[ext_resource type="ArrayMesh" uid="uid://bq6odjbnwn6t0" path="res://assets/Pirate Kit/Models/OBJ format/tower.obj" id="1_5fk5h"]
+[ext_resource type="ArrayMesh" uid="uid://dkoipg1asfxfl" path="res://assets/Pirate Kit/Models/OBJ format/formation_rock.obj" id="2_jrpwh"]
+[ext_resource type="ArrayMesh" uid="uid://cgwk1de5ck6qo" path="res://assets/Pirate Kit/Models/OBJ format/formationLarge_stone.obj" id="3_xt8f6"]
+[ext_resource type="ArrayMesh" uid="uid://bua25myg1oql1" path="res://assets/Nature Kit/Models/OBJ format/crops_dirtRowEnd.obj" id="4_0icjl"]
+[ext_resource type="ArrayMesh" uid="uid://cv8xob0ipeuya" path="res://assets/Nature Kit/Models/OBJ format/rock_largeE.obj" id="5_nuryu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1iror"]
+size = Vector3(57.3376, 9.63403, 53.2618)
+
+[node name="IslandTower" type="StaticBody3D"]
+collision_layer = 4
+
+[node name="Tower" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_5fk5h")
+
+[node name="FormationRock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.1204)
+mesh = ExtResource("2_jrpwh")
+
+[node name="FormationRock4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -4.83376, -1.45397, -8.39432)
+mesh = ExtResource("2_jrpwh")
+
+[node name="FormationRock5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 13.6189, 0.483862, -15.7791)
+mesh = ExtResource("2_jrpwh")
+
+[node name="FormationRock2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18193, -2.1257, 9.83275)
+mesh = ExtResource("2_jrpwh")
+
+[node name="FormationRock3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57109, -1.16406, 6.15386)
+mesh = ExtResource("2_jrpwh")
+
+[node name="FormationLargeStone2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.29352, 0, 0.12968, 0, 1.3, 0, -0.12968, 0, 1.29352, -12.7735, 1.50032, -3.02478)
+mesh = ExtResource("3_xt8f6")
+
+[node name="CropsDirtRowEnd" type="MeshInstance3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+mesh = ExtResource("4_0icjl")
+
+[node name="RockLargeE" type="MeshInstance3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -5.6196, -15.9147, 4.19173)
+mesh = ExtResource("5_nuryu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61321, 6.48689, 1.10928)
+shape = SubResource("BoxShape3D_1iror")

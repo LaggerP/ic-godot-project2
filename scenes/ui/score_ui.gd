@@ -5,8 +5,9 @@ var seconds: int = 60
 @onready var animation_player: AnimationPlayer = $HFlowContainer/BoxContainer/AnimationPlayer
 @onready var score_label: Label = $HFlowContainer/BoxContainer/Control2/BannerHanging/score
 @onready var seconds_label: Label = $HFlowContainer/BoxContainer/BoxBrown/ButtonBrown/seconds
-
 @onready var game_timer: Timer = $GameTimer
+
+@export var default_time_in_seconds = 20
 
 
 func _ready() -> void:
@@ -37,6 +38,7 @@ func _on_timer_timeout() -> void:
 	GameManager.loose_level()
 	
 func reset_timer():
+	game_timer.set_wait_time(default_time_in_seconds)
 	game_timer.start()
 	
 func stop_timer():
