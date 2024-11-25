@@ -14,15 +14,28 @@
 script/source = "extends Node3D
 
 @onready var drops: Node3D = $drops
+@onready var powerups: Node3D = $powerups
 
 # Almacena la posición correspondiente a cada drop
 var drop_positions: Array = []
+var powerups_positions: Array = []
+
 
 func _ready():
 	add_to_group(\"level_events\")
 	for child in drops.get_children():
 		#duplicando el nodo evitamos conseguir un freezed object al agarrar el drop
 		drop_positions.append(child.duplicate())
+	for p in powerups.get_children():
+		#duplicando el nodo evitamos conseguir un freezed object al agarrar el drop
+		powerups_positions.append(p.duplicate())
+
+
+func reset_level():
+	reset_drops()
+	reset_powerups()
+
+
 
 # Este metodo vuelve a respawnear a los drops que fueron agarrados por el barco.
 # Itera sobre los nodos validando por existencia de nombre.
@@ -39,6 +52,19 @@ func reset_drops():
 			new_drop.position = drop.position  # Asignar una posición original
 			drops.add_child(new_drop)  # Añadir el drop respawneado a la escena
 			print(\"Respawneando drop en posición:\", new_drop.position)
+
+func reset_powerups():
+	for p in powerups_positions:
+		var powerup_found = false
+		for powerup_in_scene in powerups.get_children():
+			if powerup_in_scene.name == p.name:
+				powerup_found = true
+				print(\"El powerup \", p.name, \" ya esta en la escena\")
+		if !powerup_found:
+			var new_powerup = p.duplicate()  # Crear una copia del drop
+			new_powerup.position = p.position  # Asignar una posición original
+			powerups.add_child(new_powerup)  # Añadir el drop respawneado a la escena
+			print(\"Respawneando powerup en posición:\", new_powerup.position)
 "
 
 [node name="Lvl1" type="Node3D"]
@@ -69,12 +95,6 @@ stream = ExtResource("7_ux1gn")
 volume_db = -15.0
 autoplay = true
 
-[node name="Powerup_velocity" parent="." instance=ExtResource("8_vh8hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9175, 0.938221, 47.0466)
-
-[node name="Powerup_velocity2" parent="." instance=ExtResource("9_72eyi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18412, 0.884271, 68.6823)
-
 [node name="Node3D" parent="." instance=ExtResource("10_y5btb")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 15.4943, 0.934854, 78.7123)
 
@@ -88,3 +108,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9678, 2.89594, 122.61)
 
 [node name="Drop3" parent="drops" instance=ExtResource("11_ower7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.8411, 2.89594, 103.442)
+
+[node name="powerups" type="Node3D" parent="."]
+
+[node name="Powerup_velocity" parent="powerups" instance=ExtResource("8_vh8hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9175, 0.938221, 47.0466)
+
+[node name="Powerup_velocity2" parent="powerups" instance=ExtResource("9_72eyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18412, 0.884271, 68.6823)

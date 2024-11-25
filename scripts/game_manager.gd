@@ -55,11 +55,11 @@ func loose_level():
 	timeout = true
 	get_tree().call_group("ui_events", "show_score_loose_ui")
 	
-func reset_level():
+func reset_level():   
 	print_debug("Reseteando el timeout y el drop_count")
 	timeout = false
 	drop_count = 0
-	get_tree().call_group("level_events", "reset_drops")
+	get_tree().call_group("level_events", "reset_level")
 	get_tree().call_group("ship_events", "block_ship_movement")
 	get_tree().call_group("ui_events", "show_loose_level_ui")
 
