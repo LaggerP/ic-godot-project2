@@ -12,7 +12,7 @@ func _on_body_entered(body: Node3D) -> void:
 	print_debug(\"agarro el powerup de velocidad\")
 	if body.is_in_group(\"Player\"):
 		$Label3D.text = \"OK\"
-		GameManager.obtain_power_up(TYPE)
+		GameManager.obtain_power_up(TYPE, self)
 		# Deshabilitar la colisión del powerup para que no pueda volver a interactuar
 		$DropCollision.disabled
 		$AnimationPlayer.play(\"Sink\")

@@ -6,13 +6,13 @@
 [sub_resource type="GDScript" id="GDScript_qms6j"]
 script/source = "extends Area3D
 
-var TYPE = \"time\"
+var TYPE = Constants.PowerUp.TIME
 
 func _on_body_entered(body: Node3D) -> void:
 	print_debug(\"agarro el powerup de tiempo\")
 	if body.is_in_group(\"Player\"):
 		$Label3D.text = \"OK\"
-		GameManager.obtain_power_up(TYPE,self)
+		GameManager.obtain_power_up(TYPE)
 		# Deshabilitar la colisión del powerup para que no pueda volver a interactuar
 		$DropCollision.disabled
 		$AnimationPlayer.play(\"Sink\")
