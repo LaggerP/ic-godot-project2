@@ -1,8 +1,8 @@
 extends Node
 
 var levels_dict: Dictionary =  {
-	"level_1": preload("res://scenes/levels/lvl_1.tscn"),
-	"level_2": preload("res://scenes/levels/lvl_1.tscn")
+	"level_1": preload("res://scenes/levels/level_1.tscn"),
+	"level_2": preload("res://scenes/levels/level_1.tscn")
 }
 var actual_level = 1
 var drop_count: float
@@ -40,13 +40,17 @@ func obtain_drop(drop: Node3D):
 	get_tree().call_group("ui_events", "update_score")
 	get_tree().call_group("spawner_events", "update_drops_size", drop)
 
-func obtain_power_up(type: String, drop: Node3D):
-	if type == "velocity":
-		#aumentamos la velocidad del barco
-		get_tree().call_group("ship_events", "increment_speed")
-	if type == "time":
-		#agregamos 5 segundos al timer
-		get_tree().call_group("ui_events", "add_seconds_to_timer", 5)
+func obtain_power_up(type):
+	match type:
+		Constants.PowerUp.VELOCITY:
+			#aumentamos la velocidad del barco
+			get_tree().call_group("ship_events", "increment_speed")
+		Constants.PowerUp.TIME:
+			#agregamos 5 segundos al timer
+			get_tree().call_group("ui_events", "add_seconds_to_timer", 5)
+		_:
+			return
+			print_debug("no existe un power up valido")
 
 func won_level():
 	print_debug("Terminó el nivel, ya puede volver al muelle")
@@ -81,14 +85,13 @@ func next_level():
 		get_tree().call_group("ui_events", "show_win_level_ui")
 		get_tree().call_group("ship_events", "block_ship_movement")
 		get_tree().call_group("ui_events", "stop_timer")
-		
 
 func is_level_finished() -> bool:
 	# Estas lineas de codigo evitan que el juego crashee si level_dictonary no posee mas items
 	var level = levels_dict[get_actual_level()] as PackedScene
 	if level == null: true
 	var level_instance = level.instantiate() as Level
-	return drop_count >= level_instance.get_drops_to_get()
+	return drop_count >= level_instance.get_total_drops_required()
 	
 func get_actual_level() -> String:
 	return "level_"+str(actual_level)

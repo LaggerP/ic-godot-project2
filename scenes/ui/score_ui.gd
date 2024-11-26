@@ -22,6 +22,8 @@ func time_left_to_lose() -> String:
 
 func update_score():
 	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
+	if GameManager.is_level_finished():
+		GameManager.won_level()
 	
 func show_score_win_ui():
 	animation_player.play("win_level")
@@ -29,7 +31,6 @@ func show_score_win_ui():
 func show_score_lose_ui():
 	animation_player.play("lose_level")
 
-#TODO VER SI ES NECESARIO TENERLO
 func reset_score_ui():
 	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
 
