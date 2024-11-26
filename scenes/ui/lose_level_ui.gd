@@ -5,10 +5,11 @@ func _ready() -> void:
 	add_to_group("ui_events")
 	$".".hide()
 	
-func show_loose_level_ui():
+func show_lose_level_ui():
 	$".".show()
 
 func _on_retry_button_down() -> void:
+	GameManager.start_level(GameManager.get_actual_level())
 	get_tree().call_group("ui_events", "reset_score_ui")
 	get_tree().call_group("ui_events", "reset_timer")
 	get_tree().call_group("ship_events", "activate_ship_movement")

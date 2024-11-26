@@ -111,7 +111,7 @@ _data = {
 "Sink": SubResource("Animation_tdi7d")
 }
 
-[node name="Powerup_velocity" type="Area3D"]
+[node name="Powerup_time" type="Area3D"]
 script = SubResource("GDScript_qms6j")
 
 [node name="DropCollision" type="CollisionShape3D" parent="."]
