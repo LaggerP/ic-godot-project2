@@ -45,8 +45,36 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_qjks4"]
+resource_name = "win_level"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.03333, 7.13333, 9.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-130, -99.5), Vector2(-130, 125), Vector2(-130, 125), Vector2(-130, -80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/BoxBrown/ButtonBrown:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.9, 7.16667, 8.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
 [sub_resource type="Animation" id="Animation_jna0v"]
-resource_name = "loose_level"
+resource_name = "lose_level"
 length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,38 +115,10 @@ Volve al muelle para reintentarlo", "¡Terminaste el nivel!
 Ya podes volver al muelle"]
 }
 
-[sub_resource type="Animation" id="Animation_qjks4"]
-resource_name = "win_level"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.03333, 7.13333, 9.96667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-130, -99.5), Vector2(-130, 125), Vector2(-130, 125), Vector2(-130, -80)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BoxContainer/BoxBrown/ButtonBrown:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.03333, 1.9, 7.16667, 8.66667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ax1j"]
 _data = {
 "RESET": SubResource("Animation_00o2d"),
-"loose_level": SubResource("Animation_jna0v"),
+"lose_level": SubResource("Animation_jna0v"),
 "win_level": SubResource("Animation_qjks4")
 }
 

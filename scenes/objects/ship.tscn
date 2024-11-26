@@ -65,7 +65,6 @@ func movement(delta):
 		var right_stick_x = Input.get_joy_axis(joystick_index, JOY_AXIS_RIGHT_X)
 		$CamaraPivot.rotate_y(-right_stick_x * camara_sensibility * delta)
 
-
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if submerged:
 		state.linear_velocity *=  1 - water_drag
@@ -74,7 +73,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 func increment_speed():
 	speed_timer.start()
 	move_speed += 10
-
+	
 func _on_speed_timer_timeout() -> void:
 	speed_timer.stop()
 	move_speed = default_move_speed

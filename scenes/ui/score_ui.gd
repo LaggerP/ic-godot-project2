@@ -6,39 +6,42 @@ var seconds: int = 60
 @onready var score_label: Label = $HFlowContainer/BoxContainer/Control2/BannerHanging/score
 @onready var seconds_label: Label = $HFlowContainer/BoxContainer/BoxBrown/ButtonBrown/seconds
 @onready var game_timer: Timer = $GameTimer
-
-@export var default_time_in_seconds = 20
-
+var drops_to_get = 0
 
 func _ready() -> void:
 	add_to_group("ui_events")
-	score_label.text = "0/" + str(GameManager.level_dictionary[str(GameManager.actual_level)])
-	reset_timer()
 	
 func _process(delta: float) -> void:
-	seconds_label.text = "%02d" % second_left_to_loose()
+	seconds_label.text = time_left_to_lose()
 
-func second_left_to_loose():
-	var time_left = game_timer.get_time_left()
-	return int(time_left) % 60
+func time_left_to_lose() -> String:
+	var time_elapsed = game_timer.get_time_left()
+	var minutes = time_elapsed / 60
+	var seconds = fmod(time_elapsed, 60)
+	return "%02d:%02d" % [minutes, seconds]
 
 func update_score():
-	score_label.text = str(GameManager.drop_count) + "/" + str(GameManager.level_dictionary[str(GameManager.actual_level)])
+	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
 	
 func show_score_win_ui():
 	animation_player.play("win_level")
 	
-func show_score_loose_ui():
-	animation_player.play("loose_level")
+func show_score_lose_ui():
+	animation_player.play("lose_level")
 
+#TODO VER SI ES NECESARIO TENERLO
 func reset_score_ui():
-	score_label.text = str(GameManager.drop_count) + "/" + str(GameManager.level_dictionary[str(GameManager.actual_level)])
+	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
+
+func reset_drops(_drops):
+	drops_to_get = _drops
+	score_label.text = "0/" + str(drops_to_get)
 
 func _on_timer_timeout() -> void:
-	GameManager.loose_level()
+	GameManager.lose_level()
 	
-func reset_timer():
-	game_timer.set_wait_time(default_time_in_seconds)
+func reset_timer(seconds: float):
+	game_timer.set_wait_time(seconds)
 	game_timer.start()
 	
 func stop_timer():

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="8_4tnus"]
 [ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="8_u2x3v"]
 [ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="9_1rrwv"]
-[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/loose_level_ui.tscn" id="10_uu7to"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="10_uu7to"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -93,6 +93,7 @@ transform = Transform3D(-0.940098, 0.0859291, -0.329897, -0.23722, -0.859886, 0.
 shadow_enabled = true
 
 [node name="Water" type="MeshInstance3D" parent="."]
+sorting_offset = -99.0
 mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
@@ -112,5 +113,6 @@ visible = false
 visible = false
 
 [node name="LooseLevelUI" parent="UI" instance=ExtResource("10_uu7to")]
+visible = false
 
 [node name="LevelContainer" type="Node3D" parent="."]
