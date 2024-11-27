@@ -1,8 +1,8 @@
 extends Node
 
 var levels_dict: Dictionary =  {
-	"level_1": preload("res://scenes/levels/level_1.tscn"),
-	"level_2": preload("res://scenes/levels/level_1.tscn")
+	"level_1": preload("res://scenes/levels/level_2.tscn"),
+	"level_2": preload("res://scenes/levels/level_2.tscn")
 }
 var actual_level = 1
 var drop_count: float
