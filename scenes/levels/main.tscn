@@ -11,26 +11,26 @@
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
 
-[sub_resource type="Sky" id="Sky_hfb2r"]
+[sub_resource type="Sky" id="Sky_mjahh"]
 sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
 
 [sub_resource type="Environment" id="Environment_w5hlc"]
 background_mode = 2
-sky = SubResource("Sky_hfb2r")
+sky = SubResource("Sky_mjahh")
 tonemap_mode = 2
 tonemap_exposure = 0.5
 glow_enabled = true
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6ktcq"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bsvr8"]
 fractal_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_brvoh"]
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_6ktcq")
+noise = SubResource("FastNoiseLite_bsvr8")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_dq5fb"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_koa6c"]
 noise_type = 3
 fractal_type = 2
 
@@ -38,9 +38,9 @@ fractal_type = 2
 seamless = true
 as_normal_map = true
 bump_strength = 1.5
-noise = SubResource("FastNoiseLite_dq5fb")
+noise = SubResource("FastNoiseLite_koa6c")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jbvdi"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nhqyw"]
 noise_type = 3
 frequency = 0.001
 fractal_type = 2
@@ -48,9 +48,9 @@ fractal_octaves = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7k2l2"]
 seamless = true
-noise = SubResource("FastNoiseLite_jbvdi")
+noise = SubResource("FastNoiseLite_nhqyw")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r3suf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dtgbd"]
 render_priority = 0
 shader = ExtResource("2_twn8n")
 shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
@@ -78,7 +78,7 @@ shader_parameter/wave = SubResource("NoiseTexture2D_7k2l2")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xwda"]
 lightmap_size_hint = Vector2i(2502, 2502)
-material = SubResource("ShaderMaterial_r3suf")
+material = SubResource("ShaderMaterial_dtgbd")
 size = Vector2(1000, 1000)
 subdivide_width = 1
 subdivide_depth = 1
@@ -97,14 +97,12 @@ sorting_offset = -99.0
 mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ScoreUI" parent="UI" instance=ExtResource("8_4tnus")]
 unique_name_in_owner = true
+visible = false
 
 [node name="WinGameUI" parent="UI" instance=ExtResource("8_u2x3v")]
 visible = false

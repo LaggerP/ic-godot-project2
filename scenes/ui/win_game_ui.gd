@@ -2,12 +2,13 @@ extends CanvasLayer
 
 func _ready() -> void:
 	add_to_group("ui_events")
-	$".".hide()
+	hide()
 
 
 func show_win_game_ui():
-	$".".show()
-
+	show()
 
 func _on_exit_button_down() -> void:
-	get_tree().quit()
+	hide()
+	GameManager.reset_game()
+	GameManager.start_level("menu")

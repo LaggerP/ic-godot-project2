@@ -1,0 +1,1010 @@
+[gd_scene load_steps=28 format=3 uid="uid://ndrgjju4bhhn"]
+
+[ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="3_eugjx"]
+[ext_resource type="PackedScene" uid="uid://bemwb8d2yftt0" path="res://assets/Pirate Kit/Models/FBX format/ship_dark.fbx" id="4_kl31r"]
+[ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="5_wdjut"]
+[ext_resource type="PackedScene" uid="uid://dypfi6y4em6ha" path="res://assets/Nature Kit/Models/GLTF format/log.glb" id="6_o8b7m"]
+[ext_resource type="Texture2D" uid="uid://k5gpswkpvl1" path="res://assets/UI Pack - Adventure/PNG/Double/banner_classic_curtain.png" id="7_3ueu1"]
+[ext_resource type="PackedScene" uid="uid://3q5e22l2uu6h" path="res://assets/Pirate Kit/Models/glTF format/cannonMobile.gltf" id="7_e02lj"]
+[ext_resource type="Texture2D" uid="uid://bkv5p4x0oggxc" path="res://assets/UI Pack - Adventure/PNG/Double/button_brown.png" id="8_wkvge"]
+[ext_resource type="PackedScene" uid="uid://dipdumt48p6p6" path="res://assets/Pirate Kit/Models/FBX format/cannonBall.fbx" id="8_yax0s"]
+[ext_resource type="Texture2D" uid="uid://bfpaaoglvn6nh" path="res://assets/UI Pack - Adventure/PNG/Double/button_red.png" id="9_qoi14"]
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="11_txy2d"]
+[ext_resource type="PackedScene" uid="uid://ig3aeqyp3jii" path="res://assets/Pirate Kit/Models/glTF format/palm_detailed_short.gltf" id="15_aorlm"]
+
+[sub_resource type="GDScript" id="GDScript_wu0ga"]
+script/source = "extends RigidBody3D
+
+# Velocidad de movimiento
+@export var move_speed: float = 5.0
+# Velocidad de rotación de la cámara
+@export var rotation_speed: float = .9
+# Sensibilidad de la camara, mientras mas alto, mas rápido rota
+@export var camara_sensibility: float = 3
+
+@export var float_force := 1.0
+@export var water_drag := 0.05
+@export var water_angular_drag := 0.05
+
+@onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+@onready var water = get_node('/root/Main/Water')
+@onready var probes = $ProbeContainer.get_children()
+@onready var speed_timer: Timer = $SpeedTimer
+
+var submerged = false
+var can_move = true
+var default_move_speed: float
+
+func _ready() -> void:
+	default_move_speed = move_speed
+	add_to_group(\"ship_events\")
+
+func _physics_process(delta):
+	submerged = false
+	for p in probes:
+		var depth = water.get_height(p.global_position) - p.global_position.y 
+		if depth > 0:
+			submerged = true
+			apply_force(Vector3.UP * float_force * gravity * depth, p.global_position - global_position)
+	
+	if can_move and !GameManager.is_on_menu:
+		movement(delta)
+
+func movement(delta):
+	# Manejar el movimiento usando las teclas de flecha
+	var direction: Vector3 = Vector3.ZERO
+
+	if Input.is_action_pressed(\"foward\"):
+		direction += -transform.basis.z  # Ir adelante
+	if Input.is_action_pressed(\"left\"): 
+		rotation_degrees.y += rotation_speed  # Rotar izquierda
+	if Input.is_action_pressed(\"right\"):
+		rotation_degrees.y -= rotation_speed  # Rotar derecha
+
+   # Normalizar y aplicar la velocidad
+	direction = direction.normalized() * move_speed
+	# Mantener la velocidad vertical para que la gravedad funcione
+	direction.y = linear_velocity.y
+	# Establecer la velocidad lineal del RigidBody
+	linear_velocity = direction
+	
+	# Movimiento de cámara, solamente para joystick
+	if Input.is_action_pressed(\"camara_left\") || Input.is_action_pressed(\"camara_right\"):
+		var joystick_index = 0
+		var right_stick_x = Input.get_joy_axis(joystick_index, JOY_AXIS_RIGHT_X)
+		$CamaraPivot.rotate_y(-right_stick_x * camara_sensibility * delta)
+
+func _integrate_forces(state: PhysicsDirectBodyState3D):
+	if submerged:
+		state.linear_velocity *=  1 - water_drag
+		state.angular_velocity *= 1 - water_angular_drag 
+
+func increment_speed():
+	speed_timer.start()
+	move_speed += 10
+	
+func _on_speed_timer_timeout() -> void:
+	speed_timer.stop()
+	move_speed = default_move_speed
+	
+func block_ship_movement():
+	can_move = false
+
+func activate_ship_movement():
+	can_move = true
+"
+
+[sub_resource type="GDScript" id="GDScript_gtcow"]
+script/source = "extends StaticBody3D
+
+
+@onready var animation_player: AnimationPlayer = $cannonMobile/AnimationPlayer
+
+
+func _on_timer_timeout() -> void:
+	animation_player.play(\"fire\")
+	$cannonMobile/Timer.start()
+	pass # Replace with function body.
+"
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohyfd"]
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = -0.79
+initial_velocity_max = -0.79
+radial_velocity_min = 0.199978
+radial_velocity_max = 0.199978
+gravity = Vector3(11, 1, 6)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdkls"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("11_txy2d")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_millx"]
+material = SubResource("StandardMaterial3D_gdkls")
+
+[sub_resource type="Animation" id="Animation_8xti0"]
+resource_name = "fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannonBall/cannonBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.286792, 0.295446, 1.03387), Vector3(0.652, 0.634, -14.695)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannonBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannonMobile_8angles:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.28022, 0.318654, 0.84431), Vector3(2.51413, 0.318654, 0.918654)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4t1cp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannonBall:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannonMobile_8angles:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.51413, 0.318654, 0.918654)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannonBall:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.74232, 0.473056, 1.29217)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ce0ok"]
+_data = {
+"RESET": SubResource("Animation_4t1cp"),
+"fire": SubResource("Animation_8xti0")
+}
+
+[sub_resource type="GDScript" id="GDScript_souvd"]
+script/source = "extends Control
+
+const MAIN = preload(\"res://scenes/levels/main.tscn\")
+@onready var animation_player: AnimationPlayer = $\"../AnimationPlayer\"
+
+func _ready() -> void:
+	$Credits.hide()
+
+func _on_exit_button_down() -> void:
+	get_tree().quit()
+	pass # Replace with function body.
+
+
+func _on_play_pressed() -> void:
+	animation_player.play(\"RESET\")
+	animation_player.play(\"play\")
+	pass # Replace with function body.
+
+
+func play():
+	GameManager.is_on_menu = false
+	GameManager.start_level(\"level_1\")
+
+func _on_credits_pressed() -> void:
+	animation_player.play(\"RESET\")
+	animation_player.play(\"menu_to_credits\")
+	pass # Replace with function body.
+
+
+func _on_back_credits_button_down() -> void:
+	animation_player.play(\"RESET\")
+	animation_player.play(\"credits_to_menu\")
+	pass # Replace with function body.
+
+
+func _on_options_pressed() -> void:
+	animation_player.play(\"RESET\")
+	animation_player.play(\"menu_to_options\")
+	pass # Replace with function body.
+
+
+func _on_back_options_pressed() -> void:
+	animation_player.play(\"RESET\")
+	animation_player.play(\"options_to_menu\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="Animation" id="Animation_fnid5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CamaraPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ship:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.45653, -9.53674e-07, 5.29127)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ship:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.785398, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CamaraPivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2tntp"]
+resource_name = "credits_to_menu"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CamaraPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 3.92699, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Credits")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MenuButtons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.466667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1s6xu"]
+resource_name = "menu_to_credits"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CamaraPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.92699, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Credits")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.433333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MenuButtons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_o2mci"]
+resource_name = "menu_to_options"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CamaraPivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.0785398, 0), Vector3(0, -0.294961, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CamaraPivot:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(9, 0, 0), Vector3(10, -5, 6)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MenuButtons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Options")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.766667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_28pn3"]
+resource_name = "options_to_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CamaraPivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.294961, 0), Vector3(0, -0.0785398, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CamaraPivot:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(10, -5, 6), Vector3(9, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Options")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/MenuButtons")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.933333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kxnsq"]
+resource_name = "play"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ship:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1.4, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-42.7823, -9.53674e-07, 56.4109)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ship:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.785398, 0), Vector3(0, 2.52204, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MenuButtons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CamaraPivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-7, 5, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nas4g"]
+_data = {
+"RESET": SubResource("Animation_fnid5"),
+"credits_to_menu": SubResource("Animation_2tntp"),
+"menu_to_credits": SubResource("Animation_1s6xu"),
+"menu_to_options": SubResource("Animation_o2mci"),
+"options_to_menu": SubResource("Animation_28pn3"),
+"play": SubResource("Animation_kxnsq")
+}
+
+[node name="Menu" type="Node3D"]
+metadata/_edit_vertical_guides_ = [1921.0]
+
+[node name="Ship" type="RigidBody3D" parent="." groups=["Player"]]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -7.45653, -9.53674e-07, 5.29127)
+collision_mask = 4
+script = SubResource("GDScript_wu0ga")
+move_speed = 2.0
+float_force = 0.1
+
+[node name="ProbeContainer" type="Node3D" parent="Ship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305694, 0)
+
+[node name="Probe" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
+
+[node name="Probe2" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="Probe3" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5)
+
+[node name="Probe4" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="Probe5" type="Marker3D" parent="Ship/ProbeContainer"]
+
+[node name="Probe6" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="Probe7" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
+
+[node name="Probe8" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="Probe9" type="Marker3D" parent="Ship/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
+
+[node name="ship_dark" parent="Ship" instance=ExtResource("4_kl31r")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -8.69844, 0, 0)
+
+[node name="pirate_captain" parent="Ship" instance=ExtResource("5_wdjut")]
+transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, 4.7, 9.5, 12.5)
+
+[node name="SpeedTimer" type="Timer" parent="Ship"]
+wait_time = 5.0
+
+[node name="IslandTower" parent="." instance=ExtResource("3_eugjx")]
+transform = Transform3D(-0.242705, 0, -0.176336, 0, 0.3, 0, 0.176336, 0, -0.242705, 15.5, 1.854, 6.298)
+script = SubResource("GDScript_gtcow")
+
+[node name="palm_detailed_short2" parent="IslandTower" instance=ExtResource("15_aorlm")]
+transform = Transform3D(-2.69672, 0, 1.95928, 0, 3.33333, 0, -1.95928, 0, -2.69672, -7.66317, 1.32789, -9.60853)
+
+[node name="Bonfire" type="Node3D" parent="IslandTower"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower/Bonfire"]
+transform = Transform3D(1.99983, 0, -0.0261081, 0, 2, 0, 0.0261081, 0, 1.99983, -15.017, 1.10605, 18.4339)
+visible = false
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ohyfd")
+draw_pass_1 = SubResource("QuadMesh_millx")
+
+[node name="log2" parent="IslandTower/Bonfire" instance=ExtResource("6_o8b7m")]
+transform = Transform3D(-0.16998, 0, 3.329, 0, 3.33334, 0, -3.329, 0, -0.16998, -17.4421, 1.75211, 14.4469)
+
+[node name="cannonMobile" parent="IslandTower" instance=ExtResource("7_e02lj")]
+transform = Transform3D(4.9729, 0, 0.519864, 0, 5, 0, -0.519864, 0, 4.9729, -20.7317, -0.309885, 19.3693)
+
+[node name="cannonMobile_8angles" parent="IslandTower/cannonMobile" index="0"]
+transform = Transform3D(-0.352968, 0, -0.935634, 0, 0.999999, 0, 0.935634, 0, -0.352968, 2.51413, 0.318654, 0.918654)
+
+[node name="cannonBall" parent="IslandTower/cannonMobile" instance=ExtResource("8_yax0s")]
+transform = Transform3D(-0.520219, 0, -0.854032, 0, 0.999999, 0, 0.854032, 0, -0.520219, 3.74232, 0.473056, 1.29217)
+
+[node name="cannonBall" parent="IslandTower/cannonMobile/cannonBall" index="0"]
+transform = Transform3D(0.196537, 0, 0.037058, 0, 0.2, 0, -0.037058, 0, 0.196537, 0.286792, 0.295446, 1.03387)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IslandTower/cannonMobile"]
+libraries = {
+"": SubResource("AnimationLibrary_ce0ok")
+}
+
+[node name="Timer" type="Timer" parent="IslandTower/cannonMobile"]
+wait_time = 10.0
+autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower/cannonMobile"]
+transform = Transform3D(0.709818, -1.11404, -0.710684, 1.11404, 0.0706336, 1.00196, -0.710684, -1.00196, 0.860816, 2.92398, 0.769719, 1.10308)
+emitting = false
+amount = 1
+preprocess = 0.47
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ohyfd")
+draw_pass_1 = SubResource("QuadMesh_millx")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -8.0
+offset_right = 12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = SubResource("GDScript_souvd")
+
+[node name="MenuButtons" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -84.0
+offset_right = 131.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/MenuButtons"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MenuButtons/VBoxContainer3"]
+layout_mode = 2
+alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("7_3ueu1")
+patch_margin_left = 11
+patch_margin_top = 120
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="GameTitle" type="Label" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer2/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Pirate Drop"
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuButtons/VBoxContainer3"]
+layout_mode = 2
+alignment = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_wkvge")
+patch_margin_left = 10
+patch_margin_top = 39
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Play" type="Button" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -16.5
+offset_right = 123.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Jugar"
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_wkvge")
+patch_margin_left = 10
+patch_margin_top = 39
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Options" type="Button" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -16.5
+offset_right = 123.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Opciones"
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_wkvge")
+patch_margin_left = 10
+patch_margin_top = 39
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Credits" type="Button" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect6"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -16.5
+offset_right = 123.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Créditos"
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_qoi14")
+patch_margin_left = 10
+patch_margin_top = 48
+patch_margin_right = 10
+
+[node name="exit" type="Button" parent="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -15.0
+offset_right = 123.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Salir del juego"
+
+[node name="Credits" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -84.0
+offset_right = 131.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Credits"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Credits/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Credits/VBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "
+Pirate Drop
+
+Desarrollo
+Ariel Plomer y Pablo Lagger
+
+Arte
+Kenny
+
+Música
+xxxxxxxxxx
+
+"
+horizontal_alignment = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="UI/Credits/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_qoi14")
+patch_margin_left = 10
+patch_margin_top = 48
+patch_margin_right = 10
+
+[node name="back_credits" type="Button" parent="UI/Credits/VBoxContainer/NinePatchRect4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -15.0
+offset_right = 123.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Volver"
+
+[node name="Options" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -84.0
+offset_right = 131.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Options"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+text = "Volumen general"
+
+[node name="HSlider" type="HSlider" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+text = "Volumen efectos"
+
+[node name="HSlider2" type="HSlider" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_qoi14")
+region_rect = Rect2(0.0490417, 0, 95.951, 48.4702)
+patch_margin_left = 10
+patch_margin_top = 48
+patch_margin_right = 10
+
+[node name="back_options" type="Button" parent="UI/Options/VBoxContainer/NinePatchRect4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -15.0
+offset_right = 123.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Volver"
+
+[node name="CamaraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CamaraPivot"]
+transform = Transform3D(-0.999994, 0.00102062, -0.0033383, 0, 0.956305, 0.292372, 0.00349083, 0.29237, -0.956299, 4.432, 8.987, -9.581)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nas4g")
+}
+
+[connection signal="timeout" from="Ship/SpeedTimer" to="Ship" method="_on_speed_timer_timeout"]
+[connection signal="timeout" from="IslandTower/cannonMobile/Timer" to="IslandTower" method="_on_timer_timeout"]
+[connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect3/Play" to="UI" method="_on_play_pressed"]
+[connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect5/Options" to="UI" method="_on_options_pressed"]
+[connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect6/Credits" to="UI" method="_on_credits_pressed"]
+[connection signal="button_down" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect4/exit" to="UI" method="_on_exit_button_down"]
+[connection signal="button_down" from="UI/Credits/VBoxContainer/NinePatchRect4/back_credits" to="UI" method="_on_back_credits_button_down"]
+[connection signal="pressed" from="UI/Options/VBoxContainer/NinePatchRect4/back_options" to="UI" method="_on_back_options_pressed"]
+
+[editable path="IslandTower/cannonMobile"]
+[editable path="IslandTower/cannonMobile/cannonBall"]
