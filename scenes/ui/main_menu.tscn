@@ -1,15 +1,14 @@
-[gd_scene load_steps=26 format=3 uid="uid://ndrgjju4bhhn"]
+[gd_scene load_steps=28 format=3 uid="uid://ndrgjju4bhhn"]
 
+[ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="3_eugjx"]
 [ext_resource type="PackedScene" uid="uid://bemwb8d2yftt0" path="res://assets/Pirate Kit/Models/FBX format/ship_dark.fbx" id="4_kl31r"]
 [ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="5_wdjut"]
-[ext_resource type="ArrayMesh" uid="uid://bq6odjbnwn6t0" path="res://assets/Pirate Kit/Models/OBJ format/tower.obj" id="6_3xfct"]
+[ext_resource type="PackedScene" uid="uid://dypfi6y4em6ha" path="res://assets/Nature Kit/Models/GLTF format/log.glb" id="6_o8b7m"]
 [ext_resource type="Texture2D" uid="uid://k5gpswkpvl1" path="res://assets/UI Pack - Adventure/PNG/Double/banner_classic_curtain.png" id="7_3ueu1"]
-[ext_resource type="ArrayMesh" uid="uid://dkoipg1asfxfl" path="res://assets/Pirate Kit/Models/OBJ format/formation_rock.obj" id="7_iqioo"]
-[ext_resource type="ArrayMesh" uid="uid://cgwk1de5ck6qo" path="res://assets/Pirate Kit/Models/OBJ format/formationLarge_stone.obj" id="8_k7ck0"]
+[ext_resource type="PackedScene" uid="uid://3q5e22l2uu6h" path="res://assets/Pirate Kit/Models/glTF format/cannonMobile.gltf" id="7_e02lj"]
 [ext_resource type="Texture2D" uid="uid://bkv5p4x0oggxc" path="res://assets/UI Pack - Adventure/PNG/Double/button_brown.png" id="8_wkvge"]
-[ext_resource type="ArrayMesh" uid="uid://bua25myg1oql1" path="res://assets/Nature Kit/Models/OBJ format/crops_dirtRowEnd.obj" id="9_jd3w0"]
+[ext_resource type="PackedScene" uid="uid://dipdumt48p6p6" path="res://assets/Pirate Kit/Models/FBX format/cannonBall.fbx" id="8_yax0s"]
 [ext_resource type="Texture2D" uid="uid://bfpaaoglvn6nh" path="res://assets/UI Pack - Adventure/PNG/Double/button_red.png" id="9_qoi14"]
-[ext_resource type="ArrayMesh" uid="uid://cv8xob0ipeuya" path="res://assets/Nature Kit/Models/OBJ format/rock_largeE.obj" id="10_bcr8h"]
 [ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="11_txy2d"]
 [ext_resource type="PackedScene" uid="uid://ig3aeqyp3jii" path="res://assets/Pirate Kit/Models/glTF format/palm_detailed_short.gltf" id="15_aorlm"]
 
@@ -48,7 +47,7 @@ func _physics_process(delta):
 			submerged = true
 			apply_force(Vector3.UP * float_force * gravity * depth, p.global_position - global_position)
 	
-	if can_move:
+	if can_move and !GameManager.is_on_menu:
 		movement(delta)
 
 func movement(delta):
@@ -95,18 +94,27 @@ func activate_ship_movement():
 	can_move = true
 "
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1iror"]
-size = Vector3(57.3376, 9.63403, 53.2618)
+[sub_resource type="GDScript" id="GDScript_gtcow"]
+script/source = "extends StaticBody3D
+
+
+@onready var animation_player: AnimationPlayer = $cannonMobile/AnimationPlayer
+
+
+func _on_timer_timeout() -> void:
+	animation_player.play(\"fire\")
+	$cannonMobile/Timer.start()
+	pass # Replace with function body.
+"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohyfd"]
-emission_shape = 1
-emission_sphere_radius = 1.0
 direction = Vector3(0, 1, 0)
-spread = 1.0
-flatness = 0.25
-initial_velocity_min = 0.2
-initial_velocity_max = 0.5
-gravity = Vector3(0, 0, 0)
+spread = 5.0
+initial_velocity_min = -0.79
+initial_velocity_max = -0.79
+radial_velocity_min = 0.199978
+radial_velocity_max = 0.199978
+gravity = Vector3(11, 1, 6)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
@@ -124,6 +132,114 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_millx"]
 material = SubResource("StandardMaterial3D_gdkls")
 
+[sub_resource type="Animation" id="Animation_8xti0"]
+resource_name = "fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannonBall/cannonBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.286792, 0.295446, 1.03387), Vector3(0.652, 0.634, -14.695)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannonBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannonMobile_8angles:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.28022, 0.318654, 0.84431), Vector3(2.51413, 0.318654, 0.918654)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4t1cp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannonBall:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannonMobile_8angles:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.51413, 0.318654, 0.918654)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannonBall:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.74232, 0.473056, 1.29217)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ce0ok"]
+_data = {
+"RESET": SubResource("Animation_4t1cp"),
+"fire": SubResource("Animation_8xti0")
+}
+
 [sub_resource type="GDScript" id="GDScript_souvd"]
 script/source = "extends Control
 
@@ -132,7 +248,6 @@ const MAIN = preload(\"res://scenes/levels/main.tscn\")
 
 func _ready() -> void:
 	$Credits.hide()
-
 
 func _on_exit_button_down() -> void:
 	get_tree().quit()
@@ -222,62 +337,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_kxnsq"]
-resource_name = "play"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Ship:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 1.4, 2.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-42.7823, -9.53674e-07, 56.4109)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Ship:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 1.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.785398, 0), Vector3(0, 2.52204, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("UI/MenuButtons")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"hide"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("UI")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"play"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_2tntp"]
@@ -478,6 +537,74 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_kxnsq"]
+resource_name = "play"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ship:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1.4, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-7.45653, -9.53674e-07, 5.29127), Vector3(-42.7823, -9.53674e-07, 56.4109)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ship:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.785398, 0), Vector3(0, 2.52204, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MenuButtons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CamaraPivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-7, 5, -1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nas4g"]
 _data = {
 "RESET": SubResource("Animation_fnid5"),
@@ -536,51 +663,18 @@ transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, 4.7, 9.5, 12.5)
 [node name="SpeedTimer" type="Timer" parent="Ship"]
 wait_time = 5.0
 
-[node name="IslandTower" type="StaticBody3D" parent="."]
-transform = Transform3D(-0.244986, 0, -0.173152, 0, 0.3, 0, 0.173152, 0, -0.244986, 14.5271, 1.85375, 6.29813)
-collision_layer = 4
+[node name="IslandTower" parent="." instance=ExtResource("3_eugjx")]
+transform = Transform3D(-0.242705, 0, -0.176336, 0, 0.3, 0, 0.176336, 0, -0.242705, 15.5, 1.854, 6.298)
+script = SubResource("GDScript_gtcow")
 
-[node name="Tower" type="MeshInstance3D" parent="IslandTower"]
-mesh = ExtResource("6_3xfct")
+[node name="palm_detailed_short2" parent="IslandTower" instance=ExtResource("15_aorlm")]
+transform = Transform3D(-2.69672, 0, 1.95928, 0, 3.33333, 0, -1.95928, 0, -2.69672, -7.66317, 1.32789, -9.60853)
 
-[node name="FormationRock" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.1204)
-mesh = ExtResource("7_iqioo")
+[node name="Bonfire" type="Node3D" parent="IslandTower"]
 
-[node name="FormationRock4" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -4.83376, -1.45397, -8.39432)
-mesh = ExtResource("7_iqioo")
-
-[node name="FormationRock5" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 13.6189, 0.483862, -15.7791)
-mesh = ExtResource("7_iqioo")
-
-[node name="FormationRock2" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18193, -2.1257, 9.83275)
-mesh = ExtResource("7_iqioo")
-
-[node name="FormationRock3" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57109, -1.16406, 6.15386)
-mesh = ExtResource("7_iqioo")
-
-[node name="FormationLargeStone2" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(1.29352, 0, 0.12968, 0, 1.3, 0, -0.12968, 0, 1.29352, -12.7735, 1.50032, -3.02478)
-mesh = ExtResource("8_k7ck0")
-
-[node name="CropsDirtRowEnd" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
-mesh = ExtResource("9_jd3w0")
-
-[node name="RockLargeE" type="MeshInstance3D" parent="IslandTower"]
-transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -5.6196, -15.9147, 4.19173)
-mesh = ExtResource("10_bcr8h")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="IslandTower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61321, 6.48689, 1.10928)
-shape = SubResource("BoxShape3D_1iror")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower"]
-transform = Transform3D(2, 0, 5.96047e-08, 0, 2, 0, -5.96047e-08, 0, 2, -14.7016, 1.10688, 18.6809)
+[node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower/Bonfire"]
+transform = Transform3D(1.99983, 0, -0.0261081, 0, 2, 0, 0.0261081, 0, 1.99983, -15.017, 1.10605, 18.4339)
+visible = false
 amount = 300
 lifetime = 10.0
 preprocess = 0.47
@@ -590,8 +684,38 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ohyfd")
 draw_pass_1 = SubResource("QuadMesh_millx")
 
-[node name="palm_detailed_short2" parent="IslandTower" instance=ExtResource("15_aorlm")]
-transform = Transform3D(-2.72207, 0, 1.92391, 0, 3.33333, 0, -1.92391, 0, -2.72207, 7.93123, 1.32872, 8.96316)
+[node name="log2" parent="IslandTower/Bonfire" instance=ExtResource("6_o8b7m")]
+transform = Transform3D(-0.16998, 0, 3.329, 0, 3.33334, 0, -3.329, 0, -0.16998, -17.4421, 1.75211, 14.4469)
+
+[node name="cannonMobile" parent="IslandTower" instance=ExtResource("7_e02lj")]
+transform = Transform3D(4.9729, 0, 0.519864, 0, 5, 0, -0.519864, 0, 4.9729, -20.7317, -0.309885, 19.3693)
+
+[node name="cannonMobile_8angles" parent="IslandTower/cannonMobile" index="0"]
+transform = Transform3D(-0.352968, 0, -0.935634, 0, 0.999999, 0, 0.935634, 0, -0.352968, 2.51413, 0.318654, 0.918654)
+
+[node name="cannonBall" parent="IslandTower/cannonMobile" instance=ExtResource("8_yax0s")]
+transform = Transform3D(-0.520219, 0, -0.854032, 0, 0.999999, 0, 0.854032, 0, -0.520219, 3.74232, 0.473056, 1.29217)
+
+[node name="cannonBall" parent="IslandTower/cannonMobile/cannonBall" index="0"]
+transform = Transform3D(0.196537, 0, 0.037058, 0, 0.2, 0, -0.037058, 0, 0.196537, 0.286792, 0.295446, 1.03387)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IslandTower/cannonMobile"]
+libraries = {
+"": SubResource("AnimationLibrary_ce0ok")
+}
+
+[node name="Timer" type="Timer" parent="IslandTower/cannonMobile"]
+wait_time = 10.0
+autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower/cannonMobile"]
+transform = Transform3D(0.709818, -1.11404, -0.710684, 1.11404, 0.0706336, 1.00196, -0.710684, -1.00196, 0.860816, 2.92398, 0.769719, 1.10308)
+emitting = false
+amount = 1
+preprocess = 0.47
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ohyfd")
+draw_pass_1 = SubResource("QuadMesh_millx")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -768,18 +892,19 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/Credits/VBoxContainer/PanelContainer"]
 layout_mode = 2
-text = "<<Nombre Juego>>
+text = "
+Pirate Drop
 
 Desarrollo
-
-Ariel Plomer
-Pablo Lagger
+Ariel Plomer y Pablo Lagger
 
 Arte
 Kenny
 
 Música
-xxxxxxxxxx"
+xxxxxxxxxx
+
+"
 horizontal_alignment = 1
 
 [node name="NinePatchRect4" type="NinePatchRect" parent="UI/Credits/VBoxContainer"]
@@ -822,9 +947,27 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Options"]
 layout_mode = 2
 
+[node name="PanelContainer" type="PanelContainer" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+text = "Volumen general"
+
+[node name="HSlider" type="HSlider" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+text = "Volumen efectos"
+
+[node name="HSlider2" type="HSlider" parent="UI/Options/VBoxContainer"]
+layout_mode = 2
+
 [node name="NinePatchRect4" type="NinePatchRect" parent="UI/Options/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("9_qoi14")
+region_rect = Rect2(0.0490417, 0, 95.951, 48.4702)
 patch_margin_left = 10
 patch_margin_top = 48
 patch_margin_right = 10
@@ -847,7 +990,7 @@ text = "Volver"
 [node name="CamaraPivot" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CamaraPivot"]
-transform = Transform3D(-0.999994, 0.0010206, -0.00333824, 0, 0.956305, 0.292372, 0.00349077, 0.29237, -0.956299, 4.432, 8.987, -9.581)
+transform = Transform3D(-0.999994, 0.00102062, -0.0033383, 0, 0.956305, 0.292372, 0.00349083, 0.29237, -0.956299, 4.432, 8.987, -9.581)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -855,9 +998,13 @@ libraries = {
 }
 
 [connection signal="timeout" from="Ship/SpeedTimer" to="Ship" method="_on_speed_timer_timeout"]
+[connection signal="timeout" from="IslandTower/cannonMobile/Timer" to="IslandTower" method="_on_timer_timeout"]
 [connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect3/Play" to="UI" method="_on_play_pressed"]
 [connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect5/Options" to="UI" method="_on_options_pressed"]
 [connection signal="pressed" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect6/Credits" to="UI" method="_on_credits_pressed"]
 [connection signal="button_down" from="UI/MenuButtons/VBoxContainer3/VBoxContainer/NinePatchRect4/exit" to="UI" method="_on_exit_button_down"]
 [connection signal="button_down" from="UI/Credits/VBoxContainer/NinePatchRect4/back_credits" to="UI" method="_on_back_credits_button_down"]
 [connection signal="pressed" from="UI/Options/VBoxContainer/NinePatchRect4/back_options" to="UI" method="_on_back_options_pressed"]
+
+[editable path="IslandTower/cannonMobile"]
+[editable path="IslandTower/cannonMobile/cannonBall"]

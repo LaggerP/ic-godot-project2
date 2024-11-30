@@ -98,9 +98,11 @@ mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ScoreUI" parent="UI" instance=ExtResource("8_4tnus")]
 unique_name_in_owner = true
+visible = false
 
 [node name="WinGameUI" parent="UI" instance=ExtResource("8_u2x3v")]
 visible = false

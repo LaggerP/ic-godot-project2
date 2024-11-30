@@ -4,11 +4,11 @@ extends CanvasLayer
 
 func _ready() -> void:
 	add_to_group("ui_events")
-	$".".hide()
+	hide()
 
 func show_win_level_ui():
 	win_text.text = "Terminaste el nivel " + str(GameManager.actual_level-1)
-	$".".show()
+	show()
 	
 
 func _on_next_level_button_down() -> void:
@@ -16,8 +16,10 @@ func _on_next_level_button_down() -> void:
 	get_tree().call_group("ui_events", "reset_timer")
 	get_tree().call_group("ship_events", "activate_ship_movement")
 	GameManager.start_level(GameManager.get_actual_level())
-	$".".hide()
+	hide()
 
 
 func _on_exit_button_down() -> void:
-	get_tree().quit() 
+	hide()
+	GameManager.reset_game()
+	GameManager.start_level("menu")

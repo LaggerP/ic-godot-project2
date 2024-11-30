@@ -72,14 +72,15 @@ func reset_level():
 	get_tree().call_group("ship_events", "block_ship_movement")
 	get_tree().call_group("ui_events", "show_lose_level_ui")
 
-## Llamar a este método desde el colission del muelle para cambiar de nivel y spawnear a todos los nuevos drops
+## Llamar a este método desde el colission del muelle para cambiar de nivel
 func next_level():
+	get_tree().call_group("ui_events", "hide_score_ui")
 	if not timeout:
 		timeout = false
 		print_debug("Pasamos del nivel: ", actual_level, " al ", actual_level + 1)
 		actual_level += 1
 		drop_count = 0
-		if levels_dict.size() < actual_level: 
+		if levels_dict.size()-1 < actual_level: 
 			get_tree().call_group("ship_events", "block_ship_movement")
 			get_tree().call_group("ui_events", "show_win_game_ui")
 			get_tree().call_group("ui_events", "stop_timer")
@@ -98,3 +99,8 @@ func is_level_finished() -> bool:
 	
 func get_actual_level() -> String:
 	return "level_"+str(actual_level)
+	
+func reset_game():
+	actual_level = 1
+	drop_count = 0
+	is_on_menu = true

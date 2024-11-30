@@ -10,7 +10,7 @@ var drops_to_get = 0
 
 func _ready() -> void:
 	add_to_group("ui_events")
-	hide_score_ui()
+	hide()
 	
 func _process(_delta: float) -> void:
 	seconds_label.text = time_left_to_lose()
