@@ -16,6 +16,7 @@ script/source = "extends RigidBody3D
 @export var float_force := 1.0
 @export var water_drag := 0.05
 @export var water_angular_drag := 0.05
+@export var slowing_speed = 5
 
 @onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
 @onready var water = get_node('/root/Main/Water')
@@ -83,6 +84,12 @@ func block_ship_movement():
 
 func activate_ship_movement():
 	can_move = true
+
+func speed_slowed():
+	move_speed = default_move_speed - slowing_speed
+	
+func speed_resume():
+	move_speed = default_move_speed
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]
