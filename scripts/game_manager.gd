@@ -2,8 +2,9 @@ extends Node
 
 var levels_dict: Dictionary =  {
 	"menu": preload("res://scenes/ui/main_menu.tscn"),
-	"level_1": preload("res://scenes/levels/level_1.tscn"),
-	"level_2": preload("res://scenes/levels/level_2.tscn")
+	"level_1": preload("res://scenes/levels/level_3.tscn"),
+	"level_2": preload("res://scenes/levels/level_2.tscn"),
+	"level_3": preload("res://scenes/levels/level_1.tscn")
 }
 var actual_level = 1
 var drop_count: float
@@ -61,7 +62,6 @@ func won_level():
 	get_tree().call_group("ui_events", "show_score_win_ui")
 	
 func lose_level():
-	print_debug("Activando flag timeout")
 	timeout = true
 	get_tree().call_group("ui_events", "show_score_lose_ui")
 	

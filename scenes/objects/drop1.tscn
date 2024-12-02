@@ -19,7 +19,7 @@ gravity = Vector3(0, 0, 0)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdkls"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyx8j"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
@@ -31,7 +31,7 @@ particles_anim_v_frames = 8
 particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_tafee"]
-material = SubResource("StandardMaterial3D_gdkls")
+material = SubResource("StandardMaterial3D_fyx8j")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dm0pb"]
 size = Vector3(1.82135, 1, 1.71289)
