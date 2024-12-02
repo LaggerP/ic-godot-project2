@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://bshw8146d3nqe"]
+
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="1_yuovo"]
+
+[sub_resource type="Gradient" id="Gradient_hn3c6"]
+colors = PackedColorArray(1, 1, 0.588235, 1, 0.861102, 0.134097, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dpd0b"]
+gradient = SubResource("Gradient_hn3c6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdvka"]
+emission_shape_scale = Vector3(0.4, 0.4, 0.4)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 703.4
+direction = Vector3(0, 1, 0)
+spread = 14.012
+flatness = 0.25
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 1, 0)
+color_ramp = SubResource("GradientTexture1D_dpd0b")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdkls"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_yuovo")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_50bqx"]
+material = SubResource("StandardMaterial3D_gdkls")
+
+[node name="Fireplace" type="GPUParticles3D"]
+amount = 60
+lifetime = 2.0
+preprocess = 0.47
+speed_scale = 2.0
+randomness = 0.32
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_qdvka")
+draw_pass_1 = SubResource("QuadMesh_50bqx")

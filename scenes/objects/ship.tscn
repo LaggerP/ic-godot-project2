@@ -16,7 +16,7 @@ script/source = "extends RigidBody3D
 @export var float_force := 1.0
 @export var water_drag := 0.05
 @export var water_angular_drag := 0.05
-@export var slowing_speed = 5
+@export var slowing_speed = 1.5
 
 @onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
 @onready var water = get_node('/root/Main/Water')
@@ -26,6 +26,7 @@ script/source = "extends RigidBody3D
 var submerged = false
 var can_move = true
 var default_move_speed: float
+var touching_seagrass = 0
 
 func _ready() -> void:
 	default_move_speed = move_speed
@@ -54,7 +55,10 @@ func movement(delta):
 		rotation_degrees.y -= rotation_speed  # Rotar derecha
 
    # Normalizar y aplicar la velocidad
-	direction = direction.normalized() * move_speed
+	if touching_seagrass>0:
+		direction = direction.normalized() * (move_speed/slowing_speed)
+	else:
+		direction = direction.normalized() * move_speed
 	# Mantener la velocidad vertical para que la gravedad funcione
 	direction.y = linear_velocity.y
 	# Establecer la velocidad lineal del RigidBody
@@ -86,10 +90,10 @@ func activate_ship_movement():
 	can_move = true
 
 func speed_slowed():
-	move_speed = default_move_speed - slowing_speed
+	touching_seagrass+=1
 	
 func speed_resume():
-	move_speed = default_move_speed
+	touching_seagrass -=1
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]
