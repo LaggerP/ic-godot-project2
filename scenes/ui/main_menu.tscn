@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://ndrgjju4bhhn"]
+[gd_scene load_steps=29 format=3 uid="uid://ndrgjju4bhhn"]
 
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="3_eugjx"]
 [ext_resource type="PackedScene" uid="uid://bemwb8d2yftt0" path="res://assets/Pirate Kit/Models/FBX format/ship_dark.fbx" id="4_kl31r"]
 [ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="5_wdjut"]
 [ext_resource type="PackedScene" uid="uid://dypfi6y4em6ha" path="res://assets/Nature Kit/Models/GLTF format/log.glb" id="6_o8b7m"]
 [ext_resource type="Texture2D" uid="uid://k5gpswkpvl1" path="res://assets/UI Pack - Adventure/PNG/Double/banner_classic_curtain.png" id="7_3ueu1"]
+[ext_resource type="PackedScene" uid="uid://bshw8146d3nqe" path="res://scenes/objects/furniture/fireplace.tscn" id="7_76hin"]
 [ext_resource type="PackedScene" uid="uid://3q5e22l2uu6h" path="res://assets/Pirate Kit/Models/glTF format/cannonMobile.gltf" id="7_e02lj"]
 [ext_resource type="Texture2D" uid="uid://bkv5p4x0oggxc" path="res://assets/UI Pack - Adventure/PNG/Double/button_brown.png" id="8_wkvge"]
 [ext_resource type="PackedScene" uid="uid://dipdumt48p6p6" path="res://assets/Pirate Kit/Models/FBX format/cannonBall.fbx" id="8_yax0s"]
@@ -108,13 +109,14 @@ func _on_timer_timeout() -> void:
 "
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohyfd"]
-direction = Vector3(0, 1, 0)
-spread = 5.0
-initial_velocity_min = -0.79
-initial_velocity_max = -0.79
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
 radial_velocity_min = 0.199978
 radial_velocity_max = 0.199978
-gravity = Vector3(11, 1, 6)
+gravity = Vector3(0, 1, 0)
+damping_max = 1.0
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
@@ -131,57 +133,6 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_millx"]
 material = SubResource("StandardMaterial3D_gdkls")
-
-[sub_resource type="Animation" id="Animation_8xti0"]
-resource_name = "fire"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("cannonBall/cannonBall:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.286792, 0.295446, 1.03387), Vector3(0.652, 0.634, -14.695)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("cannonBall:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("cannonMobile_8angles:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(2.28022, 0.318654, 0.84431), Vector3(2.51413, 0.318654, 0.918654)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GPUParticles3D:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.0666667, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_4t1cp"]
 length = 0.001
@@ -232,6 +183,57 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8xti0"]
+resource_name = "fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannonBall/cannonBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.286792, 0.295446, 1.03387), Vector3(0.652, 0.634, -14.695)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannonBall:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannonMobile_8angles:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.28022, 0.318654, 0.84431), Vector3(2.51413, 0.318654, 0.918654)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ce0ok"]
@@ -687,6 +689,9 @@ draw_pass_1 = SubResource("QuadMesh_millx")
 [node name="log2" parent="IslandTower/Bonfire" instance=ExtResource("6_o8b7m")]
 transform = Transform3D(-0.16998, 0, 3.329, 0, 3.33334, 0, -3.329, 0, -0.16998, -17.4421, 1.75211, 14.4469)
 
+[node name="Fireplace" parent="IslandTower/Bonfire/log2" instance=ExtResource("7_76hin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232272, 0)
+
 [node name="cannonMobile" parent="IslandTower" instance=ExtResource("7_e02lj")]
 transform = Transform3D(4.9729, 0, 0.519864, 0, 5, 0, -0.519864, 0, 4.9729, -20.7317, -0.309885, 19.3693)
 
@@ -697,7 +702,7 @@ transform = Transform3D(-0.352968, 0, -0.935634, 0, 0.999999, 0, 0.935634, 0, -0
 transform = Transform3D(-0.520219, 0, -0.854032, 0, 0.999999, 0, 0.854032, 0, -0.520219, 3.74232, 0.473056, 1.29217)
 
 [node name="cannonBall" parent="IslandTower/cannonMobile/cannonBall" index="0"]
-transform = Transform3D(0.196537, 0, 0.037058, 0, 0.2, 0, -0.037058, 0, 0.196537, 0.286792, 0.295446, 1.03387)
+transform = Transform3D(0.196537, 0, 0.037058, 0, 0.2, 0, -0.037058, 0, 0.196537, 0.652, 0.634, -14.695)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="IslandTower/cannonMobile"]
 libraries = {
@@ -709,9 +714,10 @@ wait_time = 10.0
 autostart = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="IslandTower/cannonMobile"]
-transform = Transform3D(0.709818, -1.11404, -0.710684, 1.11404, 0.0706336, 1.00196, -0.710684, -1.00196, 0.860816, 2.92398, 0.769719, 1.10308)
+transform = Transform3D(0.709818, -1.11404, -0.710684, 1.11404, 0.0706336, 1.00196, -0.710684, -1.00196, 0.860816, 3.07336, 0.769719, 1.23743)
 emitting = false
 amount = 1
+lifetime = 2.0
 preprocess = 0.47
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ohyfd")
