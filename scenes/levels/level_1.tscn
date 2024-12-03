@@ -1,24 +1,138 @@
-[gd_scene load_steps=11 format=3 uid="uid://mxu7nhgnw6bi"]
+[gd_scene load_steps=31 format=3 uid="uid://mxu7nhgnw6bi"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_kjqqe"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_if8sa"]
-[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="3_ccj37"]
+[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_xfef3"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_ccj37"]
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="3_vs0vx"]
 [ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="4_elwv1"]
+[ext_resource type="Script" path="res://Water.gd" id="4_qed5n"]
+[ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="5_otek4"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="5_p2xdp"]
+[ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="6_dsbui"]
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="6_tfsgw"]
+[ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="7_hljqg"]
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="7_rqppf"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="8_4i8fo"]
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="8_fhgxj"]
 [ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="9_8lgnn"]
+[ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_00nsq"]
 [ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="10_kkagu"]
+[ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="19_8xwjh"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ruobv"]
+panorama = ExtResource("2_xfef3")
+
+[sub_resource type="Sky" id="Sky_r52ab"]
+sky_material = SubResource("PanoramaSkyMaterial_ruobv")
+
+[sub_resource type="Environment" id="Environment_e8l2g"]
+background_mode = 2
+sky = SubResource("Sky_r52ab")
+tonemap_mode = 2
+tonemap_exposure = 0.5
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lmsat"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5hgtg"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_lmsat")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e16te"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c1srf"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_e16te")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wfu6w"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhe0o"]
+seamless = true
+noise = SubResource("FastNoiseLite_wfu6w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxt3k"]
+render_priority = 0
+shader = ExtResource("3_vs0vx")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 2.0
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0, 0.266667, 0.533333, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_5hgtg")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_c1srf")
+shader_parameter/wave = SubResource("NoiseTexture2D_yhe0o")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8kca8"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = SubResource("ShaderMaterial_sxt3k")
+size = Vector2(1000, 1000)
+subdivide_width = 1
+subdivide_depth = 1
 
 [node name="Lvl1" type="Node3D"]
 script = ExtResource("1_kjqqe")
 level_time = 20.0
 total_drops_required = 1.0
+level = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e8l2g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.940098, 0.085929, -0.329898, -0.23722, -0.859886, 0.452021, -0.244833, 0.503202, 0.828761, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Water" type="MeshInstance3D" parent="."]
+sorting_offset = -99.0
+mesh = SubResource("PlaneMesh_8kca8")
+script = ExtResource("4_qed5n")
 
 [node name="Ship" parent="." instance=ExtResource("2_if8sa")]
 transform = Transform3D(-0.49999, 3.49113e-05, 0.00318502, 2.1684e-19, 0.49997, -0.00548022, -0.00318521, -0.00548011, -0.49996, 1.541, 0.0621126, 38.0182)
 move_speed = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreUI" parent="UI" instance=ExtResource("5_otek4")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinGameUI" parent="UI" instance=ExtResource("6_dsbui")]
+visible = false
+
+[node name="WinLevelUI" parent="UI" instance=ExtResource("7_hljqg")]
+visible = false
+
+[node name="LooseLevelUI" parent="UI" instance=ExtResource("8_4i8fo")]
+visible = false
+
+[node name="PauseUI" parent="UI" instance=ExtResource("10_00nsq")]
 
 [node name="Dock" parent="." instance=ExtResource("3_ccj37")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
@@ -71,3 +185,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7429, 0, 50.0808)
 
 [node name="Powerup_time" parent="powerups" instance=ExtResource("10_kkagu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.66958, 0, 70.7189)
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_8xwjh")
+autoplay = true
+bus = &"music"
+
+[editable path="drops/Drop1"]

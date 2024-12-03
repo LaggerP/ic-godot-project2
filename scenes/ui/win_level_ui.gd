@@ -22,4 +22,4 @@ func _on_next_level_button_down() -> void:
 func _on_exit_button_down() -> void:
 	hide()
 	GameManager.reset_game()
-	GameManager.start_level("menu")
+	GameManager.start_level(0)

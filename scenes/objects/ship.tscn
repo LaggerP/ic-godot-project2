@@ -1,107 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsa4mxdiai4cn"]
 
+[ext_resource type="Script" path="res://scenes/objects/ship.gd" id="1_7xjbh"]
 [ext_resource type="PackedScene" uid="uid://bemwb8d2yftt0" path="res://assets/Pirate Kit/Models/FBX format/ship_dark.fbx" id="1_wh5jo"]
 [ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="2_mfn3u"]
-
-[sub_resource type="GDScript" id="GDScript_wu0ga"]
-script/source = "extends RigidBody3D
-
-# Velocidad de movimiento
-@export var move_speed: float = 5.0
-# Velocidad de rotación de la cámara
-@export var rotation_speed: float = .9
-# Sensibilidad de la camara, mientras mas alto, mas rápido rota
-@export var camara_sensibility: float = 3
-
-@export var float_force := 1.0
-@export var water_drag := 0.05
-@export var water_angular_drag := 0.05
-@export var slowing_speed = 1.5
-
-@onready var gravity: float = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
-@onready var water = get_node('/root/Main/Water')
-@onready var probes = $ProbeContainer.get_children()
-@onready var speed_timer: Timer = $SpeedTimer
-
-var submerged = false
-var can_move = true
-var default_move_speed: float
-var touching_seagrass = 0
-
-func _ready() -> void:
-	default_move_speed = move_speed
-	add_to_group(\"ship_events\")
-
-func _physics_process(delta):
-	submerged = false
-	for p in probes:
-		var depth = water.get_height(p.global_position) - p.global_position.y 
-		if depth > 0:
-			submerged = true
-			apply_force(Vector3.UP * float_force * gravity * depth, p.global_position - global_position)
-	
-	if can_move:
-		movement(delta)
-
-func movement(delta):
-	# Manejar el movimiento usando las teclas de flecha
-	var direction: Vector3 = Vector3.ZERO
-
-	if Input.is_action_pressed(\"foward\"):
-		direction += -transform.basis.z  # Ir adelante
-	if Input.is_action_pressed(\"left\"): 
-		rotation_degrees.y += rotation_speed  # Rotar izquierda
-	if Input.is_action_pressed(\"right\"):
-		rotation_degrees.y -= rotation_speed  # Rotar derecha
-
-   # Normalizar y aplicar la velocidad
-	if touching_seagrass>0:
-		direction = direction.normalized() * (move_speed/slowing_speed)
-	else:
-		direction = direction.normalized() * move_speed
-	# Mantener la velocidad vertical para que la gravedad funcione
-	direction.y = linear_velocity.y
-	# Establecer la velocidad lineal del RigidBody
-	linear_velocity = direction
-	
-	# Movimiento de cámara, solamente para joystick
-	if Input.is_action_pressed(\"camara_left\") || Input.is_action_pressed(\"camara_right\"):
-		var joystick_index = 0
-		var right_stick_x = Input.get_joy_axis(joystick_index, JOY_AXIS_RIGHT_X)
-		$CamaraPivot.rotate_y(-right_stick_x * camara_sensibility * delta)
-
-func _integrate_forces(state: PhysicsDirectBodyState3D):
-	if submerged:
-		state.linear_velocity *=  1 - water_drag
-		state.angular_velocity *= 1 - water_angular_drag 
-
-func increment_speed():
-	speed_timer.start()
-	move_speed += 10
-	
-func _on_speed_timer_timeout() -> void:
-	speed_timer.stop()
-	move_speed = default_move_speed
-	
-func block_ship_movement():
-	can_move = false
-
-func activate_ship_movement():
-	can_move = true
-
-func speed_slowed():
-	touching_seagrass+=1
-	
-func speed_resume():
-	touching_seagrass -=1
-"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]
 size = Vector3(4.63831, 6.16199, 16.0391)
 
 [node name="Ship" type="RigidBody3D" groups=["Player"]]
 collision_mask = 4
-script = SubResource("GDScript_wu0ga")
+script = ExtResource("1_7xjbh")
 move_speed = 2.0
 float_force = 0.1
 

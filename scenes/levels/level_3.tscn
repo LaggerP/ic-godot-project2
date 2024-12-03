@@ -1,13 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://cb6pyvwh2shmq"]
+[gd_scene load_steps=35 format=3 uid="uid://cb6pyvwh2shmq"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_e5xub"]
+[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_2c3wa"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_eq6j8"]
-[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/Dock1.tscn" id="3_3dijx"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_3dijx"]
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="4_1noiv"]
 [ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="4_ba2xx"]
+[ext_resource type="Script" path="res://Water.gd" id="5_4y8y7"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="5_6uwak"]
+[ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="6_rgsyk"]
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="6_vwv7w"]
 [ext_resource type="ArrayMesh" uid="uid://bq6odjbnwn6t0" path="res://assets/Pirate Kit/Models/OBJ format/tower.obj" id="7_qlcn5"]
+[ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="7_ynasc"]
 [ext_resource type="ArrayMesh" uid="uid://dkoipg1asfxfl" path="res://assets/Pirate Kit/Models/OBJ format/formation_rock.obj" id="8_8be3r"]
+[ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="8_hmp40"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="9_l03k5"]
 [ext_resource type="ArrayMesh" uid="uid://cgwk1de5ck6qo" path="res://assets/Pirate Kit/Models/OBJ format/formationLarge_stone.obj" id="9_qoxjo"]
 [ext_resource type="ArrayMesh" uid="uid://bua25myg1oql1" path="res://assets/Nature Kit/Models/OBJ format/crops_dirtRowEnd.obj" id="10_r6347"]
 [ext_resource type="ArrayMesh" uid="uid://cv8xob0ipeuya" path="res://assets/Nature Kit/Models/OBJ format/rock_largeE.obj" id="11_6eolh"]
@@ -16,6 +23,81 @@
 [ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="14_hlf8y"]
 [ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="15_7gpar"]
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_j8xwp"]
+panorama = ExtResource("2_2c3wa")
+
+[sub_resource type="Sky" id="Sky_mjahh"]
+sky_material = SubResource("PanoramaSkyMaterial_j8xwp")
+
+[sub_resource type="Environment" id="Environment_mtvua"]
+background_mode = 2
+sky = SubResource("Sky_mjahh")
+tonemap_mode = 2
+tonemap_exposure = 0.5
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bsvr8"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_453eh"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_bsvr8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_koa6c"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_skrvi"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_koa6c")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nhqyw"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0qkhn"]
+seamless = true
+noise = SubResource("FastNoiseLite_nhqyw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dtgbd"]
+render_priority = 0
+shader = ExtResource("4_1noiv")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 2.0
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0, 0.266667, 0.533333, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_453eh")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_skrvi")
+shader_parameter/wave = SubResource("NoiseTexture2D_0qkhn")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6yd2i"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = SubResource("ShaderMaterial_dtgbd")
+size = Vector2(1000, 1000)
+subdivide_width = 1
+subdivide_depth = 1
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1iror"]
 size = Vector3(57.3376, 36.9918, 53.2618)
 
@@ -23,10 +105,38 @@ size = Vector3(57.3376, 36.9918, 53.2618)
 script = ExtResource("1_e5xub")
 level_time = 45.0
 total_drops_required = 6.0
+level = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mtvua")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.940098, 0.085929, -0.329898, -0.23722, -0.859886, 0.452021, -0.244833, 0.503202, 0.828761, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Ship" parent="." instance=ExtResource("2_eq6j8")]
 transform = Transform3D(-0.49999, 3.49113e-05, 0.00318502, 2.1684e-19, 0.49997, -0.00548022, -0.00318521, -0.00548011, -0.49996, 1.541, 0.0621126, 38.0182)
 move_speed = 10.0
+
+[node name="Water" type="MeshInstance3D" parent="."]
+sorting_offset = -99.0
+mesh = SubResource("PlaneMesh_6yd2i")
+script = ExtResource("5_4y8y7")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreUI" parent="UI" instance=ExtResource("6_rgsyk")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinGameUI" parent="UI" instance=ExtResource("7_ynasc")]
+visible = false
+
+[node name="WinLevelUI" parent="UI" instance=ExtResource("8_hmp40")]
+visible = false
+
+[node name="LooseLevelUI" parent="UI" instance=ExtResource("9_l03k5")]
+visible = false
 
 [node name="Dock" parent="." instance=ExtResource("3_3dijx")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)

@@ -22,7 +22,7 @@ func time_left_to_lose() -> String:
 	return "%02d:%02d" % [time_minutes, time_seconds]
 
 func update_score():
-	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
+	score_label.text = str(GameManager.drop_count) + "/" + str(GameManager.drops_to_get())
 	if GameManager.is_level_finished():
 		GameManager.won_level()
 
@@ -39,11 +39,10 @@ func show_score_lose_ui():
 	animation_player.play("lose_level")
 
 func reset_score_ui():
-	score_label.text = str(GameManager.drop_count) + "/" + str(drops_to_get)
+	score_label.text = str(GameManager.drop_count) + "/" + str(GameManager.drops_to_get())
 
-func reset_drops(_drops):
-	drops_to_get = _drops
-	score_label.text = "0/" + str(drops_to_get)
+func reset_drops():
+	score_label.text = "0/" + str(GameManager.drops_to_get())
 
 func _on_timer_timeout() -> void:
 	GameManager.lose_level()
