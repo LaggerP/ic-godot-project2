@@ -1,5 +1,4 @@
 [gd_scene load_steps=31 format=3 uid="uid://mxu7nhgnw6bi"]
-
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_kjqqe"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_if8sa"]
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_xfef3"]
@@ -136,9 +135,6 @@ visible = false
 
 [node name="Dock" parent="." instance=ExtResource("3_ccj37")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
-
-[node name="Logs" parent="." instance=ExtResource("4_elwv1")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 8.21056, 3.35287, 109.622)
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("5_p2xdp")
