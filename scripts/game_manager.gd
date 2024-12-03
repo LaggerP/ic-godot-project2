@@ -1,48 +1,43 @@
 extends Node
 
 var levels_dict: Dictionary =  {
-	"menu": preload("res://scenes/ui/main_menu.tscn"),
 	"level_1": preload("res://scenes/levels/level_1.tscn"),
 	"level_2": preload("res://scenes/levels/level_2.tscn"),
 	"level_3": preload("res://scenes/levels/level_3.tscn")
 }
-var actual_level = 1
+var actual_level
 var drop_count: float
 var timeout: bool
-var is_on_menu: bool = true
+var is_on_menu: bool = false
+var is_paused: bool = false
 
-@onready var current_scene: Node = get_tree().current_scene
-@onready var main_scene = get_tree().root.get_node("Main")
+@onready var current_level: Node = get_tree().current_scene
 
 func _ready() -> void:
 	add_to_group("game_manager")
-	start_level("menu")
-
-func start_level(level_name: String):
-	if not is_on_menu: get_tree().call_group("ui_events", "show_score_ui")
-	if levels_dict.has(level_name):
-		var scene = levels_dict[level_name]
-		if scene is PackedScene:  # Nos aseguramos que el nivel sea realmente un PackedScene, sin esto romperia el juego
-			var level_container = main_scene.get_node("LevelContainer")
-			
-			 # Eliminar los niveles actuales dentro del LevelContainer si ya existen
-			for child in level_container.get_children():
-				child.queue_free()  # Eliminar todos los niveles actuales
-			
-			var new_level = scene.instantiate()
-			level_container.add_child(new_level)
-		else:
-			print("El valor no es una PackedScene válida: ", level_name)
+	if current_level.get_name() == "Menu":
+		start_level(0)
 	else:
-		print("No hay un nivel válido")
-		get_tree().call_group("ship_events", "block_ship_movement")
-		get_tree().call_group("ui_events", "show_win_game_ui")
-		get_tree().call_group("ui_events", "stop_timer")
+		var level = current_level as Level
+		actual_level = level.get_level()
+		start_level(actual_level)
+
+func start_level(selected_level = 0):
+	if selected_level > 0:
+		var scene = levels_dict["level_"+str(selected_level)]
+		if scene is PackedScene:  # Nos aseguramos que el nivel sea realmente un PackedScene, sin esto romperia el juego
+			var new_level = scene.instantiate()
+			actual_level = new_level.get_level()
+			current_level = new_level
+			get_tree().change_scene_to_packed(scene)
+	else:
+		get_tree().change_scene_to_packed(preload("res://scenes/levels/main_menu.tscn"))
+		is_on_menu = true
+		actual_level = 0
 	
 func obtain_drop(drop: Node3D):
 	drop_count += 1
 	get_tree().call_group("ui_events", "update_score")
-	get_tree().call_group("spawner_events", "update_drops_size", drop)
 
 func obtain_power_up(type):
 	match type:
@@ -72,6 +67,16 @@ func reset_level():
 	get_tree().call_group("ship_events", "block_ship_movement")
 	get_tree().call_group("ui_events", "show_lose_level_ui")
 
+func pause_menu():
+	if is_paused:
+		is_paused = false
+		get_tree().call_group("ship_events", "block_ship_movement")
+		get_tree().call_group("ui_events", "show_pause_ui")
+	else:
+		is_paused = true
+		get_tree().call_group("ship_events", "activate_ship_movement")
+		get_tree().call_group("ui_events", "hide_pause_ui")
+
 ## Llamar a este método desde el colission del muelle para cambiar de nivel
 func next_level():
 	get_tree().call_group("ui_events", "hide_score_ui")
@@ -80,7 +85,7 @@ func next_level():
 		print_debug("Pasamos del nivel: ", actual_level, " al ", actual_level + 1)
 		actual_level += 1
 		drop_count = 0
-		if levels_dict.size()-1 < actual_level: 
+		if levels_dict.size() < actual_level: 
 			get_tree().call_group("ship_events", "block_ship_movement")
 			get_tree().call_group("ui_events", "show_win_game_ui")
 			get_tree().call_group("ui_events", "stop_timer")
@@ -91,14 +96,14 @@ func next_level():
 		get_tree().call_group("ui_events", "stop_timer")
 
 func is_level_finished() -> bool:
-	# Estas lineas de codigo evitan que el juego crashee si level_dictonary no posee mas items
-	var level = levels_dict[get_actual_level()] as PackedScene
-	if level == null: true
-	var level_instance = level.instantiate() as Level
-	return drop_count >= level_instance.get_total_drops_required()
+	return drop_count >= drops_to_get()
 	
-func get_actual_level() -> String:
-	return "level_"+str(actual_level)
+func get_actual_level() -> int:
+	return actual_level
+	
+func drops_to_get() -> int:
+	var level = current_level as Level
+	return level.get_total_drops_required()
 	
 func reset_game():
 	actual_level = 1
