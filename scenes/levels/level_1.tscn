@@ -1,10 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://mxu7nhgnw6bi"]
+[gd_scene load_steps=30 format=3 uid="uid://mxu7nhgnw6bi"]
+
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_kjqqe"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_if8sa"]
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_xfef3"]
 [ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_ccj37"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="3_vs0vx"]
-[ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="4_elwv1"]
 [ext_resource type="Script" path="res://Water.gd" id="4_qed5n"]
 [ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="5_otek4"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="5_p2xdp"]
@@ -184,6 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.66958, 0, 70.7189)
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_8xwjh")
+volume_db = -13.0
 autoplay = true
 bus = &"music"
 
