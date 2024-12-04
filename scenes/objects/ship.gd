@@ -18,10 +18,11 @@ extends RigidBody3D
 @onready var probes = $ProbeContainer.get_children()
 @onready var speed_timer: Timer = $SpeedTimer
 
-var submerged = false
-var can_move = true
+var submerged: bool = false
+var can_move: bool = true
+var is_colliding: bool = false
 var default_move_speed: float
-var touching_seagrass = 0
+var touching_seagrass: float = 0
 
 func _ready() -> void:
 	default_move_speed = move_speed
@@ -46,8 +47,10 @@ func movement(delta):
 	# Manejar el movimiento usando las teclas de flecha
 	var direction: Vector3 = Vector3.ZERO
 
-	if Input.is_action_pressed("foward"):
-		direction += -transform.basis.z  # Ir adelante
+	# si choco con la isla no deberia ir para adelante
+	if !is_colliding:
+		if Input.is_action_pressed("foward"):
+			direction += -transform.basis.z  # Ir adelante
 	if Input.is_action_pressed("left"): 
 		rotation_degrees.y += rotation_speed  # Rotar izquierda
 	if Input.is_action_pressed("right"):
@@ -87,6 +90,12 @@ func block_ship_movement():
 
 func activate_ship_movement():
 	can_move = true
+	
+func ship_colliding():
+	is_colliding = true
+	
+func ship_not_colliding():
+	is_colliding = false
 
 func speed_slowed():
 	touching_seagrass+=1
