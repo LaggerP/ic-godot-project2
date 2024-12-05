@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_p4hem"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_xdk72"]
-[ext_resource type="Script" path="res://Water.gd" id="3_7ejxf"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="3_7ejxf"]
 [ext_resource type="Script" path="res://scenes/objects/ship.gd" id="4_rpd2o"]
 [ext_resource type="PackedScene" uid="uid://bemwb8d2yftt0" path="res://assets/Pirate Kit/Models/FBX format/ship_dark.fbx" id="5_0a76m"]
 [ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="6_b5w40"]
