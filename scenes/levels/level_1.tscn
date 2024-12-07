@@ -13,10 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="7_hljqg"]
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="7_rqppf"]
 [ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="8_4i8fo"]
-[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="8_fhgxj"]
-[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="9_8lgnn"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="8_fhgxj"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/drops/powerup_velocity.tscn" id="9_8lgnn"]
 [ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_00nsq"]
-[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="10_kkagu"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/drops/powerup_time.tscn" id="10_kkagu"]
 [ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="19_8xwjh"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ruobv"]
