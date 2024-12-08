@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_7usbn"]
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_5tw5x"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_8oeyv"]
-[ext_resource type="PackedScene" path="res://scenes/objects/Dock1.tscn" id="3_cox3h"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_cox3h"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="3_t1nt4"]
 [ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="4_2q3or"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="4_hm4d2"]
