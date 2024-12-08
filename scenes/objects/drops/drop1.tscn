@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://ckn6w6wr0wio5"]
 
-[ext_resource type="Script" path="res://scenes/objects/drop.gd" id="1_jj2t1"]
+[ext_resource type="Script" path="res://scenes/objects/drops/drop.gd" id="1_jj2t1"]
 [ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://scenes/objects/furniture/vertical_barrel.tscn" id="1_xqh14"]
 [ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://scenes/objects/furniture/horizontal_barrel.tscn" id="2_l5e37"]
 [ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://scenes/objects/furniture/simple_boat.tscn" id="3_8xc5w"]

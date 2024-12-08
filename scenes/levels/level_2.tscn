@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cso8gblkkgd0f"]
+[gd_scene load_steps=30 format=3 uid="uid://u6oljhg6epww"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_7usbn"]
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_5tw5x"]
@@ -13,10 +13,11 @@
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="6_mpbm7"]
 [ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="7_01rk0"]
 [ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="8_ceaag"]
-[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drop1.tscn" id="8_mh2cm"]
-[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/powerup_velocity.tscn" id="9_i6da7"]
-[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/powerup_time.tscn" id="10_fsdvw"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="8_mh2cm"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/drops/powerup_velocity.tscn" id="9_i6da7"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/drops/powerup_time.tscn" id="10_fsdvw"]
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="14_ol1xy"]
+[ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="18_gmhey"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8op3e"]
 panorama = ExtResource("2_5tw5x")
@@ -133,33 +134,6 @@ visible = false
 [node name="Dock" parent="." instance=ExtResource("3_cox3h")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
 
-[node name="Logs" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 25.3868, 2.0405, 97.7613)
-
-[node name="Logs2" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 20.6902, 2.0405, 87.1388)
-
-[node name="Logs3" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 16.0715, 2.0405, 76.6924)
-
-[node name="Logs4" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -18.9069, 2.0405, 94.6434)
-
-[node name="Logs5" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -12.9718, 2.0405, 84.6599)
-
-[node name="Logs6" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -7.13509, 2.0405, 74.8419)
-
-[node name="Logs7" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, -10.5471, 2.0405, 116.979)
-
-[node name="Logs8" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, 1.05054, 2.0405, 116.356)
-
-[node name="Logs9" parent="." instance=ExtResource("4_2q3or")]
-transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, 12.456, 2.0405, 115.743)
-
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("5_54meb")
 cell_octant_size = 5
@@ -174,15 +148,6 @@ metadata/_editor_floor_ = Vector3(2, 0, 0)
 stream = ExtResource("6_mpbm7")
 volume_db = -15.0
 autoplay = true
-
-[node name="IslandTower" parent="." instance=ExtResource("14_ol1xy")]
-transform = Transform3D(-0.389551, 0, -0.0908305, 0, 0.4, 0, 0.0908305, 0, -0.389551, 7.17765, 0.9, 60.9117)
-
-[node name="IslandTower2" parent="." instance=ExtResource("14_ol1xy")]
-transform = Transform3D(-0.0521897, 0, 0.396581, 0, 0.4, 0, -0.396581, 0, -0.0521897, 30, 0.952, 113.529)
-
-[node name="IslandTower3" parent="." instance=ExtResource("14_ol1xy")]
-transform = Transform3D(-0.0725235, 0, -0.39337, 0, 0.4, 0, 0.39337, 0, -0.0725235, -28, 0.952, 110.215)
 
 [node name="drops" type="Node3D" parent="."]
 
@@ -211,3 +176,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.4791, 0.938221, 54.6702)
 
 [node name="Powerup_time2" parent="powerups" instance=ExtResource("10_fsdvw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.946, 0, 73.9507)
+
+[node name="Logs" type="Node3D" parent="."]
+
+[node name="Logs1" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 25.3868, 2.0405, 97.7613)
+
+[node name="Logs2" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 20.6902, 2.0405, 87.1388)
+
+[node name="Logs3" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.76186, 0, 1.17137, 0, 3, 0, -1.17137, 0, 2.76186, 16.0715, 2.0405, 76.6924)
+
+[node name="Logs4" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -18.9069, 2.0405, 94.6434)
+
+[node name="Logs5" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -12.9718, 2.0405, 84.6599)
+
+[node name="Logs6" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(2.55518, 0, -1.57196, 0, 3, 0, 1.57196, 0, 2.55518, -7.13509, 2.0405, 74.8419)
+
+[node name="Logs7" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, -10.5471, 2.0405, 116.979)
+
+[node name="Logs8" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, 1.05054, 2.0405, 116.356)
+
+[node name="Logs9" parent="Logs" instance=ExtResource("4_2q3or")]
+transform = Transform3D(0.115582, 0, -2.99777, 0, 3, 0, 2.99777, 0, 0.115582, 12.456, 2.0405, 115.743)
+
+[node name="Towers" type="Node3D" parent="."]
+
+[node name="IslandTower" parent="Towers" instance=ExtResource("14_ol1xy")]
+transform = Transform3D(-0.389551, 0, -0.0908305, 0, 0.4, 0, 0.0908305, 0, -0.389551, 7.17765, 0.9, 60.9117)
+
+[node name="IslandTower2" parent="Towers" instance=ExtResource("14_ol1xy")]
+transform = Transform3D(-0.0521897, 0, 0.396581, 0, 0.4, 0, -0.396581, 0, -0.0521897, 30, 0.952, 113.529)
+
+[node name="IslandTower3" parent="Towers" instance=ExtResource("14_ol1xy")]
+transform = Transform3D(-0.0725235, 0, -0.39337, 0, 0.4, 0, 0.39337, 0, -0.0725235, -28, 0.952, 110.215)
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_gmhey")
+volume_db = -13.0
+autoplay = true
+bus = &"music"

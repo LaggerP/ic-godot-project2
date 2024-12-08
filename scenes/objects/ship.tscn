@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsa4mxdiai4cn"]
 
 [ext_resource type="Script" path="res://scenes/objects/ship.gd" id="1_7xjbh"]
-[ext_resource type="PackedScene" uid="uid://bhri7ftqb8lms" path="res://scenes/objects/ship_dark.tscn" id="2_7dclb"]
+[ext_resource type="PackedScene" uid="uid://jbfwmujfs1m6" path="res://scenes/objects/ship_dark.tscn" id="2_7dclb"]
 [ext_resource type="PackedScene" uid="uid://sgj8xt0y2258" path="res://assets/Pirate Kit/Models/FBX format/pirate_captain.fbx" id="2_mfn3u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc0gq"]

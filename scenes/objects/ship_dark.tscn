@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bhri7ftqb8lms"]
+[gd_scene load_steps=25 format=4 uid="uid://jbfwmujfs1m6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fykjo"]
 resource_name = "wood"
@@ -659,3 +659,4 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_pdd2w")
+disabled = true
