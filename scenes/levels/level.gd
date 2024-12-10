@@ -22,4 +22,4 @@ func get_level_time() -> float:
 	return level_time
 
 func get_level() -> int:
-	return level	
+	return level

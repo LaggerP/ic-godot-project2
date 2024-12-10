@@ -9,8 +9,9 @@ script/source = "extends CanvasLayer
 
 func _ready() -> void:
 	add_to_group(\"ui_events\")
-	%MusicVolumeSlider.value = Audio.get_music_volume()
-	$\"%EffectVolumeSlider\".value = Audio.get_sfx_volume()
+	var bus_index = AudioServer.get_bus_index(\"music\")
+	var volume_db = AudioServer.get_bus_volume_db(bus_index)
+	print_debug(volume_db)
 	hide()
 
 func _on_exit_button_down() -> void:
@@ -22,13 +23,13 @@ func _on_continue_button_down() -> void:
 	hide()
 	get_tree().call_group(\"ship_events\", \"activate_ship_movement\")
 
+
 func _on_effect_volume_slider_value_changed(value: float) -> void:
 	var bus_index = AudioServer.get_bus_index(\"sfx\")
 	AudioServer.set_bus_volume_db(
 		bus_index,
 		linear_to_db(value)
 	)
-	Audio.set_sfx_volume(value)
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
 	var bus_index = AudioServer.get_bus_index(\"music\")
@@ -36,7 +37,6 @@ func _on_music_volume_slider_value_changed(value: float) -> void:
 		bus_index,
 		linear_to_db(value)
 	)
-	Audio.set_music_volume(value)
 	
 func show_pause_ui():
 	show()
@@ -110,7 +110,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volumen música"
 
 [node name="MusicVolumeSlider" type="HSlider" parent="HFlowContainer/BoxContainer/BoxBrown/PanelBrownDamagedDark/VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.001
@@ -122,7 +121,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volumen efectos"
 
 [node name="EffectVolumeSlider" type="HSlider" parent="HFlowContainer/BoxContainer/BoxBrown/PanelBrownDamagedDark/VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.001
