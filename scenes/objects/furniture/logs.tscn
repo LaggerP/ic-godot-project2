@@ -26,7 +26,7 @@ func _on_underwater_area_body_exited(body: Node3D) -> void:
 size = Vector3(1.19922, 2.65298, 2.88318)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5soks"]
-size = Vector3(1.01343, 2.39294, 2.44116)
+size = Vector3(1.16984, 0.84248, 2.84392)
 
 [sub_resource type="Animation" id="Animation_iros0"]
 length = 0.001
@@ -131,7 +131,7 @@ shape = SubResource("BoxShape3D_4hx53")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62657, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="logs/UnderwaterArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0470428, -0.63517, -0.336075)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0288561, 0.14006, -0.309639)
 shape = SubResource("BoxShape3D_5soks")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

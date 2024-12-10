@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ig3aeqyp3jii" path="res://assets/Pirate Kit/Models/glTF format/palm_detailed_short.gltf" id="8_w1nq1"]
 [ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="9_n210o"]
 [ext_resource type="PackedScene" uid="uid://dypfi6y4em6ha" path="res://assets/Nature Kit/Models/GLTF format/log.glb" id="10_wcc7r"]
-[ext_resource type="PackedScene" path="res://scenes/objects/furniture/fireplace.tscn" id="11_te383"]
+[ext_resource type="PackedScene" uid="uid://bshw8146d3nqe" path="res://scenes/objects/furniture/fireplace.tscn" id="11_te383"]
 [ext_resource type="PackedScene" uid="uid://3q5e22l2uu6h" path="res://assets/Pirate Kit/Models/glTF format/cannonMobile.gltf" id="12_fnnbi"]
 [ext_resource type="PackedScene" uid="uid://dipdumt48p6p6" path="res://assets/Pirate Kit/Models/FBX format/cannonBall.fbx" id="13_etv6c"]
 [ext_resource type="Texture2D" uid="uid://k5gpswkpvl1" path="res://assets/UI Pack - Adventure/PNG/Double/banner_classic_curtain.png" id="14_n3pcr"]

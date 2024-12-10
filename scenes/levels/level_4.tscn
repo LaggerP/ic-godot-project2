@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bk8masy0ail4b"]
+[gd_scene load_steps=32 format=3 uid="uid://bk8masy0ail4b"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_7j7eq"]
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_j8vbr"]
@@ -9,11 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="7_tp5vi"]
 [ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="8_1blwl"]
 [ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="9_480a4"]
-[ext_resource type="PackedScene" path="res://scenes/objects/Dock1.tscn" id="10_nt87j"]
+[ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_kg5o0"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="10_nt87j"]
 [ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="11_uhiec"]
 [ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="12_eabv3"]
 [ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="13_ft8ca"]
-[ext_resource type="PackedScene" path="res://scenes/objects/furniture/seaweed.tscn" id="14_ch7l4"]
+[ext_resource type="PackedScene" uid="uid://cbyjwlx0v1v2t" path="res://scenes/objects/furniture/seaweed.tscn" id="14_ch7l4"]
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="15_nrwye"]
 [ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="19_fyhsp"]
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="20_mppb7"]
@@ -97,7 +98,7 @@ subdivide_depth = 1
 
 [node name="Lvl4" type="Node3D"]
 script = ExtResource("1_7j7eq")
-level_time = 55.0
+level_time = 60.0
 total_drops_required = 7.0
 level = 4
 
@@ -132,82 +133,108 @@ visible = false
 [node name="LooseLevelUI" parent="UI" instance=ExtResource("9_480a4")]
 visible = false
 
+[node name="PauseUI" parent="UI" instance=ExtResource("10_kg5o0")]
+
 [node name="Dock" parent="." instance=ExtResource("10_nt87j")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
 
 [node name="LogsContainer" type="Node3D" parent="."]
 
 [node name="Logs" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 90.8661)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 90.8661)
 
 [node name="Logs2" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 82.3949)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 82.3949)
 
 [node name="Logs3" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 73.49)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 73.49)
 
 [node name="Logs4" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 63.9512)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 63.9512)
 
 [node name="Logs5" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 90.8661)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 90.8661)
 
 [node name="Logs6" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 82.3949)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 82.3949)
 
 [node name="Logs7" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 73.49)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 73.49)
 
 [node name="Logs8" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 63.9512)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 63.9512)
 
 [node name="Logs9" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 126.642)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 126.642)
 
 [node name="Logs10" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 118.171)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 118.171)
 
 [node name="Logs11" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 109.266)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 109.266)
 
 [node name="Logs12" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 9.1269, 2.0405, 99.727)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 99.727)
 
 [node name="Logs17" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 90.8661)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 90.8661)
 
 [node name="Logs18" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 82.3949)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 82.3949)
 
 [node name="Logs19" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 73.49)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 73.49)
 
 [node name="Logs20" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 63.9512)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 63.9512)
 
 [node name="Logs21" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 126.642)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 126.642)
 
 [node name="Logs22" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 118.171)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 118.171)
 
 [node name="Logs23" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 109.266)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 109.266)
 
 [node name="Logs24" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -0.60333, 2.0405, 99.727)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 99.727)
 
 [node name="Logs13" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 126.642)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 126.642)
 
 [node name="Logs14" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 118.171)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 118.171)
 
 [node name="Logs15" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 109.266)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 109.266)
 
 [node name="Logs16" parent="LogsContainer" instance=ExtResource("11_uhiec")]
-transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 17.4681, 2.0405, 99.727)
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 99.727)
+
+[node name="Logs25" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 90.8661)
+
+[node name="Logs26" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 82.3949)
+
+[node name="Logs27" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 73.49)
+
+[node name="Logs28" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 63.9512)
+
+[node name="Logs29" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 126.642)
+
+[node name="Logs30" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 118.171)
+
+[node name="Logs31" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 109.266)
+
+[node name="Logs32" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 99.727)
 
 [node name="Seaweeds" type="Node3D" parent="."]
 

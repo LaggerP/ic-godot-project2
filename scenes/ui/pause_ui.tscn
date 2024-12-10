@@ -36,6 +36,10 @@ func _on_music_volume_slider_value_changed(value: float) -> void:
 	)
 	
 func show_pause_ui():
+##	var bus_index = AudioServer.get_bus_index(\"music\")
+##	AudioServer.get_bus_volume_db(bus_index)
+##	$HFlowContainer/BoxContainer/BoxBrown/PanelBrownDamagedDark/VBoxContainer/MusicVolumeSlider.value = AudioServer.get_bus_volume_db(bus_index)
+##	print_debug(AudioServer.get_bus_volume_db(bus_index))
 	show()
 
 func hide_pause_ui():

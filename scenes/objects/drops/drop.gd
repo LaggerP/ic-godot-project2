@@ -11,5 +11,6 @@ func _on_drops_player_entered(body: Node3D) -> void:
 		GameManager.obtain_drop(self)
 		# Deshabilitar la colisión del drop para que no pueda volver a interactuar
 		$AnimationPlayer.play("Sink")
+		$OmniLight3D.light_energy= 0
 		await get_tree().create_timer(3).timeout
 		queue_free()

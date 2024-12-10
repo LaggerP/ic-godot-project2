@@ -7,10 +7,10 @@
 script/source = "extends Area3D
 
 var TYPE = Constants.PowerUp.VELOCITY
-
+var is_taken: bool = false
 func _on_body_entered(body: Node3D) -> void:
 	print_debug(\"agarro el powerup de velocidad\")
-	if body.is_in_group(\"Player\"):
+	if body.is_in_group(\"Player\") and !is_taken:
 		$Label3D.text = \"OK\"
 		GameManager.obtain_power_up(TYPE)
 		# Deshabilitar la colisión del powerup para que no pueda volver a interactuar

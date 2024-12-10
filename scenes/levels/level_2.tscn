@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://u6oljhg6epww"]
+[gd_scene load_steps=31 format=3 uid="uid://u6oljhg6epww"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_7usbn"]
-[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_5tw5x"]
 [ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_8oeyv"]
+[ext_resource type="Texture2D" uid="uid://bm315sh5r51ik" path="res://assets/Skybox/AllSkyFree_Sky_MoonBurst_Equirect.png" id="2_ctl75"]
 [ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_cox3h"]
 [ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="3_t1nt4"]
 [ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="4_2q3or"]
@@ -16,21 +16,31 @@
 [ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="8_mh2cm"]
 [ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/drops/powerup_velocity.tscn" id="9_i6da7"]
 [ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/drops/powerup_time.tscn" id="10_fsdvw"]
+[ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_qrohi"]
 [ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="14_ol1xy"]
 [ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="18_gmhey"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8op3e"]
-panorama = ExtResource("2_5tw5x")
+panorama = ExtResource("2_ctl75")
 
 [sub_resource type="Sky" id="Sky_17mxw"]
 sky_material = SubResource("PanoramaSkyMaterial_8op3e")
 
 [sub_resource type="Environment" id="Environment_sce14"]
 background_mode = 2
+background_energy_multiplier = 0.2
 sky = SubResource("Sky_17mxw")
 tonemap_mode = 2
 tonemap_exposure = 0.5
 glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.832998, 0.818685, 0.812531, 1)
+fog_light_energy = 0.1
+fog_density = 1.0
+fog_aerial_perspective = 0.779
+fog_sky_affect = 0.832
+volumetric_fog_density = 0.2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6xgce"]
 fractal_type = 2
@@ -96,7 +106,7 @@ subdivide_depth = 1
 
 [node name="Lvl2" type="Node3D"]
 script = ExtResource("1_7usbn")
-level_time = 35.0
+level_time = 40.0
 total_drops_required = 5.0
 level = 2
 
@@ -105,7 +115,7 @@ environment = SubResource("Environment_sce14")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.940098, 0.085929, -0.329898, -0.23722, -0.859886, 0.452021, -0.244833, 0.503202, 0.828761, 0, 0, 0)
-shadow_enabled = true
+light_energy = 0.07
 
 [node name="Ship" parent="." instance=ExtResource("2_8oeyv")]
 transform = Transform3D(-0.49999, 3.49113e-05, 0.00318502, 2.1684e-19, 0.49997, -0.00548022, -0.00318521, -0.00548011, -0.49996, 1.541, 0.0621126, 38.0182)
@@ -130,6 +140,8 @@ visible = false
 
 [node name="LooseLevelUI" parent="UI" instance=ExtResource("8_ceaag")]
 visible = false
+
+[node name="PauseUI" parent="UI" instance=ExtResource("10_qrohi")]
 
 [node name="Dock" parent="." instance=ExtResource("3_cox3h")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)

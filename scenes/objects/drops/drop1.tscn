@@ -351,4 +351,11 @@ libraries = {
 stream = ExtResource("6_x7qta")
 bus = &"sfx"
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51459, 0)
+light_energy = 4.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+distance_fade_enabled = true
+
 [connection signal="body_entered" from="drops" to="." method="_on_drops_player_entered"]

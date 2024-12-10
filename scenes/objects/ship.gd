@@ -41,7 +41,9 @@ func _physics_process(delta):
 		
 	if !GameManager.is_on_menu and Input.is_action_just_pressed("pause"):
 		GameManager.pause_menu()
-
+	global_rotation_degrees.x = clamp(global_rotation_degrees.x, -13, 13)
+	global_rotation_degrees.z = clamp(global_rotation_degrees.z, -20, 20)
+	global_position.y = clamp(global_position.y, -0.2, 0.2)
 	
 func movement(delta):
 	# Manejar el movimiento usando las teclas de flecha
