@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cd3r0oswslfwi"
+path="res://.godot/imported/sword_scimitar.obj-8c0d474848c1b81fb38f9ed50602e67f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/sword_scimitar.obj-8c0d474848c1b81fb38f9ed50602e67f.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/sword_scimitar.obj"
+dest_files=["res://.godot/imported/sword_scimitar.obj-8c0d474848c1b81fb38f9ed50602e67f.mesh", "res://.godot/imported/sword_scimitar.obj-8c0d474848c1b81fb38f9ed50602e67f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

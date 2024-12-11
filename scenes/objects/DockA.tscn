@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://d4a10cbosf76e"]
+
+[ext_resource type="PackedScene" uid="uid://cgdif2kj88jya" path="res://assets/Mini Dungeon/Models/FBX format/banner.fbx" id="1_vkwru"]
+[ext_resource type="PackedScene" uid="uid://c4r3mpdrjbuo2" path="res://assets/Mini Dungeon/Models/FBX format/barrel.fbx" id="2_n6huc"]
+[ext_resource type="PackedScene" uid="uid://b8hl2fal1q53s" path="res://assets/Mini Dungeon/Models/FBX format/wood-support.fbx" id="3_l7jr4"]
+[ext_resource type="PackedScene" uid="uid://bgnv2rex6rjm0" path="res://assets/Nature Kit/Models/FBX format/path_wood.fbx" id="4_dm22j"]
+[ext_resource type="PackedScene" uid="uid://bx5fx3veli6m" path="res://assets/Nature Kit/Models/FBX format/rock_tallB.fbx" id="5_t8qv0"]
+[ext_resource type="PackedScene" uid="uid://d3g2siqdbk8pc" path="res://assets/Nature Kit/Models/FBX format/rock_tallG.fbx" id="6_w286o"]
+[ext_resource type="PackedScene" uid="uid://c5rlikff6vvok" path="res://assets/Nature Kit/Models/FBX format/rock_tallI.fbx" id="7_8xl3o"]
+[ext_resource type="PackedScene" uid="uid://dihofsykp6g5i" path="res://assets/Nature Kit/Models/FBX format/rock_largeC.fbx" id="8_tucf0"]
+[ext_resource type="PackedScene" uid="uid://c6dndux6alqlo" path="res://assets/Nature Kit/Models/FBX format/rock_largeF.fbx" id="9_ksyil"]
+[ext_resource type="PackedScene" uid="uid://bjruhkx317n2y" path="res://assets/Nature Kit/Models/FBX format/canoe.fbx" id="10_xuae4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="banner" parent="." instance=ExtResource("1_vkwru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.851882, 0.592218, 0.56629)
+
+[node name="barrel" parent="." instance=ExtResource("2_n6huc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31368, 0.425505, 0.0682771)
+
+[node name="Bridge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.703163, 0)
+
+[node name="wood-support" parent="Bridge" instance=ExtResource("3_l7jr4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.144541, 0, -2.10602)
+
+[node name="wood-support2" parent="Bridge" instance=ExtResource("3_l7jr4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.144541, 0, -1.10602)
+
+[node name="wood-support3" parent="Bridge" instance=ExtResource("3_l7jr4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140674, 0, -0.113336)
+
+[node name="path_wood2" parent="Bridge" instance=ExtResource("4_dm22j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.133612, 0.976722, -1.61351)
+
+[node name="path_wood3" parent="Bridge" instance=ExtResource("4_dm22j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.133612, 0.976722, -0.61351)
+
+[node name="Rocks" type="Node3D" parent="."]
+
+[node name="rock_tallB" parent="Rocks" instance=ExtResource("5_t8qv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.69606, -0.112794, 0.762434)
+
+[node name="rock_tallG" parent="Rocks" instance=ExtResource("6_w286o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.780743, -0.112794, 1.1066)
+
+[node name="rock_tallI" parent="Rocks" instance=ExtResource("7_8xl3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461007, -0.112794, -0.392605)
+
+[node name="rock_largeC" parent="Rocks" instance=ExtResource("8_tucf0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.14759, -0.112794, -0.35693)
+
+[node name="rock_largeF" parent="Rocks" instance=ExtResource("9_ksyil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26766, -0.101076, 0.154986)
+
+[node name="Boats" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359943, 9.53674e-07, -1.30517)
+
+[node name="canoe" parent="Boats" instance=ExtResource("10_xuae4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462761, 0, -0.0692286)
+
+[node name="canoe2" parent="Boats" instance=ExtResource("10_xuae4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10412, 1.19209e-07, 0.0890405)

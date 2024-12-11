@@ -1,0 +1,191 @@
+[gd_scene load_steps=30 format=3 uid="uid://mxu7nhgnw6bi"]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_kjqqe"]
+[ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="2_if8sa"]
+[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_xfef3"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="3_ccj37"]
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="3_vs0vx"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="4_qed5n"]
+[ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="5_otek4"]
+[ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="5_p2xdp"]
+[ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="6_dsbui"]
+[ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="6_tfsgw"]
+[ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="7_hljqg"]
+[ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="7_rqppf"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="8_4i8fo"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="8_fhgxj"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/drops/powerup_velocity.tscn" id="9_8lgnn"]
+[ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_00nsq"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/drops/powerup_time.tscn" id="10_kkagu"]
+[ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="19_8xwjh"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ruobv"]
+panorama = ExtResource("2_xfef3")
+
+[sub_resource type="Sky" id="Sky_r52ab"]
+sky_material = SubResource("PanoramaSkyMaterial_ruobv")
+
+[sub_resource type="Environment" id="Environment_e8l2g"]
+background_mode = 2
+sky = SubResource("Sky_r52ab")
+tonemap_mode = 2
+tonemap_exposure = 0.5
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lmsat"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5hgtg"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_lmsat")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e16te"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c1srf"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_e16te")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wfu6w"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhe0o"]
+seamless = true
+noise = SubResource("FastNoiseLite_wfu6w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxt3k"]
+render_priority = 0
+shader = ExtResource("3_vs0vx")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 2.0
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0, 0.266667, 0.533333, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_5hgtg")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_c1srf")
+shader_parameter/wave = SubResource("NoiseTexture2D_yhe0o")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8kca8"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = SubResource("ShaderMaterial_sxt3k")
+size = Vector2(1000, 1000)
+subdivide_width = 1
+subdivide_depth = 1
+
+[node name="Lvl1" type="Node3D"]
+script = ExtResource("1_kjqqe")
+level_time = 20.0
+total_drops_required = 1.0
+level = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e8l2g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.940098, 0.085929, -0.329898, -0.23722, -0.859886, 0.452021, -0.244833, 0.503202, 0.828761, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Water" type="MeshInstance3D" parent="."]
+sorting_offset = -99.0
+mesh = SubResource("PlaneMesh_8kca8")
+script = ExtResource("4_qed5n")
+
+[node name="Ship" parent="." instance=ExtResource("2_if8sa")]
+transform = Transform3D(-0.49999, 3.49113e-05, 0.00318502, 2.1684e-19, 0.49997, -0.00548022, -0.00318521, -0.00548011, -0.49996, 1.541, 0.0621126, 38.0182)
+move_speed = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreUI" parent="UI" instance=ExtResource("5_otek4")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinGameUI" parent="UI" instance=ExtResource("6_dsbui")]
+visible = false
+
+[node name="WinLevelUI" parent="UI" instance=ExtResource("7_hljqg")]
+visible = false
+
+[node name="LooseLevelUI" parent="UI" instance=ExtResource("8_4i8fo")]
+visible = false
+
+[node name="PauseUI" parent="UI" instance=ExtResource("10_00nsq")]
+
+[node name="Dock" parent="." instance=ExtResource("3_ccj37")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("5_p2xdp")
+cell_octant_size = 5
+cell_scale = 3.0
+collision_layer = 4
+data = {
+"cells": PackedInt32Array(65535, 65532, 0, 65534, 65532, 0, 65533, 65532, 0, 65532, 65532, 0, 65529, 65533, 0, 65526, 65534, 0, 65523, 0, 0, 65520, 1, 0, 65518, 2, 0, 65516, 4, 0, 65514, 5, 0, 65512, 8, 0, 65510, 10, 0, 65508, 12, 0, 65507, 14, 0, 65506, 16, 0, 65505, 17, 0, 65504, 20, 0, 65504, 22, 0, 65503, 25, 0, 65502, 27, 0, 65502, 30, 0, 65501, 32, 0, 65501, 33, 0, 65500, 35, 0, 65500, 38, 0, 65500, 41, 0, 65499, 44, 0, 65499, 46, 0, 65498, 49, 0, 65498, 52, 0, 65498, 55, 0, 65498, 58, 0, 65498, 61, 0, 65498, 64, 0, 65498, 66, 0, 65498, 69, 0, 65498, 71, 0, 65498, 73, 0, 65498, 75, 0, 65498, 77, 0, 65498, 79, 0, 65499, 81, 0, 65499, 82, 0, 65499, 84, 0, 65499, 85, 0, 65500, 87, 0, 24, 101, 0, 25, 100, 0, 27, 98, 0, 28, 97, 0, 29, 96, 0, 30, 94, 0, 31, 92, 0, 32, 90, 0, 32, 88, 0, 33, 86, 0, 34, 83, 0, 35, 80, 0, 36, 77, 0, 37, 74, 0, 38, 71, 0, 38, 68, 0, 39, 66, 0, 39, 63, 0, 40, 60, 0, 41, 57, 0, 41, 53, 0, 42, 50, 0, 42, 47, 0, 43, 44, 0, 43, 41, 0, 43, 38, 0, 43, 35, 0, 43, 31, 0, 43, 28, 0, 42, 24, 0, 41, 21, 0, 40, 18, 0, 40, 15, 0, 38, 13, 0, 37, 11, 0, 37, 9, 0, 35, 7, 0, 34, 5, 0, 33, 4, 0, 31, 2, 0, 30, 1, 0, 29, 0, 0, 27, 65535, 0, 26, 65534, 0, 25, 65533, 0, 23, 65532, 0, 22, 65532, 0, 21, 65531, 0, 20, 65530, 0, 19, 65530, 0, 17, 65529, 0, 16, 65529, 0, 15, 65528, 0, 14, 65528, 0, 13, 65528, 0, 12, 65528, 0, 11, 65528, 0, 24, 102, 0, 23, 103, 0, 23, 104, 0, 21, 105, 0, 20, 106, 0, 20, 107, 0, 18, 108, 0, 16, 109, 0, 14, 111, 0, 11, 112, 0, 10, 113, 0, 8, 114, 0, 6, 114, 0, 4, 115, 0, 3, 115, 0, 1, 116, 0, 65535, 116, 0, 65534, 116, 0, 65532, 116, 0, 65530, 117, 0, 65528, 117, 0, 65526, 117, 0, 65524, 117, 0, 65523, 117, 0, 65521, 117, 0, 65520, 117, 0, 65519, 117, 0, 65518, 116, 0, 65516, 116, 0, 65515, 116, 0, 65514, 116, 0, 65513, 115, 0, 65512, 115, 0, 65511, 114, 0, 65510, 113, 0, 65509, 112, 0, 65509, 111, 0, 65508, 110, 0, 65508, 109, 0, 65507, 108, 0, 65506, 106, 0, 65505, 104, 0, 65504, 102, 0, 65504, 100, 0, 65503, 98, 0, 65503, 97, 0, 65502, 95, 0, 65502, 94, 0, 65501, 92, 0, 65501, 91, 0, 65500, 90, 0, 65500, 88, 0, 65500, 86, 0, 65500, 85, 0, 65500, 84, 0, 65499, 83, 0)
+}
+metadata/_editor_floor_ = Vector3(2, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_tfsgw")
+volume_db = -15.0
+autoplay = true
+
+[node name="Node3D" parent="." instance=ExtResource("7_rqppf")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 15.5452, 0.934846, 78.5467)
+
+[node name="drops" type="Node3D" parent="."]
+
+[node name="Drop1" parent="drops" instance=ExtResource("8_fhgxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.6234, 2.89594, 95.8396)
+
+[node name="Drop2" parent="drops" instance=ExtResource("8_fhgxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9678, 2.89594, 120.476)
+
+[node name="Drop3" parent="drops" instance=ExtResource("8_fhgxj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.8411, 2.89594, 103.442)
+
+[node name="powerups" type="Node3D" parent="."]
+
+[node name="Powerup_velocity" parent="powerups" instance=ExtResource("9_8lgnn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9175, 0.938221, 47.0466)
+
+[node name="Powerup_velocity2" parent="powerups" instance=ExtResource("9_8lgnn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9175, 0.938221, 70.1119)
+
+[node name="Powerup_velocity3" parent="powerups" instance=ExtResource("9_8lgnn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0805, 0, 33.7951)
+
+[node name="Powerup_velocity4" parent="powerups" instance=ExtResource("9_8lgnn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7429, 0, 50.0808)
+
+[node name="Powerup_time" parent="powerups" instance=ExtResource("10_kkagu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.66958, 0, 70.7189)
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_8xwjh")
+volume_db = -13.0
+autoplay = true
+bus = &"music"
+
+[editable path="drops/Drop1"]

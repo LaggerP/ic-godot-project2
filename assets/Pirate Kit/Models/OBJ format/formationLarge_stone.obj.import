@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cgwk1de5ck6qo"
+path="res://.godot/imported/formationLarge_stone.obj-f82023932d4d165be1df2fc445ce6d42.mesh"
+
+[deps]
+
+files=["res://.godot/imported/formationLarge_stone.obj-f82023932d4d165be1df2fc445ce6d42.mesh"]
+
+source_file="res://assets/Pirate Kit/Models/OBJ format/formationLarge_stone.obj"
+dest_files=["res://.godot/imported/formationLarge_stone.obj-f82023932d4d165be1df2fc445ce6d42.mesh", "res://.godot/imported/formationLarge_stone.obj-f82023932d4d165be1df2fc445ce6d42.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,361 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckn6w6wr0wio5"]
+
+[ext_resource type="Script" path="res://scenes/objects/drops/drop.gd" id="1_jj2t1"]
+[ext_resource type="PackedScene" uid="uid://bi0yn7cqve8te" path="res://scenes/objects/furniture/vertical_barrel.tscn" id="1_xqh14"]
+[ext_resource type="PackedScene" uid="uid://bqsftbav3ek2j" path="res://scenes/objects/furniture/horizontal_barrel.tscn" id="2_l5e37"]
+[ext_resource type="PackedScene" uid="uid://bt7ph6j5voh73" path="res://scenes/objects/furniture/simple_boat.tscn" id="3_8xc5w"]
+[ext_resource type="Texture2D" uid="uid://3t11h4pe8n6l" path="res://assets/Materials/particle_sprite_smoke.webp" id="4_dar3s"]
+[ext_resource type="AudioStream" uid="uid://bjqt5n5fub5fm" path="res://assets/Sounds/pickupCoin.wav" id="6_x7qta"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn2ln"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+flatness = 0.25
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyx8j"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_dar3s")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_tafee"]
+material = SubResource("StandardMaterial3D_fyx8j")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dm0pb"]
+size = Vector3(1.82135, 1, 1.71289)
+
+[sub_resource type="Animation" id="Animation_ufir8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("drops/VerticalBarrel:float_force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("drops/VerticalBarrel4:float_force")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("drops/HorizontalBarrel:float_force")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("drops/VerticalBarrel2:float_force")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("drops/HorizontalBarrel2:float_force")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("drops/VerticalBarrel3:float_force")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("drops/HorizontalBarrel3:float_force")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("drops/SimpleBoat:float_force")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.4]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GPUParticles3D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tdi7d"]
+resource_name = "Sink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("drops/VerticalBarrel:float_force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("drops/VerticalBarrel4:float_force")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("drops/HorizontalBarrel:float_force")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("drops/VerticalBarrel2:float_force")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("drops/HorizontalBarrel2:float_force")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("drops/VerticalBarrel3:float_force")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("drops/HorizontalBarrel3:float_force")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(-0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("drops/SimpleBoat:float_force")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.4, -1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GPUParticles3D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -10, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jp71p"]
+_data = {
+"RESET": SubResource("Animation_ufir8"),
+"Sink": SubResource("Animation_tdi7d")
+}
+
+[node name="Drop1" type="Node3D"]
+script = ExtResource("1_jj2t1")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00327998, 5.23359, -0.318454)
+billboard = 1
+text = "DROP"
+font_size = 300
+outline_size = 30
+uppercase = true
+line_spacing = 5.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 300
+lifetime = 10.0
+preprocess = 0.47
+speed_scale = 3.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_dn2ln")
+draw_pass_1 = SubResource("QuadMesh_tafee")
+
+[node name="drops" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="DropCollision" type="CollisionShape3D" parent="drops"]
+physics_interpolation_mode = 1
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0224304, 0, 0)
+shape = SubResource("BoxShape3D_dm0pb")
+
+[node name="VerticalBarrel" parent="drops" instance=ExtResource("1_xqh14")]
+
+[node name="VerticalBarrel4" parent="drops" instance=ExtResource("1_xqh14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.967046, 0.544397, 0)
+
+[node name="HorizontalBarrel" parent="drops" instance=ExtResource("2_l5e37")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92487, 0.243721, 0)
+
+[node name="VerticalBarrel2" parent="drops" instance=ExtResource("1_xqh14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.970493)
+
+[node name="HorizontalBarrel2" parent="drops" instance=ExtResource("2_l5e37")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92487, 0.243721, 0.970493)
+
+[node name="VerticalBarrel3" parent="drops" instance=ExtResource("1_xqh14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.635989, 1.48513, -4.85432)
+
+[node name="HorizontalBarrel3" parent="drops" instance=ExtResource("2_l5e37")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90231, 0.246003, 0.964505)
+
+[node name="SimpleBoat" parent="drops" instance=ExtResource("3_8xc5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90822, -0.302296, 0)
+float_force = 1.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jp71p")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_x7qta")
+bus = &"sfx"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51459, 0)
+light_energy = 4.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+distance_fade_enabled = true
+
+[connection signal="body_entered" from="drops" to="." method="_on_drops_player_entered"]

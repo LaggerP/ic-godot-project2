@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt7ph6j5voh73"]
+
+[ext_resource type="PackedScene" uid="uid://bgu7cf3lggikj" path="res://assets/Pirate Kit/Models/FBX format/boat_small.fbx" id="1_tpwob"]
+[ext_resource type="Script" path="res://scenes/objects/furniture/object.gd" id="1_y78g2"]
+[ext_resource type="PackedScene" uid="uid://cin5iiatx7cwu" path="res://assets/Mini Dungeon/Models/FBX format/character-human.fbx" id="2_bgege"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sry5i"]
+size = Vector3(1.72266, 0.423828, 2.10938)
+
+[node name="SimpleBoat" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 0
+mass = 0.5
+script = ExtResource("1_y78g2")
+
+[node name="boat_small" parent="." instance=ExtResource("1_tpwob")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.757995, 0, 19.4993)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450026, -0.007)
+shape = SubResource("BoxShape3D_sry5i")
+
+[node name="ProbeContainer" type="Node3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 0.442151, 0)
+
+[node name="Probe" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0, 4.671)
+
+[node name="Probe2" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="Probe3" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.577)
+
+[node name="Probe4" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.27828)
+
+[node name="Probe5" type="Marker3D" parent="ProbeContainer"]
+
+[node name="Probe6" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.54414)
+
+[node name="Probe7" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
+
+[node name="Probe8" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="Probe10" type="Marker3D" parent="ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.544, 0, -5.546)
+
+[node name="character-human" parent="." instance=ExtResource("2_bgege")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00327998, 0.416629, -0.318454)
+
+[editable path="character-human"]

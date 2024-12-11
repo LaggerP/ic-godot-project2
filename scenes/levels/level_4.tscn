@@ -1,0 +1,381 @@
+[gd_scene load_steps=32 format=3 uid="uid://bk8masy0ail4b"]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_7j7eq"]
+[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="2_j8vbr"]
+[ext_resource type="PackedScene" uid="uid://bsa4mxdiai4cn" path="res://scenes/objects/ship.tscn" id="3_3n10p"]
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="4_6numk"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="5_dgvjd"]
+[ext_resource type="PackedScene" uid="uid://b6dcy0b3ucbst" path="res://scenes/ui/score_ui.tscn" id="6_7q8cx"]
+[ext_resource type="PackedScene" uid="uid://nj2kqmv8rtgr" path="res://scenes/ui/win_game_ui.tscn" id="7_tp5vi"]
+[ext_resource type="PackedScene" uid="uid://cn3htaxdaamcm" path="res://scenes/ui/win_level_ui.tscn" id="8_1blwl"]
+[ext_resource type="PackedScene" uid="uid://cjxut0itlunga" path="res://scenes/ui/lose_level_ui.tscn" id="9_480a4"]
+[ext_resource type="PackedScene" uid="uid://hlrcvervayye" path="res://scenes/ui/pause_ui.tscn" id="10_kg5o0"]
+[ext_resource type="PackedScene" uid="uid://bapfkg04pl1m6" path="res://scenes/objects/Dock1.tscn" id="10_nt87j"]
+[ext_resource type="PackedScene" uid="uid://ddmlwm6j2m83g" path="res://scenes/objects/furniture/logs.tscn" id="11_uhiec"]
+[ext_resource type="MeshLibrary" uid="uid://c7up55yi5c516" path="res://assets/Tilemap/StoneTiles.tres" id="12_eabv3"]
+[ext_resource type="AudioStream" uid="uid://dvj4xavuwngqw" path="res://assets/Sounds/VistulaShort.mp3" id="13_ft8ca"]
+[ext_resource type="PackedScene" uid="uid://cbyjwlx0v1v2t" path="res://scenes/objects/furniture/seaweed.tscn" id="14_ch7l4"]
+[ext_resource type="PackedScene" uid="uid://cbns5fd5gojtg" path="res://scenes/objects/island_tower.tscn" id="15_nrwye"]
+[ext_resource type="AudioStream" uid="uid://t6d1c66mciri" path="res://assets/Sounds/Blackmoor Tides (No Chants).mp3" id="19_fyhsp"]
+[ext_resource type="PackedScene" uid="uid://ckn6w6wr0wio5" path="res://scenes/objects/drops/drop1.tscn" id="20_mppb7"]
+[ext_resource type="PackedScene" uid="uid://80tu4g2ktu67" path="res://scenes/objects/drops/powerup_velocity.tscn" id="21_xkous"]
+[ext_resource type="PackedScene" uid="uid://co4f8w0vkq8vx" path="res://scenes/objects/drops/powerup_time.tscn" id="22_3fy7e"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_j8xwp"]
+panorama = ExtResource("2_j8vbr")
+
+[sub_resource type="Sky" id="Sky_mjahh"]
+sky_material = SubResource("PanoramaSkyMaterial_j8xwp")
+
+[sub_resource type="Environment" id="Environment_mtvua"]
+background_mode = 2
+sky = SubResource("Sky_mjahh")
+tonemap_mode = 2
+tonemap_exposure = 0.5
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bsvr8"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_453eh"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_bsvr8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_koa6c"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_skrvi"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_koa6c")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nhqyw"]
+noise_type = 3
+frequency = 0.001
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0qkhn"]
+seamless = true
+noise = SubResource("FastNoiseLite_nhqyw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dtgbd"]
+render_priority = 0
+shader = ExtResource("4_6numk")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
+shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_time = 0.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_2_direction = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.2
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 2.0
+shader_parameter/beers_law = 0.089
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.362
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0, 0.266667, 0.533333, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_453eh")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_skrvi")
+shader_parameter/wave = SubResource("NoiseTexture2D_0qkhn")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6yd2i"]
+lightmap_size_hint = Vector2i(2502, 2502)
+material = SubResource("ShaderMaterial_dtgbd")
+size = Vector2(1000, 1000)
+subdivide_width = 1
+subdivide_depth = 1
+
+[node name="Lvl4" type="Node3D"]
+script = ExtResource("1_7j7eq")
+level_time = 60.0
+total_drops_required = 7.0
+level = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mtvua")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.940098, 0.085929, -0.329898, -0.23722, -0.859886, 0.452021, -0.244833, 0.503202, 0.828761, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ship" parent="." instance=ExtResource("3_3n10p")]
+transform = Transform3D(-0.49999, 3.49113e-05, 0.00318502, 2.1684e-19, 0.49997, -0.00548022, -0.00318521, -0.00548011, -0.49996, 1.541, 0.0621126, 38.0182)
+move_speed = 10.0
+
+[node name="Water" type="MeshInstance3D" parent="."]
+sorting_offset = -99.0
+mesh = SubResource("PlaneMesh_6yd2i")
+script = ExtResource("5_dgvjd")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreUI" parent="UI" instance=ExtResource("6_7q8cx")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinGameUI" parent="UI" instance=ExtResource("7_tp5vi")]
+visible = false
+
+[node name="WinLevelUI" parent="UI" instance=ExtResource("8_1blwl")]
+visible = false
+
+[node name="LooseLevelUI" parent="UI" instance=ExtResource("9_480a4")]
+visible = false
+
+[node name="PauseUI" parent="UI" instance=ExtResource("10_kg5o0")]
+
+[node name="Dock" parent="." instance=ExtResource("10_nt87j")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 7.18286, 3.43758, -20.7861)
+
+[node name="LogsContainer" type="Node3D" parent="."]
+
+[node name="Logs" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 90.8661)
+
+[node name="Logs2" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 82.3949)
+
+[node name="Logs3" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 73.49)
+
+[node name="Logs4" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 63.9512)
+
+[node name="Logs5" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 90.8661)
+
+[node name="Logs6" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 82.3949)
+
+[node name="Logs7" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 73.49)
+
+[node name="Logs8" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 63.9512)
+
+[node name="Logs9" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 126.642)
+
+[node name="Logs10" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 118.171)
+
+[node name="Logs11" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 109.266)
+
+[node name="Logs12" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 6.43683, 2.0405, 99.727)
+
+[node name="Logs17" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 90.8661)
+
+[node name="Logs18" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 82.3949)
+
+[node name="Logs19" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 73.49)
+
+[node name="Logs20" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 63.9512)
+
+[node name="Logs21" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 126.642)
+
+[node name="Logs22" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 118.171)
+
+[node name="Logs23" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 109.266)
+
+[node name="Logs24" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, -3.2934, 2.0405, 99.727)
+
+[node name="Logs13" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 126.642)
+
+[node name="Logs14" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 118.171)
+
+[node name="Logs15" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 109.266)
+
+[node name="Logs16" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 14.778, 2.0405, 99.727)
+
+[node name="Logs25" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 90.8661)
+
+[node name="Logs26" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 82.3949)
+
+[node name="Logs27" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 73.49)
+
+[node name="Logs28" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 63.9512)
+
+[node name="Logs29" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 126.642)
+
+[node name="Logs30" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 118.171)
+
+[node name="Logs31" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 109.266)
+
+[node name="Logs32" parent="LogsContainer" instance=ExtResource("11_uhiec")]
+transform = Transform3D(2.9971, 0, 0.131797, 0, 3, 0, -0.131797, 0, 2.9971, 23.037, 2.0405, 99.727)
+
+[node name="Seaweeds" type="Node3D" parent="."]
+
+[node name="Seaweed7" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -29.2392, 0, 133.968)
+
+[node name="Seaweed8" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 42.0371, 0, 133.968)
+
+[node name="Seaweed9" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 51.0156, 0, 176.603)
+
+[node name="Seaweed10" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 32.7982, 0, 176.603)
+
+[node name="Seaweed11" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 14.6898, 0, 176.603)
+
+[node name="Seaweed12" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -3.57962, 0, 176.603)
+
+[node name="Seaweed13" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -21.2128, 0, 176.603)
+
+[node name="Seaweed14" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -37.9471, 0, 176.603)
+
+[node name="Seaweed19" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -56.0539, 0, 176.603)
+
+[node name="Seaweed15" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 58.2849, 0, 160.551)
+
+[node name="Seaweed16" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 38.9093, 0, 160.551)
+
+[node name="Seaweed17" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, 20.3735, 0, 160.551)
+
+[node name="Seaweed18" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -0.447205, 0, 160.551)
+
+[node name="Seaweed20" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -19.5209, 0, 160.551)
+
+[node name="Seaweed21" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -39.2573, 0, 160.551)
+
+[node name="Seaweed22" parent="Seaweeds" instance=ExtResource("14_ch7l4")]
+transform = Transform3D(-0.998332, 0, -0.0577385, 0, 1, 0, 0.0577385, 0, -0.998332, -58.983, 0, 160.551)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("12_eabv3")
+cell_octant_size = 5
+cell_scale = 3.0
+collision_layer = 4
+data = {
+"cells": PackedInt32Array(65535, 65532, 0, 65534, 65532, 0, 65533, 65532, 0, 65532, 65532, 0, 65529, 65533, 0, 65526, 65534, 0, 65523, 0, 0, 65520, 1, 0, 65518, 2, 0, 65516, 4, 0, 65514, 5, 0, 65512, 8, 0, 65510, 10, 0, 65508, 12, 0, 65507, 14, 0, 65506, 16, 0, 65505, 17, 0, 65504, 20, 0, 65504, 22, 0, 65503, 25, 0, 65502, 27, 0, 65502, 30, 0, 65501, 32, 0, 65501, 33, 0, 65500, 35, 0, 65500, 38, 0, 65500, 41, 0, 65499, 44, 0, 65499, 46, 0, 65498, 49, 0, 65498, 52, 0, 65498, 55, 0, 65498, 58, 0, 65498, 61, 0, 65498, 64, 0, 65498, 66, 0, 65498, 69, 0, 65498, 71, 0, 65498, 73, 0, 65498, 75, 0, 65498, 77, 0, 65498, 79, 0, 65499, 81, 0, 65499, 82, 0, 65499, 84, 0, 65499, 85, 0, 65500, 87, 0, 24, 101, 0, 25, 100, 0, 27, 98, 0, 28, 97, 0, 29, 96, 0, 30, 94, 0, 31, 92, 0, 32, 90, 0, 32, 88, 0, 33, 86, 0, 34, 83, 0, 35, 80, 0, 36, 77, 0, 37, 74, 0, 38, 71, 0, 38, 68, 0, 39, 66, 0, 39, 63, 0, 40, 60, 0, 41, 57, 0, 41, 53, 0, 42, 50, 0, 42, 47, 0, 43, 44, 0, 43, 41, 0, 43, 38, 0, 43, 35, 0, 43, 31, 0, 43, 28, 0, 42, 24, 0, 41, 21, 0, 40, 18, 0, 40, 15, 0, 38, 13, 0, 37, 11, 0, 37, 9, 0, 35, 7, 0, 34, 5, 0, 33, 4, 0, 31, 2, 0, 30, 1, 0, 29, 0, 0, 27, 65535, 0, 26, 65534, 0, 25, 65533, 0, 23, 65532, 0, 22, 65532, 0, 21, 65531, 0, 20, 65530, 0, 19, 65530, 0, 17, 65529, 0, 16, 65529, 0, 15, 65528, 0, 14, 65528, 0, 13, 65528, 0, 12, 65528, 0, 11, 65528, 0, 24, 102, 0, 23, 103, 0, 23, 104, 0, 21, 105, 0, 20, 106, 0, 20, 107, 0, 18, 108, 0, 16, 109, 0, 14, 111, 0, 11, 112, 0, 10, 113, 0, 8, 114, 0, 6, 114, 0, 4, 115, 0, 3, 115, 0, 1, 116, 0, 65535, 116, 0, 65534, 116, 0, 65532, 116, 0, 65530, 117, 0, 65528, 117, 0, 65526, 117, 0, 65524, 117, 0, 65523, 117, 0, 65521, 117, 0, 65520, 117, 0, 65519, 117, 0, 65518, 116, 0, 65516, 116, 0, 65515, 116, 0, 65514, 116, 0, 65513, 115, 0, 65512, 115, 0, 65511, 114, 0, 65510, 113, 0, 65509, 112, 0, 65509, 111, 0, 65508, 110, 0, 65508, 109, 0, 65507, 108, 0, 65506, 106, 0, 65505, 104, 0, 65504, 102, 0, 65504, 100, 0, 65503, 98, 0, 65503, 97, 0, 65502, 95, 0, 65502, 94, 0, 65501, 92, 0, 65501, 91, 0, 65500, 90, 0, 65500, 88, 0, 65500, 86, 0, 65500, 85, 0, 65500, 84, 0, 65499, 83, 0)
+}
+metadata/_editor_floor_ = Vector3(2, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_ft8ca")
+volume_db = -15.0
+autoplay = true
+
+[node name="Towers" type="Node3D" parent="."]
+transform = Transform3D(-0.247364, 0, -0.314343, 0, 0.4, 0, 0.314343, 0, -0.247364, 34.4865, 0.951968, 95.4489)
+
+[node name="IslandTower" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+
+[node name="IslandTower2" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 197.841, 0, -113.705)
+
+[node name="IslandTower3" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 268.825, 0, -23.4999)
+
+[node name="IslandTower4" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -30.8722, 0, -39.2315)
+
+[node name="IslandTower5" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 47.0418, 0, -35.5584)
+
+[node name="IslandTower6" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 84.246, 0, 107.057)
+
+[node name="IslandTower7" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 115.748, 0, 147.089)
+
+[node name="IslandTower8" parent="Towers" instance=ExtResource("15_nrwye")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 133.647, 0, 70.2482)
+
+[node name="drops" type="Node3D" parent="."]
+
+[node name="Drop3" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.2451, 2.89594, 170.145)
+
+[node name="Drop8" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.595146, 2.89594, 174.895)
+
+[node name="Drop4" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16309, 2.89594, 96.8389)
+
+[node name="Drop5" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2939, 2.89594, 84.1705)
+
+[node name="Drop7" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7794, 2.89594, 110.892)
+
+[node name="Drop9" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73086, 2.89594, 118.863)
+
+[node name="Drop6" parent="drops" instance=ExtResource("20_mppb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.4384, 2.89594, 170.261)
+
+[node name="powerups" type="Node3D" parent="."]
+
+[node name="Powerup_velocity3" parent="powerups" instance=ExtResource("21_xkous")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.1956, 0.938221, 122.45)
+
+[node name="Powerup_velocity4" parent="powerups" instance=ExtResource("21_xkous")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.2728, 0.938221, 112.591)
+
+[node name="Powerup_velocity8" parent="powerups" instance=ExtResource("21_xkous")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.974, 0.938221, 215.916)
+
+[node name="Powerup_velocity9" parent="powerups" instance=ExtResource("21_xkous")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3903, 0.938221, 215.916)
+
+[node name="Powerup_velocity6" parent="powerups" instance=ExtResource("21_xkous")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25358, 0.938221, 138.033)
+
+[node name="Powerup_time2" parent="powerups" instance=ExtResource("22_3fy7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.6981, 0, 70.3647)
+
+[node name="Powerup_time3" parent="powerups" instance=ExtResource("22_3fy7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.5644, 0, 70.3647)
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_fyhsp")
+volume_db = -13.0
+autoplay = true
+bus = &"music"

@@ -1,0 +1,266 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6dcy0b3ucbst"]
+
+[ext_resource type="Script" path="res://scenes/ui/score_ui.gd" id="1_84c1y"]
+[ext_resource type="Texture2D" uid="uid://cww10hfap6le2" path="res://assets/UI Pack - Adventure/Vector/panel_brown_damaged_dark.svg" id="2_2s3yb"]
+[ext_resource type="Texture2D" uid="uid://degf67ujlia3d" path="res://assets/UI Pack - Adventure/PNG/Default/banner_hanging.png" id="3_krn6c"]
+[ext_resource type="Texture2D" uid="uid://ck2dhp53klujq" path="res://assets/UI Pack - Adventure/PNG/Default/panel_brown_dark_corners_a.png" id="3_ngs7m"]
+
+[sub_resource type="Animation" id="Animation_00o2d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-130, -99.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark/text:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["¡Terminaste el nivel!
+Ya podes volver al muelle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BoxContainer/BoxBrown/ButtonBrown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jna0v"]
+resource_name = "lose_level"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.03333, 7.13333, 9.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-130, -99.5), Vector2(-130, 125), Vector2(-130, 125), Vector2(-130, -80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/BoxBrown/ButtonBrown:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.9, 7.16667, 8.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark/text:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 9.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["¡Perdiste el nivel!
+Volve al muelle para reintentarlo", "¡Terminaste el nivel!
+Ya podes volver al muelle"]
+}
+
+[sub_resource type="Animation" id="Animation_qjks4"]
+resource_name = "win_level"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoxContainer/BoxBrown/PanelBrownDamagedDark:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.03333, 7.13333, 9.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-130, -99.5), Vector2(-130, 125), Vector2(-130, 125), Vector2(-130, -80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/BoxBrown/ButtonBrown:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.9, 7.16667, 8.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ax1j"]
+_data = {
+"RESET": SubResource("Animation_00o2d"),
+"lose_level": SubResource("Animation_jna0v"),
+"win_level": SubResource("Animation_qjks4")
+}
+
+[node name="ScoreUI" type="CanvasLayer"]
+script = ExtResource("1_84c1y")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="BoxContainer" type="VBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="BoxBrown" type="Control" parent="HFlowContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PanelBrownDamagedDark" type="NinePatchRect" parent="HFlowContainer/BoxContainer/BoxBrown"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -99.5
+offset_right = 130.0
+offset_bottom = -26.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2s3yb")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="text" type="Label" parent="HFlowContainer/BoxContainer/BoxBrown/PanelBrownDamagedDark"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+text = "¡Terminaste el nivel!
+Ya podes volver al muelle"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="ButtonBrown" type="NinePatchRect" parent="HFlowContainer/BoxContainer/BoxBrown"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = 89.0
+offset_right = 43.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ngs7m")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+
+[node name="seconds" type="Label" parent="HFlowContainer/BoxContainer/BoxBrown/ButtonBrown"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.5
+offset_top = -11.5
+offset_right = 89.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HFlowContainer/BoxContainer"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_2ax1j")
+}
+
+[node name="Control2" type="Control" parent="HFlowContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BannerHanging" type="NinePatchRect" parent="HFlowContainer/BoxContainer/Control2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -3.0
+offset_right = 131.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_krn6c")
+
+[node name="score" type="Label" parent="HFlowContainer/BoxContainer/Control2/BannerHanging"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "ESTO ES UN TEXTO DE PRUEBA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_timer_timeout"]
